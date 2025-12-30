@@ -92,9 +92,15 @@
 
         .eq-btn { background: var(--accent) !important; color: #000 !important; clip-path: none !important; border-radius: 12px !important; }
 
-        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s ease; padding: 50px 25px; }
+        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s ease; padding: 50px 25px; overflow-y: auto; }
         .sheet.open { transform: translateY(0); }
         .card { background: rgba(255,255,255,0.05); padding: 22px; border-radius: 22px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+
+        /* History specific styles */
+        #history-list { margin-top: 10px; max-height: 200px; overflow-y: auto; width: 100%; }
+        .hist-item { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: monospace; }
+        .hist-expr { color: var(--accent); font-size: 0.9rem; }
+        .hist-res { font-size: 1.2rem; font-weight: bold; }
     </style>
 </head>
 <body class="t-0 s-0">
@@ -142,19 +148,30 @@
 
     <div id="settings" class="sheet">
         <h1 style="color:var(--accent); margin-bottom: 30px;">Configuration</h1>
+        
         <div class="card" onclick="toggleG()">
             <span style="font-weight: 800;">Gujarati Numbers</span>
             <span id="g-stat" style="color:var(--accent)">OFF</span>
         </div>
+
         <div class="card" style="flex-direction: column; align-items: flex-start;">
             <label style="margin-bottom:12px;">Piano Volume</label>
             <input type="range" id="vol" min="0" max="1" step="0.1" value="0.4" oninput="saveVol(this.value)" style="width: 100%; accent-color: var(--accent);">
         </div>
-        <button class="key eq-btn" style="width:100%; height:75px; border-radius:20px;" onclick="setOp()">CLOSE</button>
+
+        <div class="card" style="flex-direction: column; align-items: flex-start;">
+            <div style="display:flex; justify-content: space-between; width:100%; align-items:center;">
+                <span style="font-weight: 800;">History</span>
+                <span onclick="clearHistory()" style="font-size:0.8rem; color: #ff3b30; font-weight:bold;">CLEAR</span>
+            </div>
+            <div id="history-list"></div>
+        </div>
+
+        <button class="key eq-btn" style="width:100%; height:75px; border-radius:20px; margin-top: 10px;" onclick="setOp()">CLOSE</button>
     </div>
 
 <script>
-    let expr = "", isG = false, tIdx = 0, audio, currentVol = 0.4;
+    let expr = "", isG = false, tIdx = 0, audio, currentVol = 0.4, history = [];
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯'};
     const notes = {'1':261.63,'2':293.66,'3':329.63,'4':349.23,'5':392.00,'6':440.00,'7':493.88,'8':523.25,'9':587.33,'0':659.25,'+':311,'-':370,'*':415,'/':466,'=':783,'%':220};
 
@@ -168,6 +185,13 @@
             currentVol = parseFloat(savedVol);
             document.getElementById('vol').value = currentVol;
         }
+
+        // Load History
+        const savedHist = localStorage.getItem('b_history');
+        if (savedHist) {
+            history = JSON.parse(savedHist);
+            renderHistory();
+        }
         
         applyL();
     };
@@ -180,7 +204,6 @@
         else if (de.webkitRequestFullscreen) de.webkitRequestFullscreen();
     }
 
-    // Save Volume immediately on change
     function saveVol(v) {
         currentVol = parseFloat(v);
         localStorage.setItem('b_vol_persistent', v);
@@ -221,8 +244,34 @@
         try { 
             let p = expr.replace(/[+\-*/×÷−]$/, ""); 
             let res = eval(p.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-'));
-            expr = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
+            let finalRes = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
+            
+            // Log to History
+            if (expr !== finalRes) {
+                history.unshift({ e: expr, r: finalRes });
+                if (history.length > 20) history.pop();
+                localStorage.setItem('b_history', JSON.stringify(history));
+                renderHistory();
+            }
+
+            expr = finalRes;
         } catch(e){ expr = "Error"; }
+    }
+
+    function renderHistory() {
+        const list = document.getElementById('history-list');
+        list.innerHTML = history.map(item => `
+            <div class="hist-item">
+                <div class="hist-expr">${item.e} =</div>
+                <div class="hist-res">${item.r}</div>
+            </div>
+        `).join('');
+    }
+
+    function clearHistory() {
+        history = [];
+        localStorage.removeItem('b_history');
+        renderHistory();
     }
 
     function updateDisplay() {
