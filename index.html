@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Bistro Elite Pro - Persistent Sound</title>
+    <title>Bistro Elite Pro - Perfect Circles</title>
     <style>
         :root {
             --safe-top: env(safe-area-inset-top, 0px);
@@ -15,7 +15,7 @@
             --text: #ffffff;
             --btn-grad: linear-gradient(145deg, #e63946, #8b0000);
             --glow: rgba(255, 60, 45, 0.6);
-            --gap: 12px;
+            --gap: 15px; /* Slightly wider gap for round buttons */
         }
 
         /* THEME MATRIX */
@@ -30,14 +30,14 @@
         .t-8 { --bg: #003049; --btn-grad: linear-gradient(145deg, #d62828, #ae2012); --glow: #f77f00; --accent: #fcbf49; --text: #fff; }
         .t-9 { --bg: #000814; --btn-grad: linear-gradient(145deg, #001d3d, #003566); --glow: #ffc300; --accent: #ffc300; --text: #fff; }
 
-        /* SHAPES */
+        /* SHAPES MATRIX */
         .s-0 .key { clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); } 
-        .s-1 .key { border-radius: 50% 15% 50% 15%; } 
+        .s-1 .key { border-radius: 40% 10% 40% 10%; } 
         .s-2 .key { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); } 
-        .s-3 .key { border-radius: 24px; } 
-        .s-4 .key { clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%); } 
+        .s-3 .key { border-radius: 50%; aspect-ratio: 1 / 1; } /* PERFECT CIRCLE */
+        .s-4 .key { border-radius: 15px; } /* SQUIRCLE */
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
         
         html, body { 
             width: 100%; height: 100svh; overflow: hidden; position: fixed;
@@ -54,58 +54,63 @@
 
         #wake { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-        .header { height: 60px; display: flex; align-items: center; justify-content: center; }
-        .track { width: 240px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 24px; position: relative; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-        .handle { width: 100px; height: 42px; background: #ff3b30; border-radius: 21px; position: absolute; left: 3px; top: 3px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; box-shadow: 0 4px 15px rgba(255,0,0,0.3); }
+        .header { height: 50px; display: flex; align-items: center; justify-content: center; }
+        .track { width: 200px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; position: relative; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .handle { width: 80px; height: 34px; background: #ff3b30; border-radius: 17px; position: absolute; left: 3px; top: 3px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; box-shadow: 0 4px 15px rgba(255,0,0,0.3); }
 
-        .display { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 25px; text-align: right; }
-        #tape { font-size: 1.6rem; color: var(--accent); opacity: 0.8; min-height: 2.2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 4px; scroll-behavior: smooth; }
+        .display { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 5px 25px; text-align: right; pointer-events: auto; }
+        #tape { font-size: 1.4rem; color: var(--accent); opacity: 0.8; min-height: 2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 2px; scroll-behavior: smooth; }
         #tape::-webkit-scrollbar { display: none; }
-        #main-val { font-size: clamp(3rem, 14vw, 5.5rem); font-weight: 700; letter-spacing: -2px; line-height: 1; }
+        #main-val { font-size: clamp(2.5rem, 12vw, 5rem); font-weight: 700; letter-spacing: -2px; line-height: 1; }
 
         .keypad {
             padding: var(--gap);
             display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
-            margin-bottom: calc(5px + var(--safe-bottom));
+            margin-bottom: calc(10px + var(--safe-bottom));
+            justify-items: center; /* Center circles in grid */
         }
 
         .key {
-            height: clamp(55px, 8.2vh, 85px); border: none;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            max-height: 85px;
+            max-width: 85px;
+            border: none;
             background: var(--btn-grad); color: var(--text);
-            font-size: 1.7rem; font-weight: 800; position: relative;
-            box-shadow: 0 6px 0 rgba(0,0,0,0.4);
+            font-size: 1.6rem; font-weight: 800; position: relative;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
             display: flex; align-items: center; justify-content: center;
-            transition: 0.1s;
+            transition: transform 0.04s linear;
         }
 
         .key:active { 
-            transform: translateY(4px); 
-            box-shadow: 0 2px 0 rgba(0,0,0,0.4), 0 0 25px var(--glow);
+            transform: translateY(3px); 
+            box-shadow: 0 2px 0 rgba(0,0,0,0.4), 0 0 20px var(--glow);
             filter: brightness(1.2);
         }
 
         .key::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
             border-radius: inherit; pointer-events: none;
         }
 
-        .eq-btn { background: var(--accent) !important; color: #000 !important; clip-path: none !important; border-radius: 12px !important; }
+        .eq-btn { background: var(--accent) !important; color: #000 !important; clip-path: none !important; }
 
-        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s ease; padding: 50px 25px; overflow-y: auto; }
+        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 50px 25px; overflow-y: auto; }
         .sheet.open { transform: translateY(0); }
-        .card { background: rgba(255,255,255,0.05); padding: 22px; border-radius: 22px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* History specific styles */
-        #history-list { margin-top: 10px; max-height: 200px; overflow-y: auto; width: 100%; }
-        .hist-item { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: monospace; }
-        .hist-expr { color: var(--accent); font-size: 0.9rem; }
-        .hist-res { font-size: 1.2rem; font-weight: bold; }
+        #history-list { margin-top: 10px; max-height: 180px; overflow-y: auto; width: 100%; }
+        .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: monospace; }
+        .hist-expr { color: var(--accent); font-size: 0.8rem; }
+        .hist-res { font-size: 1.1rem; font-weight: bold; }
+
+        select { background: #000; color: var(--accent); border: 1px solid var(--accent); padding: 8px; border-radius: 8px; font-weight: bold; font-size: 1rem; }
     </style>
 </head>
-<body class="t-0 s-0">
-
-    <div id="wake" onclick="init()">
+<body class="t-0 s-3"> <div id="wake" onpointerdown="init()">
         <div style="font-size: 5rem; filter: drop-shadow(0 0 15px var(--glow));">🎹</div>
         <h2 style="color:white; margin-top:20px; letter-spacing:6px; font-weight:200;">BISTRO ELITE</h2>
     </div>
@@ -114,7 +119,7 @@
         <div class="track"><div class="handle" id="xh">EXIT</div></div>
     </div>
 
-    <div class="display" onclick="cycleTheme()">
+    <div class="display" onpointerdown="cycleTheme()">
         <div id="tape"></div>
         <div id="main-val">0</div>
     </div>
@@ -140,7 +145,7 @@
         <button class="key" onpointerdown="input('3')">3</button>
         <button class="key" onpointerdown="input('+')">+</button>
 
-        <button class="key" onclick="setOp()">⚙️</button>
+        <button class="key" onpointerdown="setOp()">⚙️</button>
         <button class="key" onpointerdown="input('0')">0</button>
         <button class="key" onpointerdown="input('.')">.</button>
         <button class="key eq-btn" onpointerdown="input('=')">=</button>
@@ -149,59 +154,66 @@
     <div id="settings" class="sheet">
         <h1 style="color:var(--accent); margin-bottom: 30px;">Configuration</h1>
         
-        <div class="card" onclick="toggleG()">
+        <div class="card">
+            <span style="font-weight: 800;">Sound Profile</span>
+            <select id="sound-type" onchange="changeSound(this.value)">
+                <option value="samsung">Samsung Style</option>
+                <option value="piano">Piano (Original)</option>
+                <option value="modern">Modern Pop</option>
+                <option value="digital">Digital Beep</option>
+            </select>
+        </div>
+
+        <div class="card" onpointerdown="toggleG()">
             <span style="font-weight: 800;">Gujarati Numbers</span>
             <span id="g-stat" style="color:var(--accent)">OFF</span>
         </div>
 
         <div class="card" style="flex-direction: column; align-items: flex-start;">
-            <label style="margin-bottom:12px;">Piano Volume</label>
+            <label style="margin-bottom:12px;">Volume</label>
             <input type="range" id="vol" min="0" max="1" step="0.1" value="0.4" oninput="saveVol(this.value)" style="width: 100%; accent-color: var(--accent);">
         </div>
 
         <div class="card" style="flex-direction: column; align-items: flex-start;">
             <div style="display:flex; justify-content: space-between; width:100%; align-items:center;">
                 <span style="font-weight: 800;">History</span>
-                <span onclick="clearHistory()" style="font-size:0.8rem; color: #ff3b30; font-weight:bold;">CLEAR</span>
+                <span onpointerdown="clearHistory()" style="font-size:0.8rem; color: #ff3b30; font-weight:bold;">CLEAR</span>
             </div>
             <div id="history-list"></div>
         </div>
 
-        <button class="key eq-btn" style="width:100%; height:75px; border-radius:20px; margin-top: 10px;" onclick="setOp()">CLOSE</button>
+        <button class="key eq-btn" style="width:100%; height:60px; border-radius:20px; margin-top: 10px;" onpointerdown="setOp()">CLOSE</button>
     </div>
 
 <script>
-    let expr = "", isG = false, tIdx = 0, audio, currentVol = 0.4, history = [];
+    let expr = "", isG = false, tIdx = 30, audio, currentVol = 0.4, history = [], soundType = "samsung";
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯'};
-    const notes = {'1':261.63,'2':293.66,'3':329.63,'4':349.23,'5':392.00,'6':440.00,'7':493.88,'8':523.25,'9':587.33,'0':659.25,'+':311,'-':370,'*':415,'/':466,'=':783,'%':220};
+    const notes = {'1':261,'2':293,'3':329,'4':349,'5':392,'6':440,'7':493,'8':523,'9':587,'0':659,'+':311,'-':370,'*':415,'/':466,'=':783,'%':220};
 
     window.onload = () => {
-        tIdx = parseInt(localStorage.getItem('b_idx_50')) || 0;
+        tIdx = parseInt(localStorage.getItem('b_idx_50')) || 30;
         isG = localStorage.getItem('isG') === 'true';
+        soundType = localStorage.getItem('b_sound_type') || "samsung";
+        document.getElementById('sound-type').value = soundType;
         
-        // Load Volume
         const savedVol = localStorage.getItem('b_vol_persistent');
         if (savedVol !== null) {
             currentVol = parseFloat(savedVol);
             document.getElementById('vol').value = currentVol;
         }
 
-        // Load History
         const savedHist = localStorage.getItem('b_history');
         if (savedHist) {
             history = JSON.parse(savedHist);
             renderHistory();
         }
-        
         applyL();
     };
 
     function init() {
         document.getElementById('wake').style.display = 'none';
         audio = new (window.AudioContext || window.webkitAudioContext)();
-        const de = document.documentElement;
-        if (de.requestFullscreen) de.requestFullscreen();
-        else if (de.webkitRequestFullscreen) de.webkitRequestFullscreen();
+        if (audio.state === 'suspended') audio.resume();
     }
 
     function saveVol(v) {
@@ -209,8 +221,14 @@
         localStorage.setItem('b_vol_persistent', v);
     }
 
+    function changeSound(v) {
+        soundType = v;
+        localStorage.setItem('b_sound_type', v);
+        play(440);
+    }
+
     function input(v) {
-        if(notes[v]) play(notes[v]);
+        play(notes[v] || 440);
         if(v === 'AC') expr = "";
         else if(v === 'DEL') expr = expr.slice(0, -1);
         else if(v === '=') calculate();
@@ -246,14 +264,12 @@
             let res = eval(p.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-'));
             let finalRes = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
             
-            // Log to History
             if (expr !== finalRes) {
                 history.unshift({ e: expr, r: finalRes });
                 if (history.length > 20) history.pop();
                 localStorage.setItem('b_history', JSON.stringify(history));
                 renderHistory();
             }
-
             expr = finalRes;
         } catch(e){ expr = "Error"; }
     }
@@ -309,20 +325,54 @@
 
     function play(f) {
         if(!audio) return;
-        const o1 = audio.createOscillator(), o2 = audio.createOscillator();
         const g = audio.createGain();
-        o1.type = 'triangle'; o2.type = 'sine';
-        o1.frequency.setValueAtTime(f, audio.currentTime);
-        o2.frequency.setValueAtTime(f * 2.01, audio.currentTime);
+        g.connect(audio.destination);
         g.gain.setValueAtTime(currentVol, audio.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.8);
-        o1.connect(g); o2.connect(g); g.connect(audio.destination);
-        o1.start(); o2.start();
-        o1.stop(audio.currentTime + 0.8); o2.stop(audio.currentTime + 0.8);
+
+        if (soundType === 'piano') {
+            const o1 = audio.createOscillator(), o2 = audio.createOscillator();
+            o1.type = 'triangle'; o2.type = 'sine';
+            o1.frequency.setValueAtTime(f, audio.currentTime);
+            o2.frequency.setValueAtTime(f * 2, audio.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.6);
+            o1.connect(g); o2.connect(g);
+            o1.start(); o2.start();
+            o1.stop(audio.currentTime + 0.6); o2.stop(audio.currentTime + 0.6);
+        } 
+        else if (soundType === 'samsung') {
+            const o1 = audio.createOscillator();
+            const o2 = audio.createOscillator();
+            o1.type = 'sine'; o2.type = 'sine';
+            o1.frequency.setValueAtTime(140, audio.currentTime);
+            o1.frequency.exponentialRampToValueAtTime(40, audio.currentTime + 0.08);
+            o2.frequency.setValueAtTime(800, audio.currentTime);
+            o2.frequency.exponentialRampToValueAtTime(200, audio.currentTime + 0.03);
+            const g2 = audio.createGain();
+            g2.gain.setValueAtTime(currentVol * 0.3, audio.currentTime);
+            g2.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.03);
+            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.08);
+            o1.connect(g); o2.connect(g2); g2.connect(audio.destination);
+            o1.start(); o2.start(); o1.stop(audio.currentTime + 0.08); o2.stop(audio.currentTime + 0.08);
+        }
+        else if (soundType === 'modern') {
+            const o = audio.createOscillator();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(900, audio.currentTime);
+            g.gain.setValueAtTime(currentVol * 0.5, audio.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.04);
+            o.connect(g); o.start(); o.stop(audio.currentTime + 0.04);
+        }
+        else if (soundType === 'digital') {
+            const o = audio.createOscillator();
+            o.type = 'square';
+            o.frequency.setValueAtTime(1200, audio.currentTime);
+            g.gain.setValueAtTime(currentVol * 0.2, audio.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.08);
+            o.connect(g); o.start(); o.stop(audio.currentTime + 0.08);
+        }
     }
 
-    // Exit handle
-    let h = document.getElementById('xh'), sx, limit = 137;
+    let h = document.getElementById('xh'), sx, limit = 117;
     h.ontouchstart = e => { sx = e.touches[0].clientX; h.style.transition = 'none'; }
     h.ontouchmove = e => {
         let x = Math.max(0, Math.min(e.touches[0].clientX - sx, limit));
