@@ -5,115 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Bistro Elite Pro - Perfect Circles</title>
+    <title>Bistro Elite Pro - Windows & Sounds</title>
     <style>
         :root {
-            --safe-top: env(safe-area-inset-top, 0px);
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-            --bg: #0d1b4d; 
-            --accent: #ffcc00;
-            --text: #ffffff;
-            --btn-grad: linear-gradient(145deg, #e63946, #8b0000);
-            --glow: rgba(255, 60, 45, 0.6);
-            --gap: 15px; /* Slightly wider gap for round buttons */
+            --safe-top: env(safe-area-inset-top, 25px);
+            --safe-bottom: env(safe-area-inset-bottom, 10px);
+            --bg: #000; --accent: #ff9f0a; --text: #fff; --btn: #333; --k-text: #fff; --layer1: #ff9f0a;
         }
 
-        /* THEME MATRIX */
-        .t-0 { --bg: #0d1b4d; --btn-grad: linear-gradient(145deg, #e63946, #8b0000); --glow: #ff4d4d; --accent: #ffcc00; --text: #fff; }
-        .t-1 { --bg: #ffffff; --btn-grad: linear-gradient(145deg, #f0f0f0, #d1d1d1); --glow: #007aff; --accent: #007aff; --text: #000; }
-        .t-2 { --bg: #000000; --btn-grad: linear-gradient(145deg, #1a1a1a, #0b0b0b); --glow: #39ff14; --accent: #39ff14; --text: #fff; }
-        .t-3 { --bg: #1a0033; --btn-grad: linear-gradient(145deg, #5a189a, #3c096c); --glow: #f012be; --accent: #00fff2; --text: #fff; }
-        .t-4 { --bg: #081c15; --btn-grad: linear-gradient(145deg, #1b4332, #081c15); --glow: #ffcc00; --accent: #ffcc00; --text: #fff; }
-        .t-5 { --bg: #2d0a0a; --btn-grad: linear-gradient(145deg, #660708, #a4161a); --glow: #ff4d4d; --accent: #f5f3f4; --text: #fff; }
-        .t-6 { --bg: #14213d; --btn-grad: linear-gradient(145deg, #fca311, #e85d04); --glow: #fca311; --accent: #fff; --text: #fff; }
-        .t-7 { --bg: #22223b; --btn-grad: linear-gradient(145deg, #4a4e69, #22223b); --glow: #9a8c98; --accent: #c9ada7; --text: #fff; }
-        .t-8 { --bg: #003049; --btn-grad: linear-gradient(145deg, #d62828, #ae2012); --glow: #f77f00; --accent: #fcbf49; --text: #fff; }
-        .t-9 { --bg: #000814; --btn-grad: linear-gradient(145deg, #001d3d, #003566); --glow: #ffc300; --accent: #ffc300; --text: #fff; }
-
-        /* SHAPES MATRIX */
-        .s-0 .key { clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); } 
-        .s-1 .key { border-radius: 40% 10% 40% 10%; } 
-        .s-2 .key { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); } 
-        .s-3 .key { border-radius: 50%; aspect-ratio: 1 / 1; } /* PERFECT CIRCLE */
-        .s-4 .key { border-radius: 15px; } /* SQUIRCLE */
+        /* EXTENDED WINDOWS & LUXURY THEME MATRIX */
+        .t-0 { --bg: #000; --btn: #1c1c1e; --accent: #ff9f0a; --text: #fff; --k-text: #fff; --layer1: #ff9f0a; } /* Apple Dark */
+        .t-1 { --bg: #0078d4; --btn: #ffffff; --accent: #0078d4; --text: #fff; --k-text: #000; --layer1: #fff; } /* Win 10 Blue */
+        .t-2 { --bg: #ffffff; --btn: #f3f3f3; --accent: #0078d7; --text: #000; --k-text: #000; --layer1: #0078d7; } /* Win 11 Light */
+        .t-3 { --bg: #202020; --btn: #323232; --accent: #60cdff; --text: #fff; --k-text: #fff; --layer1: #60cdff; } /* Win 11 Dark */
+        .t-4 { --bg: #245edb; --btn: #eeeeee; --accent: #3c8127; --text: #fff; --k-text: #000; --layer1: #fff; } /* Win XP Classic */
+        .t-5 { --bg: #0a1128; --btn: #1a2a44; --accent: #00aaff; --text: #fff; --k-text: #fff; --layer1: #00aaff; } /* Azure Pro */
+        .t-6 { --bg: #ff6700; --btn: #ffffff; --accent: #000; --text: #fff; --k-text: #000; --layer1: #fff; } /* Xiaomi */
+        .t-7 { --bg: #000; --btn: #111; --accent: #00ff00; --text: #00ff00; --k-text: #00ff00; --layer1: #00ff00; } /* Matrix */
+        .t-8 { --bg: #25d366; --btn: #fff; --accent: #075e54; --text: #fff; --k-text: #075e54; --layer1: #fff; } /* WhatsApp */
+        .t-9 { --bg: #f3f3f3; --btn: #fff; --accent: #ff6700; --text: #000; --k-text: #000; --layer1: #ff6700; } /* Redmi */
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
         
         html, body { 
-            width: 100%; height: 100svh; overflow: hidden; position: fixed;
-            background: var(--bg); transition: background 0.4s ease;
+            width: 100%; height: 100%; height: -webkit-fill-available;
+            overflow: hidden; position: fixed; background: var(--bg); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            color: var(--text); display: flex; flex-direction: column;
         }
 
-        body { 
-            display: flex; flex-direction: column;
-            font-family: -apple-system, sans-serif;
-            color: var(--text);
-            padding-top: var(--safe-top);
-            padding-bottom: var(--safe-bottom);
+        .header { height: 70px; padding-top: var(--safe-top); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .track { width: 170px; height: 36px; background: rgba(128,128,128,0.4); border-radius: 18px; position: relative; border: 1px solid rgba(255,255,255,0.2); }
+        .handle { width: 65px; height: 30px; background: #ff3b30; border-radius: 15px; position: absolute; left: 3px; top: 2px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 0.75rem; }
+
+        .display { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 30px; text-align: right; }
+        #tape { font-size: 1.4rem; color: var(--layer1); min-height: 2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 5px; font-weight: 500; }
+        #main-val { font-size: clamp(2.5rem, 12vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -1px; }
+
+        .keypad { 
+            padding: 10px 20px calc(var(--safe-bottom) + 20px) 20px; 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; 
+            justify-items: center; flex-shrink: 0;
         }
-
-        #wake { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-        .header { height: 50px; display: flex; align-items: center; justify-content: center; }
-        .track { width: 200px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; position: relative; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-        .handle { width: 80px; height: 34px; background: #ff3b30; border-radius: 17px; position: absolute; left: 3px; top: 3px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; box-shadow: 0 4px 15px rgba(255,0,0,0.3); }
-
-        .display { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 5px 25px; text-align: right; pointer-events: auto; }
-        #tape { font-size: 1.4rem; color: var(--accent); opacity: 0.8; min-height: 2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 2px; scroll-behavior: smooth; }
-        #tape::-webkit-scrollbar { display: none; }
-        #main-val { font-size: clamp(2.5rem, 12vw, 5rem); font-weight: 700; letter-spacing: -2px; line-height: 1; }
-
-        .keypad {
-            padding: var(--gap);
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
-            margin-bottom: calc(10px + var(--safe-bottom));
-            justify-items: center; /* Center circles in grid */
-        }
-
         .key {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1 / 1;
-            max-height: 85px;
-            max-width: 85px;
-            border: none;
-            background: var(--btn-grad); color: var(--text);
-            font-size: 1.6rem; font-weight: 800; position: relative;
-            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.04s linear;
+            width: 72px; height: 72px; border-radius: 50%; border: none;
+            background: var(--btn); color: var(--k-text);
+            font-size: 1.6rem; font-weight: 600; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: transform 0.05s linear;
         }
+        .key:active { transform: scale(0.9); filter: brightness(0.85); }
+        .op-key { color: var(--accent) !important; }
+        .eq-btn { background: var(--accent) !important; color: #fff !important; }
 
-        .key:active { 
-            transform: translateY(3px); 
-            box-shadow: 0 2px 0 rgba(0,0,0,0.4), 0 0 20px var(--glow);
-            filter: brightness(1.2);
-        }
-
-        .key::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
-            border-radius: inherit; pointer-events: none;
-        }
-
-        .eq-btn { background: var(--accent) !important; color: #000 !important; clip-path: none !important; }
-
-        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 50px 25px; overflow-y: auto; }
+        /* SETTINGS SHEET */
+        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s; padding: 60px 25px; color: var(--text); overflow-y: auto; }
         .sheet.open { transform: translateY(0); }
-        .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-
-        #history-list { margin-top: 10px; max-height: 180px; overflow-y: auto; width: 100%; }
-        .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: monospace; }
-        .hist-expr { color: var(--accent); font-size: 0.8rem; }
-        .hist-res { font-size: 1.1rem; font-weight: bold; }
-
-        select { background: #000; color: var(--accent); border: 1px solid var(--accent); padding: 8px; border-radius: 8px; font-weight: bold; font-size: 1rem; }
+        .card { background: rgba(128,128,128,0.2); padding: 18px; border-radius: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .row { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+        
+        select { background: #444; color: #fff; border: 1px solid var(--accent); padding: 10px; border-radius: 10px; font-size: 0.9rem; width: 150px; }
+        #hist-box { max-height: 150px; overflow-y: auto; margin-top: 10px; font-family: monospace; }
+        .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(128,128,128,0.2); }
     </style>
 </head>
-<body class="t-0 s-3"> <div id="wake" onpointerdown="init()">
-        <div style="font-size: 5rem; filter: drop-shadow(0 0 15px var(--glow));">🎹</div>
-        <h2 style="color:white; margin-top:20px; letter-spacing:6px; font-weight:200;">BISTRO ELITE</h2>
-    </div>
+<body class="t-0"> 
 
     <div class="header">
         <div class="track"><div class="handle" id="xh">EXIT</div></div>
@@ -124,262 +78,196 @@
         <div id="main-val">0</div>
     </div>
 
-    <div class="keypad">
-        <button class="key" onpointerdown="input('AC')">AC</button>
-        <button class="key" onpointerdown="input('DEL')">⌫</button>
-        <button class="key" onpointerdown="input('%')">%</button>
-        <button class="key" onpointerdown="input('/')">÷</button>
-
-        <button class="key" onpointerdown="input('7')">7</button>
-        <button class="key" onpointerdown="input('8')">8</button>
-        <button class="key" onpointerdown="input('9')">9</button>
-        <button class="key" onpointerdown="input('*')">×</button>
-
-        <button class="key" onpointerdown="input('4')">4</button>
-        <button class="key" onpointerdown="input('5')">5</button>
-        <button class="key" onpointerdown="input('6')">6</button>
-        <button class="key" onpointerdown="input('-')">−</button>
-
-        <button class="key" onpointerdown="input('1')">1</button>
-        <button class="key" onpointerdown="input('2')">2</button>
-        <button class="key" onpointerdown="input('3')">3</button>
-        <button class="key" onpointerdown="input('+')">+</button>
-
-        <button class="key" onpointerdown="setOp()">⚙️</button>
-        <button class="key" onpointerdown="input('0')">0</button>
-        <button class="key" onpointerdown="input('.')">.</button>
-        <button class="key eq-btn" onpointerdown="input('=')">=</button>
+    <div class="keypad" id="pad">
+        <button class="key op-key" data-val="AC">AC</button>
+        <button class="key op-key" data-val="DEL">⌫</button>
+        <button class="key op-key" data-val="%">%</button>
+        <button class="key op-key" data-val="/">÷</button>
+        <button class="key" data-val="7">7</button>
+        <button class="key" data-val="8">8</button>
+        <button class="key" data-val="9">9</button>
+        <button class="key op-key" data-val="*">×</button>
+        <button class="key" data-val="4">4</button>
+        <button class="key" data-val="5">5</button>
+        <button class="key" data-val="6">6</button>
+        <button class="key op-key" data-val="-">−</button>
+        <button class="key" data-val="1">1</button>
+        <button class="key" data-val="2">2</button>
+        <button class="key" data-val="3">3</button>
+        <button class="key op-key" data-val="+">+</button>
+        <button class="key" data-val="SET">⚙️</button>
+        <button class="key" data-val="0">0</button>
+        <button class="key" data-val=".">.</button>
+        <button class="key eq-btn" data-val="=">=</button>
     </div>
 
     <div id="settings" class="sheet">
-        <h1 style="color:var(--accent); margin-bottom: 30px;">Configuration</h1>
-        
+        <h2 style="margin-bottom:20px;">Settings</h2>
         <div class="card">
-            <span style="font-weight: 800;">Sound Profile</span>
-            <select id="sound-type" onchange="changeSound(this.value)">
-                <option value="samsung">Samsung Style</option>
-                <option value="piano">Piano (Original)</option>
-                <option value="modern">Modern Pop</option>
-                <option value="digital">Digital Beep</option>
-            </select>
-        </div>
-
-        <div class="card" onpointerdown="toggleG()">
-            <span style="font-weight: 800;">Gujarati Numbers</span>
-            <span id="g-stat" style="color:var(--accent)">OFF</span>
-        </div>
-
-        <div class="card" style="flex-direction: column; align-items: flex-start;">
-            <label style="margin-bottom:12px;">Volume</label>
-            <input type="range" id="vol" min="0" max="1" step="0.1" value="0.4" oninput="saveVol(this.value)" style="width: 100%; accent-color: var(--accent);">
-        </div>
-
-        <div class="card" style="flex-direction: column; align-items: flex-start;">
-            <div style="display:flex; justify-content: space-between; width:100%; align-items:center;">
-                <span style="font-weight: 800;">History</span>
-                <span onpointerdown="clearHistory()" style="font-size:0.8rem; color: #ff3b30; font-weight:bold;">CLEAR</span>
+            <div class="row">Sound Profile
+                <select id="s-prof" onchange="saveSetting('soundProf', this.value)">
+                    <option value="bubble">Bubble Pop</option>
+                    <option value="click">Mechanical</option>
+                    <option value="piano">Grand Piano</option>
+                    <option value="retro">8-Bit Game</option>
+                    <option value="glass">Glass Ping</option>
+                    <option value="wood">Wood Tap</option>
+                    <option value="camera">Shutter</option>
+                    <option value="digital">Digital Beep</option>
+                    <option value="zap">Electric Zap</option>
+                    <option value="none">Mute</option>
+                </select>
             </div>
-            <div id="history-list"></div>
         </div>
-
-        <button class="key eq-btn" style="width:100%; height:60px; border-radius:20px; margin-top: 10px;" onpointerdown="setOp()">CLOSE</button>
+        <div class="card">
+            <div class="row">Answer Speaking
+                <button id="v-btn" style="background:var(--accent); color:#fff; border:none; padding:10px 18px; border-radius:10px;" onpointerdown="toggleSetting('voice')">ON</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">Gujarati Font
+                <button id="g-btn" style="background:var(--accent); color:#fff; border:none; padding:10px 18px; border-radius:10px;" onpointerdown="toggleSetting('isG')">OFF</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">History <span onpointerdown="clearHistory()" style="color:#ff3b30; font-size:0.8rem;">CLEAR</span></div>
+            <div id="hist-box"></div>
+        </div>
+        <button class="key eq-btn" style="width:100%; border-radius:15px; height:60px;" onpointerdown="setOp()">CLOSE</button>
     </div>
 
 <script>
-    let expr = "", isG = false, tIdx = 30, audio, currentVol = 0.4, history = [], soundType = "samsung";
-    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯'};
-    const notes = {'1':261,'2':293,'3':329,'4':349,'5':392,'6':440,'7':493,'8':523,'9':587,'0':659,'+':311,'-':370,'*':415,'/':466,'=':783,'%':220};
-
-    window.onload = () => {
-        tIdx = parseInt(localStorage.getItem('b_idx_50')) || 30;
-        isG = localStorage.getItem('isG') === 'true';
-        soundType = localStorage.getItem('b_sound_type') || "samsung";
-        document.getElementById('sound-type').value = soundType;
-        
-        const savedVol = localStorage.getItem('b_vol_persistent');
-        if (savedVol !== null) {
-            currentVol = parseFloat(savedVol);
-            document.getElementById('vol').value = currentVol;
-        }
-
-        const savedHist = localStorage.getItem('b_history');
-        if (savedHist) {
-            history = JSON.parse(savedHist);
-            renderHistory();
-        }
-        applyL();
+    let currentVal = "0", equation = "", operator = null, prevVal = null, shouldReset = false;
+    let history = [], tIdx = 0;
+    
+    let settings = {
+        soundProf: localStorage.getItem('soundProf') || "bubble",
+        voice: localStorage.getItem('voice') !== 'false',
+        isG: localStorage.getItem('isG') === 'true'
     };
 
-    function init() {
-        document.getElementById('wake').style.display = 'none';
-        audio = new (window.AudioContext || window.webkitAudioContext)();
-        if (audio.state === 'suspended') audio.resume();
+    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯'};
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function initSettings() {
+        document.getElementById('s-prof').value = settings.soundProf;
+        document.getElementById('v-btn').innerText = settings.voice ? "ON" : "OFF";
+        document.getElementById('g-btn').innerText = settings.isG ? "ON" : "OFF";
+        updateDisplay();
     }
 
-    function saveVol(v) {
-        currentVol = parseFloat(v);
-        localStorage.setItem('b_vol_persistent', v);
-    }
+    function saveSetting(key, val) { settings[key] = val; localStorage.setItem(key, val); }
+    function toggleSetting(key) { settings[key] = !settings[key]; localStorage.setItem(key, settings[key]); initSettings(); }
 
-    function changeSound(v) {
-        soundType = v;
-        localStorage.setItem('b_sound_type', v);
-        play(440);
-    }
+    document.getElementById('pad').addEventListener('pointerdown', e => {
+        const btn = e.target.closest('.key');
+        if (!btn) return;
+        const v = btn.dataset.val;
+        if(v === 'SET') setOp(); else input(v);
+    });
 
     function input(v) {
-        play(notes[v] || 440);
-        if(v === 'AC') expr = "";
-        else if(v === 'DEL') expr = expr.slice(0, -1);
-        else if(v === '=') calculate();
-        else if(v === '%') applyPercentage();
+        playSound();
+        if (v === 'AC') { currentVal = "0"; equation = ""; operator = null; prevVal = null; }
+        else if (v === 'DEL') { 
+            currentVal = currentVal.length > 1 ? currentVal.slice(0, -1) : "0"; 
+            equation = equation.slice(0, -1);
+        }
+        else if (['+','-','*','/'].includes(v)) handleOp(v);
+        else if (v === '=') calculate(true);
+        else if (v === '%') handlePercent();
         else {
-            if(/[+\-*/×÷−]$/.test(expr) && /[+\-*/×÷−]/.test(v)) expr = expr.slice(0,-1);
-            expr += v;
+            if (shouldReset) { currentVal = v; shouldReset = false; }
+            else { currentVal = currentVal === "0" ? v : currentVal + v; }
+            equation += v;
         }
         updateDisplay();
     }
 
-    function applyPercentage() {
-        if (!expr || expr === "Error") return;
-        let parts = expr.split(/([+\-*/×÷−])/);
-        if (parts.length < 3) {
-            expr = (parseFloat(expr) / 100).toString();
-            return;
+    function handleOp(op) {
+        if (operator && !shouldReset) calculate(false);
+        prevVal = currentVal; operator = op; shouldReset = true; equation += " " + op + " ";
+    }
+
+    function handlePercent() {
+        let val = parseFloat(currentVal);
+        currentVal = (prevVal && operator) ? (parseFloat(prevVal) * val / 100).toString() : (val / 100).toString();
+        equation += "%";
+    }
+
+    function calculate(isFinal) {
+        if (!operator || !prevVal) return;
+        let a = parseFloat(prevVal), b = parseFloat(currentVal), res = 0;
+        switch(operator) {
+            case '+': res = a + b; break;
+            case '-': res = a - b; break;
+            case '*': res = a * b; break;
+            case '/': res = a / b; break;
         }
-        let lastNum = parseFloat(parts.pop());
-        let operator = parts.pop();
-        let baseExpr = parts.join('').replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-');
-        try {
-            let baseValue = eval(baseExpr);
-            let pVal = (operator === '+' || operator === '−' || operator === '-') ? (baseValue * lastNum) / 100 : lastNum / 100;
-            expr = parts.join('') + operator + pVal;
-        } catch(e) { expr = "Error"; }
-    }
-
-    function calculate() {
-        if(!expr) return;
-        try { 
-            let p = expr.replace(/[+\-*/×÷−]$/, ""); 
-            let res = eval(p.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-'));
-            let finalRes = Number.isInteger(res) ? res.toString() : parseFloat(res.toFixed(8)).toString();
-            
-            if (expr !== finalRes) {
-                history.unshift({ e: expr, r: finalRes });
-                if (history.length > 20) history.pop();
-                localStorage.setItem('b_history', JSON.stringify(history));
-                renderHistory();
-            }
-            expr = finalRes;
-        } catch(e){ expr = "Error"; }
-    }
-
-    function renderHistory() {
-        const list = document.getElementById('history-list');
-        list.innerHTML = history.map(item => `
-            <div class="hist-item">
-                <div class="hist-expr">${item.e} =</div>
-                <div class="hist-res">${item.r}</div>
-            </div>
-        `).join('');
-    }
-
-    function clearHistory() {
-        history = [];
-        localStorage.removeItem('b_history');
-        renderHistory();
+        let final = parseFloat(res.toFixed(8)).toString();
+        if (isFinal) {
+            history.unshift(equation + " = " + final);
+            if(history.length > 10) history.pop();
+            renderHistory();
+            if(settings.voice) speak(final);
+            equation = final;
+        }
+        currentVal = final; prevVal = final; operator = isFinal ? null : operator; shouldReset = true;
     }
 
     function updateDisplay() {
-        let e = expr || "0", r = "0";
-        try { 
-            let p = expr.replace(/[+\-*/×÷−]$/, "");
-            if(p) {
-                let res = eval(p.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-'));
-                r = Number.isInteger(res) ? res : parseFloat(res.toFixed(8));
-            }
-        } catch(ex) {}
-        if(isG) {
-            e = e.toString().replace(/[0-9]/g, x => gMap[x]);
-            r = r.toString().replace(/[0-9]/g, x => gMap[x]);
+        let dVal = settings.isG ? currentVal.toString().replace(/[0-9]/g, x => gMap[x]) : currentVal;
+        let dEq = settings.isG ? equation.toString().replace(/[0-9]/g, x => gMap[x]) : equation;
+        document.getElementById('main-val').innerText = dVal;
+        const tape = document.getElementById('tape');
+        tape.innerText = dEq; tape.scrollLeft = tape.scrollWidth;
+    }
+
+    function playSound() {
+        if(settings.soundProf === 'none') return;
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
+        osc.connect(g); g.connect(audioCtx.destination);
+        let freq = 440, type = 'sine', dur = 0.1;
+        switch(settings.soundProf) {
+            case 'bubble': freq = 800; break;
+            case 'click': type = 'square'; freq = 150; break;
+            case 'piano': type = 'triangle'; freq = 523; dur = 0.3; break;
+            case 'retro': type = 'square'; freq = 300; dur = 0.2; break;
+            case 'glass': freq = 2500; dur = 0.05; break;
+            case 'wood': freq = 200; dur = 0.05; break;
+            case 'camera': type = 'sawtooth'; freq = 1000; dur = 0.02; break;
+            case 'digital': type = 'sine'; freq = 1500; dur = 0.05; break;
+            case 'zap': type = 'sawtooth'; freq = 400; dur = 0.05; break;
         }
-        const t = document.getElementById('tape');
-        t.innerText = e;
-        t.scrollLeft = t.scrollWidth;
-        document.getElementById('main-val').innerText = r;
-        document.getElementById('g-stat').innerText = isG ? "ON" : "OFF";
+        osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + dur);
+        osc.start(); osc.stop(audioCtx.currentTime + dur);
     }
 
-    function cycleTheme() {
-        tIdx = (tIdx + 1) % 50;
-        localStorage.setItem('b_idx_50', tIdx);
-        applyL();
+    function speak(t) { 
+        window.speechSynthesis.cancel(); 
+        let utterance = new SpeechSynthesisUtterance(t);
+        utterance.rate = 1.1;
+        window.speechSynthesis.speak(utterance); 
     }
 
-    function applyL() {
-        document.body.className = `t-${tIdx % 10} s-${Math.floor(tIdx/10) % 5}`;
-    }
-
-    function toggleG() { isG = !isG; localStorage.setItem('isG', isG); updateDisplay(); }
+    function cycleTheme() { tIdx = (tIdx + 1) % 10; document.body.className = `t-${tIdx}`; }
     function setOp() { document.getElementById('settings').classList.toggle('open'); }
+    function renderHistory() { document.getElementById('hist-box').innerHTML = history.map(h => `<div class="hist-item">${h}</div>`).join(''); }
+    function clearHistory() { history = []; renderHistory(); }
 
-    function play(f) {
-        if(!audio) return;
-        const g = audio.createGain();
-        g.connect(audio.destination);
-        g.gain.setValueAtTime(currentVol, audio.currentTime);
-
-        if (soundType === 'piano') {
-            const o1 = audio.createOscillator(), o2 = audio.createOscillator();
-            o1.type = 'triangle'; o2.type = 'sine';
-            o1.frequency.setValueAtTime(f, audio.currentTime);
-            o2.frequency.setValueAtTime(f * 2, audio.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.6);
-            o1.connect(g); o2.connect(g);
-            o1.start(); o2.start();
-            o1.stop(audio.currentTime + 0.6); o2.stop(audio.currentTime + 0.6);
-        } 
-        else if (soundType === 'samsung') {
-            const o1 = audio.createOscillator();
-            const o2 = audio.createOscillator();
-            o1.type = 'sine'; o2.type = 'sine';
-            o1.frequency.setValueAtTime(140, audio.currentTime);
-            o1.frequency.exponentialRampToValueAtTime(40, audio.currentTime + 0.08);
-            o2.frequency.setValueAtTime(800, audio.currentTime);
-            o2.frequency.exponentialRampToValueAtTime(200, audio.currentTime + 0.03);
-            const g2 = audio.createGain();
-            g2.gain.setValueAtTime(currentVol * 0.3, audio.currentTime);
-            g2.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.03);
-            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.08);
-            o1.connect(g); o2.connect(g2); g2.connect(audio.destination);
-            o1.start(); o2.start(); o1.stop(audio.currentTime + 0.08); o2.stop(audio.currentTime + 0.08);
-        }
-        else if (soundType === 'modern') {
-            const o = audio.createOscillator();
-            o.type = 'sine';
-            o.frequency.setValueAtTime(900, audio.currentTime);
-            g.gain.setValueAtTime(currentVol * 0.5, audio.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.04);
-            o.connect(g); o.start(); o.stop(audio.currentTime + 0.04);
-        }
-        else if (soundType === 'digital') {
-            const o = audio.createOscillator();
-            o.type = 'square';
-            o.frequency.setValueAtTime(1200, audio.currentTime);
-            g.gain.setValueAtTime(currentVol * 0.2, audio.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.08);
-            o.connect(g); o.start(); o.stop(audio.currentTime + 0.08);
-        }
-    }
-
-    let h = document.getElementById('xh'), sx, limit = 117;
-    h.ontouchstart = e => { sx = e.touches[0].clientX; h.style.transition = 'none'; }
-    h.ontouchmove = e => {
+    let h = document.getElementById('xh'), sx, limit = 100;
+    h.addEventListener('touchstart', e => { sx = e.touches[0].clientX; h.style.transition = 'none'; });
+    h.addEventListener('touchmove', e => {
         let x = Math.max(0, Math.min(e.touches[0].clientX - sx, limit));
         h.style.transform = `translateX(${x}px)`;
         if(x >= limit) window.location.replace("about:blank");
-    }
-    h.ontouchend = () => { h.style.transition = '0.3s'; h.style.transform = 'translateX(0)'; }
+    });
+    h.addEventListener('touchend', () => { h.style.transition = '0.3s'; h.style.transform = 'translateX(0)'; });
+
+    initSettings();
 </script>
 </body>
 </html>
