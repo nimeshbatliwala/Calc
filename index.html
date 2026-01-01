@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Bistro Orchestra Max</title>
     <style>
         :root {
             --safe-top: env(safe-area-inset-top, 25px);
-            --safe-bottom: env(safe-area-inset-bottom, 15px);
+            --safe-bottom: env(safe-area-inset-bottom, 20px);
             --depth: 7px;
         }
 
@@ -23,37 +24,55 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
         
         html, body { 
-            width: 100%; height: 100%; overflow: hidden; position: fixed; 
-            background: var(--bg); color: var(--text); display: flex; flex-direction: column;
-            font-family: -apple-system, system-ui, sans-serif; transition: 0.5s;
+            width: 100vw; height: 100vh; overflow: hidden; position: fixed; top: 0; left: 0;
+            background: var(--bg); color: var(--text); font-family: -apple-system, system-ui, sans-serif; transition: 0.5s;
         }
+
+        /* SPLASH SCREEN */
+        #splash {
+            position: fixed; inset: 0; background: #000; z-index: 5000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #fff; transition: 0.6s ease-in-out;
+        }
+        #splash h1 { font-size: 2.5rem; margin-bottom: 30px; text-align: center; font-weight: 900; background: linear-gradient(to right, #ff9500, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #start-btn { padding: 15px 50px; font-size: 1.5rem; font-weight: 800; border-radius: 50px; border: none; background: #ff9500; color: #fff; box-shadow: 0 5px 15px rgba(255,149,0,0.4); }
+
+        /* EXIT SLIDER */
+        .exit-container {
+            width: 220px; height: 44px; background: rgba(255,255,255,0.1); 
+            margin: calc(var(--safe-top) + 10px) auto 0; border-radius: 22px;
+            position: relative; border: 1px solid rgba(255,255,255,0.2); overflow: hidden;
+        }
+        .exit-text { position: absolute; width: 100%; text-align: center; line-height: 44px; font-size: 0.85rem; font-weight: bold; color: #ff4444; pointer-events: none; }
+        #exit-handle {
+            width: 60px; height: 38px; background: #ff4444; border-radius: 19px;
+            position: absolute; top: 2px; left: 2px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;
+        }
+
+        /* CALCULATOR LAYOUT */
+        #calc-ui { display: flex; flex-direction: column; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: 0.5s; }
+        #calc-ui.visible { opacity: 1; pointer-events: auto; }
 
         .display { 
             flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
-            padding: 20px 25px; text-align: right; overflow: hidden;
+            padding: 10px 25px; text-align: right; overflow: hidden;
         }
         #tape { 
-            font-size: 1.6rem; min-height: 2.2rem; 
-            overflow-x: auto; white-space: nowrap; 
-            margin-bottom: 5px; font-weight: 700; color: #ff9500;
-            scrollbar-width: none;
+            font-size: 1.6rem; min-height: 2.2rem; overflow-x: auto; white-space: nowrap; 
+            margin-bottom: 5px; font-weight: 700; color: #ff9500; scrollbar-width: none;
         }
         #tape::-webkit-scrollbar { display: none; }
-        
-        #main-val { 
-            font-size: clamp(2.5rem, 14vw, 6rem); 
-            font-weight: 900; line-height: 1.1; 
-        }
+        #main-val { font-size: clamp(2.5rem, 14vw, 6rem); font-weight: 900; line-height: 1.1; }
 
         .keypad { 
-            padding: 10px 18px calc(var(--safe-bottom) + 15px); 
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+            padding: 10px 18px calc(var(--safe-bottom) + 60px); /* Significant space cut from bottom */
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%;
         }
         
         .key {
-            width: 100%; height: 80px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.3);
-            color: #fff; font-size: 1.8rem; font-weight: 800; 
-            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 72px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.3);
+            color: #fff; font-size: 1.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
             backdrop-filter: blur(15px); background: rgba(255,255,255,0.1);
             box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2), inset 0 2px 2px rgba(255,255,255,0.3);
             position: relative; transition: 0.05s;
@@ -74,46 +93,55 @@
         .sheet.open { transform: translateY(0); }
         .card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); padding: 22px; border-radius: 25px; margin-bottom: 15px; }
         .row { display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: #fff; }
-        
         .sw-3d { width: 70px; height: 34px; background: #000; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); position: relative; }
         .sw-3d::after { content: ''; position: absolute; width: 26px; height: 26px; background: #fff; border-radius: 50%; top: 3px; left: 4px; transition: 0.3s; }
         .sw-3d.active { background: #38ef7d; }
         .sw-3d.active::after { transform: translateX(36px); }
-        
         select { background: #1a1a1a; color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; width: 170px; font-weight: bold; }
-        
         #hist-box { margin-top: 10px; max-height: 200px; overflow-y: auto; color: #ccc; font-size: 0.9rem; }
         .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
     </style>
 </head>
-<body>
+<body class="t-0">
 
-    <div class="display" onclick="cycleTheme()">
-        <div id="tape"></div>
-        <div id="main-val">0</div>
+    <div id="splash">
+        <h1>Bistro Orchestra Max</h1>
+        <button id="start-btn" onclick="startApp()">START</button>
     </div>
 
-    <div class="keypad" id="pad">
-        <button class="key k-ac" data-val="AC">AC</button>
-        <button class="key k-del" data-val="DEL">⌫</button>
-        <button class="key k-perc" data-val="%">%</button>
-        <button class="key k-div" data-val="/">÷</button>
-        <button class="key k-7" data-val="7">7</button>
-        <button class="key k-8" data-val="8">8</button>
-        <button class="key k-9" data-val="9">9</button>
-        <button class="key k-mult" data-val="*">×</button>
-        <button class="key k-4" data-val="4">4</button>
-        <button class="key k-5" data-val="5">5</button>
-        <button class="key k-6" data-val="6">6</button>
-        <button class="key k-sub" data-val="-">−</button>
-        <button class="key k-1" data-val="1">1</button>
-        <button class="key k-2" data-val="2">2</button>
-        <button class="key k-3" data-val="3">3</button>
-        <button class="key k-add" data-val="+">+</button>
-        <button class="key k-set" data-val="SET">⚙️</button>
-        <button class="key k-0" data-val="0">0</button>
-        <button class="key k-dot" data-val=".">.</button>
-        <button class="key k-eq" data-val="=">=</button>
+    <div id="calc-ui">
+        <div class="exit-container" id="exit-bar">
+            <div class="exit-text">Slide to Close App ✖</div>
+            <div id="exit-handle">▶</div>
+        </div>
+
+        <div class="display" onclick="cycleTheme()">
+            <div id="tape"></div>
+            <div id="main-val">0</div>
+        </div>
+
+        <div class="keypad" id="pad">
+            <button class="key k-ac" data-val="AC">AC</button>
+            <button class="key k-del" data-val="DEL">⌫</button>
+            <button class="key k-perc" data-val="%">%</button>
+            <button class="key k-div" data-val="/">÷</button>
+            <button class="key k-7" data-val="7">7</button>
+            <button class="key k-8" data-val="8">8</button>
+            <button class="key k-9" data-val="9">9</button>
+            <button class="key k-mult" data-val="*">×</button>
+            <button class="key k-4" data-val="4">4</button>
+            <button class="key k-5" data-val="5">5</button>
+            <button class="key k-6" data-val="6">6</button>
+            <button class="key k-sub" data-val="-">−</button>
+            <button class="key k-1" data-val="1">1</button>
+            <button class="key k-2" data-val="2">2</button>
+            <button class="key k-3" data-val="3">3</button>
+            <button class="key k-add" data-val="+">+</button>
+            <button class="key k-set" data-val="SET">⚙️</button>
+            <button class="key k-0" data-val="0">0</button>
+            <button class="key k-dot" data-val=".">.</button>
+            <button class="key k-eq" data-val="=">=</button>
+        </div>
     </div>
 
     <div id="settings" class="sheet">
@@ -161,6 +189,27 @@
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.'};
     const notes = {'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'SET':1318,'0':1396,'.':1567,'=':1760};
 
+    function startApp() {
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        document.getElementById('splash').style.transform = 'translateY(-100%)';
+        document.getElementById('calc-ui').classList.add('visible');
+    }
+
+    // Exit to Close logic
+    const handle = document.getElementById('exit-handle');
+    let startX = 0, currentX = 0;
+    handle.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+    handle.addEventListener('touchmove', (e) => {
+        let maxSlide = 158; 
+        currentX = Math.min(maxSlide, Math.max(2, e.touches[0].clientX - startX));
+        handle.style.left = currentX + 'px';
+        if (currentX >= 155) {
+            window.close();
+            setTimeout(() => { alert("App is closing. Please close the tab."); }, 100);
+        }
+    });
+    handle.addEventListener('touchend', () => { if(currentX < 155) handle.style.left = '2px'; });
+
     function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
     function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
 
@@ -175,50 +224,39 @@
 
     document.getElementById('pad').addEventListener('touchstart', e => {
         const b = e.target.closest('.key');
-        if (b) { e.preventDefault(); handle(b.dataset.val); }
+        if (b) { e.preventDefault(); handleKey(b.dataset.val); }
     }, {passive: false});
 
-    function handle(v) {
+    function handleKey(v) {
         playTone(notes[v]);
         if (v === 'SET') return setOp();
         if (v === 'AC') { cur = "0"; tapeStr = ""; lastOp = ""; baseVal = 0; isRes = false; speak("Clear"); }
         else if (v === 'DEL') { 
             if (isRes) { tapeStr = ""; isRes = false; }
-            cur = cur.length > 1 ? cur.slice(0,-1) : "0"; 
-            speak("Back"); 
+            cur = cur.length > 1 ? cur.slice(0,-1) : "0"; speak("Back"); 
         }
         else if (['+','-','*','/'].includes(v)) {
             if (isRes) { tapeStr = cur + " " + v + " "; isRes = false; }
             else if (cur === "0" && tapeStr !== "") { tapeStr = tapeStr.trim().split(' ').slice(0, -1).join(' ') + " " + v + " "; }
             else { tapeStr += cur + " " + v + " "; }
-            baseVal = parseFloat(cur);
-            lastOp = v;
-            cur = "0";
-            speak(v);
+            baseVal = parseFloat(cur); lastOp = v; cur = "0"; speak(v);
         }
         else if (v === '%') {
             let currentNum = parseFloat(cur);
             if (lastOp === '+' || lastOp === '-') {
-                let percVal = (baseVal * currentNum) / 100;
-                cur = percVal.toString();
-            } else {
-                cur = (currentNum / 100).toString();
-            }
+                cur = ((baseVal * currentNum) / 100).toString();
+            } else { cur = (currentNum / 100).toString(); }
             speak("percent");
         }
         else if (v === '=') {
             let expr = tapeStr.trim();
             if (cur !== "0" || !expr) expr += " " + cur;
             if (['+','-','*','/'].includes(expr.slice(-1))) expr = expr.slice(0, -1).trim();
-
             try {
                 let r = eval(expr.replace(/×/g, '*').replace(/÷/g, '/'));
                 let result = parseFloat(r.toFixed(8)).toString();
                 addHistory(expr + " = " + result);
-                cur = result;
-                speak(cur); 
-                tapeStr = expr;
-                isRes = true;
+                cur = result; speak(cur); tapeStr = expr; isRes = true;
             } catch(e) { cur = "Error"; }
         }
         else {
@@ -250,13 +288,11 @@
         let tv = settings.isG ? displayTape.replace(/[0-9]/g, x => gMap[x]) : displayTape;
         document.getElementById('main-val').innerText = dv;
         const t = document.getElementById('tape'); 
-        t.innerText = tv.trim(); 
-        t.scrollLeft = t.scrollWidth;
+        t.innerText = tv.trim(); t.scrollLeft = t.scrollWidth;
     }
 
     function playTone(f) {
         if(settings.soundProf === 'mute' || !f) return;
-        if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
         const g = audioCtx.createGain(); g.connect(audioCtx.destination);
         const o = audioCtx.createOscillator(); o.connect(g);
@@ -294,8 +330,7 @@
     }
 
     function cycleTheme() { 
-        settings.themeIdx = (settings.themeIdx + 1) % 6; 
-        save('themeIdx', settings.themeIdx);
+        settings.themeIdx = (settings.themeIdx + 1) % 6; save('themeIdx', settings.themeIdx);
         document.body.className = `t-${settings.themeIdx}`; 
     }
     function setOp() { document.getElementById('settings').classList.toggle('open'); }
