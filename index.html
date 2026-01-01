@@ -50,7 +50,7 @@
             display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;
         }
 
-        /* CALCULATOR LAYOUT - MOVED TO BOTTOM */
+        /* CALCULATOR LAYOUT */
         #calc-ui { 
             display: flex; 
             flex-direction: column; 
@@ -59,7 +59,7 @@
             opacity: 0; 
             pointer-events: none; 
             transition: 0.5s;
-            justify-content: flex-end; /* Pushes content to the bottom */
+            justify-content: flex-end; 
         }
         #calc-ui.visible { opacity: 1; pointer-events: auto; }
 
@@ -72,7 +72,7 @@
         #tape { font-size: 1.6rem; min-height: 2.2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 5px; font-weight: 700; color: #ff9500; scrollbar-width: none; }
         #main-val { font-size: clamp(2.5rem, 14vw, 6rem); font-weight: 900; line-height: 1.1; }
 
-        /* KEYPAD AT THE VERY BOTTOM */
+        /* KEYPAD */
         .keypad { 
             padding: 10px 18px calc(var(--safe-bottom) + 10px); 
             display: grid; 
@@ -170,14 +170,26 @@
                 <option value="soft3">Digital Click</option>
                 <option value="soft4">Pulse</option>
                 <option value="soft5">Bubble</option>
+                <option value="soft6">Feather</option>
+                <option value="soft7">Glass</option>
+                <option value="soft8">Echo Tap</option>
             </select>
         </div></div>
 
         <div class="card"><div class="row">Piano Tunes 
             <select id="piano-prof" onchange="changeSound('piano', this.value)">
                 <option value="none">None</option>
-                <option value="piano1">Grand Piano</option>
-                <option value="piano15">Cinematic Grand</option>
+                <option value="p1">Grand Piano</option>
+                <option value="p2">Bright Studio</option>
+                <option value="p3">Mellow Mood</option>
+                <option value="p4">Honky Tonk</option>
+                <option value="p5">Electric Piano</option>
+                <option value="p6">Upright Classic</option>
+                <option value="p7">Jazz Rhymes</option>
+                <option value="p8">Harpsichord</option>
+                <option value="p9">Toy Piano</option>
+                <option value="p10">Dreamy Keys</option>
+                <option value="p15">Cinematic Grand</option>
             </select>
         </div></div>
 
@@ -208,17 +220,13 @@
 
     function startApp() {
         if(audioCtx.state === 'suspended') audioCtx.resume();
-        
-        // Comprehensive Fullscreen request
         const docElm = document.documentElement;
         const requestFS = docElm.requestFullscreen || docElm.webkitRequestFullScreen || docElm.mozRequestFullScreen || docElm.msRequestFullscreen;
         if(requestFS) requestFS.call(docElm);
-
         document.getElementById('splash').style.transform = 'translateY(-100%)';
         document.getElementById('calc-ui').classList.add('visible');
     }
 
-    // Slider Logic
     const handle = document.getElementById('exit-handle');
     let startX = 0, currentX = 0;
     handle.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
@@ -257,6 +265,7 @@
         if (b) { e.preventDefault(); handleKey(b.dataset.val); }
     }, {passive: false});
 
+    // DISPLAY LOGIC (RETAINED EXACTLY)
     function handleKey(v) {
         playTone(notes[v]);
         if (v === 'SET') return setOp();
@@ -298,25 +307,44 @@
 
     function playTone(f) {
         const now = audioCtx.currentTime;
+        // EXPANDED SOFT BEEPS
         if (settings.beepProf !== 'none') {
             const gB = audioCtx.createGain(); gB.connect(audioCtx.destination);
             const oB = audioCtx.createOscillator(); oB.connect(gB);
-            oB.type = 'sine';
-            let bVol = 0.1, bDecay = 0.08;
-            oB.frequency.setValueAtTime(f * 1.5, now);
+            let bType = 'sine', bVol = 0.1, bDecay = 0.08, fMod = 1.5;
+            
+            if(settings.beepProf === 'soft2') { bVol = 0.06; bDecay = 0.15; fMod = 1.2; }
+            if(settings.beepProf === 'soft3') { bType = 'square'; bVol = 0.02; bDecay = 0.05; fMod = 2.0; }
+            if(settings.beepProf === 'soft4') { bType = 'triangle'; bVol = 0.15; bDecay = 0.1; fMod = 0.8; }
+            if(settings.beepProf === 'soft5') { bVol = 0.08; bDecay = 0.3; fMod = 2.5; }
+            if(settings.beepProf === 'soft6') { bVol = 0.03; bDecay = 0.05; fMod = 1.0; }
+            if(settings.beepProf === 'soft7') { bType = 'sine'; bVol = 0.2; bDecay = 0.04; fMod = 3.0; }
+            if(settings.beepProf === 'soft8') { bVol = 0.05; bDecay = 0.4; fMod = 1.8; }
+
+            oB.type = bType;
+            oB.frequency.setValueAtTime(f * fMod, now);
             gB.gain.setValueAtTime(0, now);
             gB.gain.linearRampToValueAtTime(bVol, now + 0.005);
             gB.gain.exponentialRampToValueAtTime(0.0001, now + bDecay);
             oB.start(now); oB.stop(now + bDecay);
         }
+        // EXPANDED PIANO PROFILES
         if (settings.pianoProf !== 'none') {
             const gP = audioCtx.createGain(); gP.connect(audioCtx.destination);
             const oP = audioCtx.createOscillator(); oP.connect(gP);
-            oP.type = 'triangle'; oP.frequency.setValueAtTime(f, now);
+            let pType = 'triangle', pVol = 0.2, pDecay = 1.2;
+
+            if(settings.pianoProf === 'p15') { pVol = 0.4; pDecay = 2.5; } // Cinematic
+            if(settings.pianoProf === 'p2') { pType = 'sine'; pVol = 0.3; pDecay = 1.0; }
+            if(settings.pianoProf === 'p3') { pType = 'triangle'; pVol = 0.15; pDecay = 2.0; }
+            if(settings.pianoProf === 'p4') { pType = 'sawtooth'; pVol = 0.05; pDecay = 0.8; }
+            if(settings.pianoProf === 'p9') { pType = 'sine'; pVol = 0.4; pDecay = 0.5; f *= 2; }
+
+            oP.type = pType; oP.frequency.setValueAtTime(f, now);
             gP.gain.setValueAtTime(0, now);
-            gP.gain.linearRampToValueAtTime(0.2, now + 0.02);
-            gP.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
-            oP.start(now); oP.stop(now + 1.2);
+            gP.gain.linearRampToValueAtTime(pVol, now + 0.02);
+            gP.gain.exponentialRampToValueAtTime(0.001, now + pDecay);
+            oP.start(now); oP.stop(now + pDecay);
         }
     }
 
