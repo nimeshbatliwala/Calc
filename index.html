@@ -14,10 +14,10 @@
         }
 
         /* THEMES */
-        body.t-0 { --bg: #f8fafc; --text: #0f172a; --radius: 18px; } 
-        body.t-1 { --bg: #000; --text: #fff; --radius: 50%; } 
+        body.t-0 { --bg: #000; --text: #fff; --radius: 12px; } 
+        body.t-1 { --bg: #f8fafc; --text: #0f172a; --radius: 18px; } 
         body.t-2 { --bg: #050505; --text: #00ff41; --radius: 5px; } 
-        body.t-3 { --bg: #1e1b4b; --text: #e0e7ff; --radius: 12px; } 
+        body.t-3 { --bg: #1e1b4b; --text: #e0e7ff; --radius: 50%; } 
         body.t-4 { --bg: #2d0036; --text: #ff00ff; --radius: 25px 5px; } 
         body.t-5 { --bg: #fef3c7; --text: #92400e; --radius: 0px; } 
 
@@ -50,18 +50,37 @@
             display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;
         }
 
-        /* CALCULATOR LAYOUT */
-        #calc-ui { display: flex; flex-direction: column; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: 0.5s; }
+        /* CALCULATOR LAYOUT - MOVED TO BOTTOM */
+        #calc-ui { 
+            display: flex; 
+            flex-direction: column; 
+            width: 100%; 
+            height: 100%; 
+            opacity: 0; 
+            pointer-events: none; 
+            transition: 0.5s;
+            justify-content: flex-end; /* Pushes content to the bottom */
+        }
         #calc-ui.visible { opacity: 1; pointer-events: auto; }
 
         .display { 
-            flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
-            padding: 10px 25px; text-align: right; overflow: hidden;
+            padding: 10px 25px; 
+            text-align: right; 
+            overflow: hidden;
+            margin-bottom: 10px;
         }
         #tape { font-size: 1.6rem; min-height: 2.2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 5px; font-weight: 700; color: #ff9500; scrollbar-width: none; }
         #main-val { font-size: clamp(2.5rem, 14vw, 6rem); font-weight: 900; line-height: 1.1; }
 
-        .keypad { padding: 10px 18px calc(var(--safe-bottom) + 60px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
+        /* KEYPAD AT THE VERY BOTTOM */
+        .keypad { 
+            padding: 10px 18px calc(var(--safe-bottom) + 10px); 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 12px; 
+            width: 100%; 
+        }
+
         .key {
             width: 100%; height: 72px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.3);
             color: #fff; font-size: 1.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
@@ -104,9 +123,11 @@
     </div>
 
     <div id="calc-ui">
-        <div class="exit-container" id="exit-bar">
-            <div class="exit-text">Slide to Close App ✖</div>
-            <div id="exit-handle">▶</div>
+        <div style="position: fixed; top: 0; width: 100%;">
+            <div class="exit-container" id="exit-bar">
+                <div class="exit-text">Slide to Close App ✖</div>
+                <div id="exit-handle">▶</div>
+            </div>
         </div>
 
         <div class="display" onclick="cycleTheme()">
@@ -156,19 +177,6 @@
             <select id="piano-prof" onchange="changeSound('piano', this.value)">
                 <option value="none">None</option>
                 <option value="piano1">Grand Piano</option>
-                <option value="piano2">Bright Piano</option>
-                <option value="piano3">Mellow Piano</option>
-                <option value="piano4">Honky Tonk</option>
-                <option value="piano5">Electric Piano</option>
-                <option value="piano6">Stage Rhodes</option>
-                <option value="piano7">DX7 Digital</option>
-                <option value="piano8">Harpsichord</option>
-                <option value="piano9">Toy Piano</option>
-                <option value="piano10">Dreamy Piano</option>
-                <option value="piano11">Cathedral Piano</option>
-                <option value="piano12">Ambient Keys</option>
-                <option value="piano13">Jazz Piano</option>
-                <option value="piano14">Neo Soul</option>
                 <option value="piano15">Cinematic Grand</option>
             </select>
         </div></div>
@@ -200,6 +208,12 @@
 
     function startApp() {
         if(audioCtx.state === 'suspended') audioCtx.resume();
+        
+        // Comprehensive Fullscreen request
+        const docElm = document.documentElement;
+        const requestFS = docElm.requestFullscreen || docElm.webkitRequestFullScreen || docElm.mozRequestFullScreen || docElm.msRequestFullscreen;
+        if(requestFS) requestFS.call(docElm);
+
         document.getElementById('splash').style.transform = 'translateY(-100%)';
         document.getElementById('calc-ui').classList.add('visible');
     }
@@ -212,7 +226,11 @@
         let maxSlide = 158; 
         currentX = Math.min(maxSlide, Math.max(2, e.touches[0].clientX - startX));
         handle.style.left = currentX + 'px';
-        if (currentX >= 155) { window.close(); setTimeout(() => alert("Tab closed."), 100); }
+        if (currentX >= 155) { 
+            const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+            if(exitFS) exitFS.call(document);
+            window.close(); 
+        }
     });
     handle.addEventListener('touchend', () => { if(currentX < 155) handle.style.left = '2px'; });
 
@@ -280,44 +298,25 @@
 
     function playTone(f) {
         const now = audioCtx.currentTime;
-
-        // 1. SOFT BEEP LOGIC
         if (settings.beepProf !== 'none') {
             const gB = audioCtx.createGain(); gB.connect(audioCtx.destination);
             const oB = audioCtx.createOscillator(); oB.connect(gB);
             oB.type = 'sine';
-            let bFreq = f * 1.5, bVol = 0.1, bDecay = 0.08;
-            
-            if(settings.beepProf === 'soft2') { bFreq = f * 1.2; bVol = 0.05; bDecay = 0.15; }
-            if(settings.beepProf === 'soft3') { oB.type = 'square'; bFreq = 800; bVol = 0.02; bDecay = 0.03; }
-            if(settings.beepProf === 'soft4') { bFreq = f * 0.8; bVol = 0.15; bDecay = 0.12; }
-            if(settings.beepProf === 'soft5') { bFreq = f * 2; bVol = 0.08; bDecay = 0.2; }
-
-            oB.frequency.setValueAtTime(bFreq, now);
+            let bVol = 0.1, bDecay = 0.08;
+            oB.frequency.setValueAtTime(f * 1.5, now);
             gB.gain.setValueAtTime(0, now);
             gB.gain.linearRampToValueAtTime(bVol, now + 0.005);
             gB.gain.exponentialRampToValueAtTime(0.0001, now + bDecay);
             oB.start(now); oB.stop(now + bDecay);
         }
-
-        // 2. PIANO LOGIC
         if (settings.pianoProf !== 'none') {
             const gP = audioCtx.createGain(); gP.connect(audioCtx.destination);
             const oP = audioCtx.createOscillator(); oP.connect(gP);
-            let pType = 'triangle', pDecay = 1.2, pVol = 0.2;
-            
-            switch(settings.pianoProf) {
-                case 'piano2': pType = 'sine'; f *= 1.001; pDecay = 0.8; break;
-                case 'piano4': pType = 'sawtooth'; pDecay = 0.5; pVol = 0.1; break;
-                case 'piano5': pType = 'square'; pDecay = 1.0; pVol = 0.05; break;
-                case 'piano9': pType = 'sine'; f *= 4; pDecay = 0.3; break;
-                default: pType = 'triangle';
-            }
-            oP.type = pType; oP.frequency.setValueAtTime(f, now);
+            oP.type = 'triangle'; oP.frequency.setValueAtTime(f, now);
             gP.gain.setValueAtTime(0, now);
-            gP.gain.linearRampToValueAtTime(pVol, now + 0.02);
-            gP.gain.exponentialRampToValueAtTime(0.001, now + pDecay);
-            oP.start(now); oP.stop(now + pDecay);
+            gP.gain.linearRampToValueAtTime(0.2, now + 0.02);
+            gP.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+            oP.start(now); oP.stop(now + 1.2);
         }
     }
 
@@ -332,6 +331,7 @@
         document.getElementById('hist-box').innerHTML = h.map(x => `<div class="hist-item"><span>${x.split('=')[0]}</span><b>= ${x.split('=')[1]}</b></div>`).join('');
     }
     function clearHistory() { localStorage.setItem('calcHistory', "[]"); loadHistory(); }
+    
     function updateDisplay() {
         let dv = settings.isG ? cur.replace(/[0-9]/g, x => gMap[x]) : cur;
         let activeInput = (cur === "0" && !isRes) ? "" : cur;
@@ -341,6 +341,7 @@
         const t = document.getElementById('tape'); 
         t.innerText = tv.trim(); t.scrollLeft = t.scrollWidth;
     }
+    
     function speak(t) {
         if(!settings.isSpeak) return;
         window.speechSynthesis.cancel();
