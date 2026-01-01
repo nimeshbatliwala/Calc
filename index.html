@@ -4,270 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Bistro Elite Pro - Windows & Sounds</title>
+    <title>Bistro Orchestra Max</title>
     <style>
         :root {
             --safe-top: env(safe-area-inset-top, 25px);
-            --safe-bottom: env(safe-area-inset-bottom, 10px);
-            --bg: #000; --accent: #ff9f0a; --text: #fff; --btn: #333; --k-text: #fff; --layer1: #ff9f0a;
+            --safe-bottom: env(safe-area-inset-bottom, 15px);
+            --depth: 7px;
         }
 
-        /* EXTENDED WINDOWS & LUXURY THEME MATRIX */
-        .t-0 { --bg: #000; --btn: #1c1c1e; --accent: #ff9f0a; --text: #fff; --k-text: #fff; --layer1: #ff9f0a; } /* Apple Dark */
-        .t-1 { --bg: #0078d4; --btn: #ffffff; --accent: #0078d4; --text: #fff; --k-text: #000; --layer1: #fff; } /* Win 10 Blue */
-        .t-2 { --bg: #ffffff; --btn: #f3f3f3; --accent: #0078d7; --text: #000; --k-text: #000; --layer1: #0078d7; } /* Win 11 Light */
-        .t-3 { --bg: #202020; --btn: #323232; --accent: #60cdff; --text: #fff; --k-text: #fff; --layer1: #60cdff; } /* Win 11 Dark */
-        .t-4 { --bg: #245edb; --btn: #eeeeee; --accent: #3c8127; --text: #fff; --k-text: #000; --layer1: #fff; } /* Win XP Classic */
-        .t-5 { --bg: #0a1128; --btn: #1a2a44; --accent: #00aaff; --text: #fff; --k-text: #fff; --layer1: #00aaff; } /* Azure Pro */
-        .t-6 { --bg: #ff6700; --btn: #ffffff; --accent: #000; --text: #fff; --k-text: #000; --layer1: #fff; } /* Xiaomi */
-        .t-7 { --bg: #000; --btn: #111; --accent: #00ff00; --text: #00ff00; --k-text: #00ff00; --layer1: #00ff00; } /* Matrix */
-        .t-8 { --bg: #25d366; --btn: #fff; --accent: #075e54; --text: #fff; --k-text: #075e54; --layer1: #fff; } /* WhatsApp */
-        .t-9 { --bg: #f3f3f3; --btn: #fff; --accent: #ff6700; --text: #000; --k-text: #000; --layer1: #ff6700; } /* Redmi */
+        /* THEMES */
+        body.t-0 { --bg: #f8fafc; --text: #0f172a; --radius: 18px; } 
+        body.t-1 { --bg: #000; --text: #fff; --radius: 50%; } 
+        body.t-2 { --bg: #050505; --text: #00ff41; --radius: 5px; } 
+        body.t-3 { --bg: #1e1b4b; --text: #e0e7ff; --radius: 12px; } 
+        body.t-4 { --bg: #2d0036; --text: #ff00ff; --radius: 25px 5px; } 
+        body.t-5 { --bg: #fef3c7; --text: #92400e; --radius: 0px; } 
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; touch-action: manipulation; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
         
         html, body { 
-            width: 100%; height: 100%; height: -webkit-fill-available;
-            overflow: hidden; position: fixed; background: var(--bg); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            color: var(--text); display: flex; flex-direction: column;
+            width: 100%; height: 100%; overflow: hidden; position: fixed; 
+            background: var(--bg); color: var(--text); display: flex; flex-direction: column;
+            font-family: -apple-system, system-ui, sans-serif; transition: 0.5s;
         }
 
-        .header { height: 70px; padding-top: var(--safe-top); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .track { width: 170px; height: 36px; background: rgba(128,128,128,0.4); border-radius: 18px; position: relative; border: 1px solid rgba(255,255,255,0.2); }
-        .handle { width: 65px; height: 30px; background: #ff3b30; border-radius: 15px; position: absolute; left: 3px; top: 2px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 0.75rem; }
-
-        .display { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 30px; text-align: right; }
-        #tape { font-size: 1.4rem; color: var(--layer1); min-height: 2rem; overflow-x: auto; white-space: nowrap; margin-bottom: 5px; font-weight: 500; }
-        #main-val { font-size: clamp(2.5rem, 12vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -1px; }
+        .display { 
+            flex: 1; display: flex; flex-direction: column; justify-content: flex-end; 
+            padding: 20px 25px; text-align: right; overflow: hidden;
+        }
+        #tape { 
+            font-size: 1.6rem; min-height: 2.2rem; 
+            overflow-x: auto; white-space: nowrap; 
+            margin-bottom: 5px; font-weight: 700; color: #ff9500;
+            scrollbar-width: none;
+        }
+        #tape::-webkit-scrollbar { display: none; }
+        
+        #main-val { 
+            font-size: clamp(2.5rem, 14vw, 6rem); 
+            font-weight: 900; line-height: 1.1; 
+        }
 
         .keypad { 
-            padding: 10px 20px calc(var(--safe-bottom) + 20px) 20px; 
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; 
-            justify-items: center; flex-shrink: 0;
+            padding: 10px 18px calc(var(--safe-bottom) + 15px); 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
         }
-        .key {
-            width: 72px; height: 72px; border-radius: 50%; border: none;
-            background: var(--btn); color: var(--k-text);
-            font-size: 1.6rem; font-weight: 600; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: transform 0.05s linear;
-        }
-        .key:active { transform: scale(0.9); filter: brightness(0.85); }
-        .op-key { color: var(--accent) !important; }
-        .eq-btn { background: var(--accent) !important; color: #fff !important; }
-
-        /* SETTINGS SHEET */
-        .sheet { position: fixed; inset: 0; background: var(--bg); z-index: 1000; transform: translateY(100%); transition: 0.4s; padding: 60px 25px; color: var(--text); overflow-y: auto; }
-        .sheet.open { transform: translateY(0); }
-        .card { background: rgba(128,128,128,0.2); padding: 18px; border-radius: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1); }
-        .row { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
         
-        select { background: #444; color: #fff; border: 1px solid var(--accent); padding: 10px; border-radius: 10px; font-size: 0.9rem; width: 150px; }
-        #hist-box { max-height: 150px; overflow-y: auto; margin-top: 10px; font-family: monospace; }
-        .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(128,128,128,0.2); }
+        .key {
+            width: 100%; height: 80px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.3);
+            color: #fff; font-size: 1.8rem; font-weight: 800; 
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(15px); background: rgba(255,255,255,0.1);
+            box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2), inset 0 2px 2px rgba(255,255,255,0.3);
+            position: relative; transition: 0.05s;
+        }
+        .key:active { transform: translateY(var(--depth)); box-shadow: 0 0 0 rgba(0,0,0,0.3); filter: brightness(1.5); }
+
+        .k-ac { background: linear-gradient(135deg, #d442ab, #7d44cf); }
+        .k-del { background: linear-gradient(135deg, #3a4b8a, #242f5e); }
+        .k-perc { background: linear-gradient(135deg, #12b4a5, #12d4a5); }
+        .k-div { background: linear-gradient(135deg, #f782c2, #f35588); }
+        .k-7, .k-8, .k-9 { background: linear-gradient(135deg, #7c8d8c, #aebbb9); color: #000; }
+        .k-4, .k-5, .k-6 { background: linear-gradient(135deg, #44f0a5, #44f0d5); color: #000; }
+        .k-1, .k-2, .k-3 { background: linear-gradient(135deg, #ffb07c, #ff7c8d); color: #000; }
+        .k-mult, .k-sub, .k-add, .k-eq { background: linear-gradient(180deg, #ffb347, #ff9500); }
+        .k-0, .k-dot, .k-set { background: linear-gradient(135deg, #1d3a7d, #2a5298); }
+
+        .sheet { position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(40px); z-index: 1000; transform: translateY(100%); transition: 0.5s; padding: calc(var(--safe-top) + 20px) 20px var(--safe-bottom); overflow-y: auto; }
+        .sheet.open { transform: translateY(0); }
+        .card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); padding: 22px; border-radius: 25px; margin-bottom: 15px; }
+        .row { display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: #fff; }
+        
+        .sw-3d { width: 70px; height: 34px; background: #000; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); position: relative; }
+        .sw-3d::after { content: ''; position: absolute; width: 26px; height: 26px; background: #fff; border-radius: 50%; top: 3px; left: 4px; transition: 0.3s; }
+        .sw-3d.active { background: #38ef7d; }
+        .sw-3d.active::after { transform: translateX(36px); }
+        
+        select { background: #1a1a1a; color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; width: 170px; font-weight: bold; }
+        
+        #hist-box { margin-top: 10px; max-height: 200px; overflow-y: auto; color: #ccc; font-size: 0.9rem; }
+        .hist-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
     </style>
 </head>
-<body class="t-0"> 
+<body>
 
-    <div class="header">
-        <div class="track"><div class="handle" id="xh">EXIT</div></div>
-    </div>
-
-    <div class="display" onpointerdown="cycleTheme()">
+    <div class="display" onclick="cycleTheme()">
         <div id="tape"></div>
         <div id="main-val">0</div>
     </div>
 
     <div class="keypad" id="pad">
-        <button class="key op-key" data-val="AC">AC</button>
-        <button class="key op-key" data-val="DEL">⌫</button>
-        <button class="key op-key" data-val="%">%</button>
-        <button class="key op-key" data-val="/">÷</button>
-        <button class="key" data-val="7">7</button>
-        <button class="key" data-val="8">8</button>
-        <button class="key" data-val="9">9</button>
-        <button class="key op-key" data-val="*">×</button>
-        <button class="key" data-val="4">4</button>
-        <button class="key" data-val="5">5</button>
-        <button class="key" data-val="6">6</button>
-        <button class="key op-key" data-val="-">−</button>
-        <button class="key" data-val="1">1</button>
-        <button class="key" data-val="2">2</button>
-        <button class="key" data-val="3">3</button>
-        <button class="key op-key" data-val="+">+</button>
-        <button class="key" data-val="SET">⚙️</button>
-        <button class="key" data-val="0">0</button>
-        <button class="key" data-val=".">.</button>
-        <button class="key eq-btn" data-val="=">=</button>
+        <button class="key k-ac" data-val="AC">AC</button>
+        <button class="key k-del" data-val="DEL">⌫</button>
+        <button class="key k-perc" data-val="%">%</button>
+        <button class="key k-div" data-val="/">÷</button>
+        <button class="key k-7" data-val="7">7</button>
+        <button class="key k-8" data-val="8">8</button>
+        <button class="key k-9" data-val="9">9</button>
+        <button class="key k-mult" data-val="*">×</button>
+        <button class="key k-4" data-val="4">4</button>
+        <button class="key k-5" data-val="5">5</button>
+        <button class="key k-6" data-val="6">6</button>
+        <button class="key k-sub" data-val="-">−</button>
+        <button class="key k-1" data-val="1">1</button>
+        <button class="key k-2" data-val="2">2</button>
+        <button class="key k-3" data-val="3">3</button>
+        <button class="key k-add" data-val="+">+</button>
+        <button class="key k-set" data-val="SET">⚙️</button>
+        <button class="key k-0" data-val="0">0</button>
+        <button class="key k-dot" data-val=".">.</button>
+        <button class="key k-eq" data-val="=">=</button>
     </div>
 
     <div id="settings" class="sheet">
-        <h2 style="margin-bottom:20px;">Settings</h2>
+        <h2 style="text-align:center; color:#fff; margin-bottom:25px;">STUDIO SETTINGS</h2>
+        <div class="card"><div class="row">Voice Guide <div id="v-sw" class="sw-3d" onclick="toggle('isSpeak')"></div></div></div>
+        <div class="card"><div class="row">Gujarati Mode <div id="g-sw" class="sw-3d" onclick="toggle('isG')"></div></div></div>
+        <div class="card"><div class="row">Piano Instrument 
+            <select id="s-prof" onchange="save('soundProf', this.value)">
+                <option value="mute">Mute</option>
+                <option value="piano1">Grand Piano</option>
+                <option value="piano2">Bright Piano</option>
+                <option value="piano3">Mellow Piano</option>
+                <option value="piano4">Honky Tonk</option>
+                <option value="piano5">Electric Piano</option>
+                <option value="piano6">Stage Rhodes</option>
+                <option value="piano7">DX7 Digital</option>
+                <option value="piano8">Harpsichord</option>
+                <option value="piano9">Toy Piano</option>
+                <option value="piano10">Dreamy Piano</option>
+                <option value="piano11">Cathedral Piano</option>
+                <option value="piano12">Ambient Keys</option>
+                <option value="piano13">Jazz Piano</option>
+                <option value="piano14">Neo Soul</option>
+                <option value="piano15">Cinematic Grand</option>
+            </select>
+        </div></div>
         <div class="card">
-            <div class="row">Sound Profile
-                <select id="s-prof" onchange="saveSetting('soundProf', this.value)">
-                    <option value="bubble">Bubble Pop</option>
-                    <option value="click">Mechanical</option>
-                    <option value="piano">Grand Piano</option>
-                    <option value="retro">8-Bit Game</option>
-                    <option value="glass">Glass Ping</option>
-                    <option value="wood">Wood Tap</option>
-                    <option value="camera">Shutter</option>
-                    <option value="digital">Digital Beep</option>
-                    <option value="zap">Electric Zap</option>
-                    <option value="none">Mute</option>
-                </select>
-            </div>
-        </div>
-        <div class="card">
-            <div class="row">Answer Speaking
-                <button id="v-btn" style="background:var(--accent); color:#fff; border:none; padding:10px 18px; border-radius:10px;" onpointerdown="toggleSetting('voice')">ON</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="row">Gujarati Font
-                <button id="g-btn" style="background:var(--accent); color:#fff; border:none; padding:10px 18px; border-radius:10px;" onpointerdown="toggleSetting('isG')">OFF</button>
-            </div>
-        </div>
-        <div class="card">
-            <div class="row">History <span onpointerdown="clearHistory()" style="color:#ff3b30; font-size:0.8rem;">CLEAR</span></div>
+            <div class="row">History <span onclick="clearHistory()" style="font-size: 0.8rem; color: #ff5555;">Clear</span></div>
             <div id="hist-box"></div>
         </div>
-        <button class="key eq-btn" style="width:100%; border-radius:15px; height:60px;" onpointerdown="setOp()">CLOSE</button>
+        <button class="key k-add" style="width:100%; height:65px;" onclick="setOp()">CONFIRM</button>
     </div>
 
 <script>
-    let currentVal = "0", equation = "", operator = null, prevVal = null, shouldReset = false;
-    let history = [], tIdx = 0;
+    let cur = "0", tapeStr = "", lastOp = "", baseVal = 0, isRes = false;
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     let settings = {
-        soundProf: localStorage.getItem('soundProf') || "bubble",
-        voice: localStorage.getItem('voice') !== 'false',
-        isG: localStorage.getItem('isG') === 'true'
+        soundProf: localStorage.getItem('soundProf') || "piano1",
+        isG: localStorage.getItem('isG') === 'true',
+        isSpeak: localStorage.getItem('isSpeak') !== 'false',
+        themeIdx: parseInt(localStorage.getItem('themeIdx')) || 0
     };
 
-    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯'};
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.'};
+    const notes = {'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'SET':1318,'0':1396,'.':1567,'=':1760};
 
-    function initSettings() {
+    function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
+    function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
+
+    function initUI() {
         document.getElementById('s-prof').value = settings.soundProf;
-        document.getElementById('v-btn').innerText = settings.voice ? "ON" : "OFF";
-        document.getElementById('g-btn').innerText = settings.isG ? "ON" : "OFF";
+        document.getElementById('v-sw').className = `sw-3d ${settings.isSpeak ? 'active' : ''}`;
+        document.getElementById('g-sw').className = `sw-3d ${settings.isG ? 'active' : ''}`;
+        document.body.className = `t-${settings.themeIdx}`;
+        loadHistory();
         updateDisplay();
     }
 
-    function saveSetting(key, val) { settings[key] = val; localStorage.setItem(key, val); }
-    function toggleSetting(key) { settings[key] = !settings[key]; localStorage.setItem(key, settings[key]); initSettings(); }
+    document.getElementById('pad').addEventListener('touchstart', e => {
+        const b = e.target.closest('.key');
+        if (b) { e.preventDefault(); handle(b.dataset.val); }
+    }, {passive: false});
 
-    document.getElementById('pad').addEventListener('pointerdown', e => {
-        const btn = e.target.closest('.key');
-        if (!btn) return;
-        const v = btn.dataset.val;
-        if(v === 'SET') setOp(); else input(v);
-    });
-
-    function input(v) {
-        playSound();
-        if (v === 'AC') { currentVal = "0"; equation = ""; operator = null; prevVal = null; }
+    function handle(v) {
+        playTone(notes[v]);
+        if (v === 'SET') return setOp();
+        if (v === 'AC') { cur = "0"; tapeStr = ""; lastOp = ""; baseVal = 0; isRes = false; speak("Clear"); }
         else if (v === 'DEL') { 
-            currentVal = currentVal.length > 1 ? currentVal.slice(0, -1) : "0"; 
-            equation = equation.slice(0, -1);
+            if (isRes) { tapeStr = ""; isRes = false; }
+            cur = cur.length > 1 ? cur.slice(0,-1) : "0"; 
+            speak("Back"); 
         }
-        else if (['+','-','*','/'].includes(v)) handleOp(v);
-        else if (v === '=') calculate(true);
-        else if (v === '%') handlePercent();
+        else if (['+','-','*','/'].includes(v)) {
+            if (isRes) { tapeStr = cur + " " + v + " "; isRes = false; }
+            else if (cur === "0" && tapeStr !== "") { tapeStr = tapeStr.trim().split(' ').slice(0, -1).join(' ') + " " + v + " "; }
+            else { tapeStr += cur + " " + v + " "; }
+            baseVal = parseFloat(cur);
+            lastOp = v;
+            cur = "0";
+            speak(v);
+        }
+        else if (v === '%') {
+            let currentNum = parseFloat(cur);
+            if (lastOp === '+' || lastOp === '-') {
+                let percVal = (baseVal * currentNum) / 100;
+                cur = percVal.toString();
+            } else {
+                cur = (currentNum / 100).toString();
+            }
+            speak("percent");
+        }
+        else if (v === '=') {
+            let expr = tapeStr.trim();
+            if (cur !== "0" || !expr) expr += " " + cur;
+            if (['+','-','*','/'].includes(expr.slice(-1))) expr = expr.slice(0, -1).trim();
+
+            try {
+                let r = eval(expr.replace(/×/g, '*').replace(/÷/g, '/'));
+                let result = parseFloat(r.toFixed(8)).toString();
+                addHistory(expr + " = " + result);
+                cur = result;
+                speak(cur); 
+                tapeStr = expr;
+                isRes = true;
+            } catch(e) { cur = "Error"; }
+        }
         else {
-            if (shouldReset) { currentVal = v; shouldReset = false; }
-            else { currentVal = currentVal === "0" ? v : currentVal + v; }
-            equation += v;
+            if (isRes) { cur = v; tapeStr = ""; isRes = false; }
+            else { cur = (cur === "0") ? v : cur + v; }
+            speak(v);
         }
         updateDisplay();
     }
 
-    function handleOp(op) {
-        if (operator && !shouldReset) calculate(false);
-        prevVal = currentVal; operator = op; shouldReset = true; equation += " " + op + " ";
+    function addHistory(i) {
+        let h = JSON.parse(localStorage.getItem('calcHistory') || "[]");
+        h.unshift(i); if(h.length > 15) h.pop();
+        localStorage.setItem('calcHistory', JSON.stringify(h));
+        loadHistory();
     }
 
-    function handlePercent() {
-        let val = parseFloat(currentVal);
-        currentVal = (prevVal && operator) ? (parseFloat(prevVal) * val / 100).toString() : (val / 100).toString();
-        equation += "%";
+    function loadHistory() {
+        let h = JSON.parse(localStorage.getItem('calcHistory') || "[]");
+        document.getElementById('hist-box').innerHTML = h.map(x => `<div class="hist-item"><span>${x.split('=')[0]}</span><b>= ${x.split('=')[1]}</b></div>`).join('');
     }
 
-    function calculate(isFinal) {
-        if (!operator || !prevVal) return;
-        let a = parseFloat(prevVal), b = parseFloat(currentVal), res = 0;
-        switch(operator) {
-            case '+': res = a + b; break;
-            case '-': res = a - b; break;
-            case '*': res = a * b; break;
-            case '/': res = a / b; break;
-        }
-        let final = parseFloat(res.toFixed(8)).toString();
-        if (isFinal) {
-            history.unshift(equation + " = " + final);
-            if(history.length > 10) history.pop();
-            renderHistory();
-            if(settings.voice) speak(final);
-            equation = final;
-        }
-        currentVal = final; prevVal = final; operator = isFinal ? null : operator; shouldReset = true;
-    }
+    function clearHistory() { localStorage.setItem('calcHistory', "[]"); loadHistory(); }
 
     function updateDisplay() {
-        let dVal = settings.isG ? currentVal.toString().replace(/[0-9]/g, x => gMap[x]) : currentVal;
-        let dEq = settings.isG ? equation.toString().replace(/[0-9]/g, x => gMap[x]) : equation;
-        document.getElementById('main-val').innerText = dVal;
-        const tape = document.getElementById('tape');
-        tape.innerText = dEq; tape.scrollLeft = tape.scrollWidth;
+        let dv = settings.isG ? cur.replace(/[0-9]/g, x => gMap[x]) : cur;
+        let activeInput = (cur === "0" && !isRes) ? "" : cur;
+        let displayTape = isRes ? tapeStr : (tapeStr + activeInput);
+        let tv = settings.isG ? displayTape.replace(/[0-9]/g, x => gMap[x]) : displayTape;
+        document.getElementById('main-val').innerText = dv;
+        const t = document.getElementById('tape'); 
+        t.innerText = tv.trim(); 
+        t.scrollLeft = t.scrollWidth;
     }
 
-    function playSound() {
-        if(settings.soundProf === 'none') return;
+    function playTone(f) {
+        if(settings.soundProf === 'mute' || !f) return;
         if(audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator(); const g = audioCtx.createGain();
-        osc.connect(g); g.connect(audioCtx.destination);
-        let freq = 440, type = 'sine', dur = 0.1;
+        const now = audioCtx.currentTime;
+        const g = audioCtx.createGain(); g.connect(audioCtx.destination);
+        const o = audioCtx.createOscillator(); o.connect(g);
+        let type = 'triangle', decay = 1.2, vol = 0.2;
         switch(settings.soundProf) {
-            case 'bubble': freq = 800; break;
-            case 'click': type = 'square'; freq = 150; break;
-            case 'piano': type = 'triangle'; freq = 523; dur = 0.3; break;
-            case 'retro': type = 'square'; freq = 300; dur = 0.2; break;
-            case 'glass': freq = 2500; dur = 0.05; break;
-            case 'wood': freq = 200; dur = 0.05; break;
-            case 'camera': type = 'sawtooth'; freq = 1000; dur = 0.02; break;
-            case 'digital': type = 'sine'; freq = 1500; dur = 0.05; break;
-            case 'zap': type = 'sawtooth'; freq = 400; dur = 0.05; break;
+            case 'piano1': type = 'triangle'; decay = 1.2; break;
+            case 'piano2': type = 'sine'; f = f * 1.001; decay = 0.8; break;
+            case 'piano3': type = 'triangle'; decay = 1.5; vol = 0.15; break;
+            case 'piano4': type = 'sawtooth'; decay = 0.5; vol = 0.1; break;
+            case 'piano5': type = 'square'; decay = 1.0; vol = 0.05; break;
+            case 'piano6': type = 'sine'; f = f / 2; decay = 2.0; break;
+            case 'piano7': type = 'sawtooth'; decay = 0.8; vol = 0.05; break;
+            case 'piano8': type = 'sawtooth'; f = f * 2; decay = 0.4; break;
+            case 'piano9': type = 'sine'; f = f * 4; decay = 0.3; break;
+            case 'piano10': type = 'triangle'; decay = 2.5; vol = 0.1; break;
+            case 'piano11': type = 'triangle'; decay = 3.0; vol = 0.05; break;
+            case 'piano12': type = 'sine'; decay = 3.5; vol = 0.2; break;
+            case 'piano13': type = 'triangle'; decay = 0.6; break;
+            case 'piano14': type = 'sine'; f = f * 1.5; decay = 1.8; break;
+            case 'piano15': type = 'triangle'; f = f / 2; decay = 4.0; vol = 0.1; break;
         }
-        osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        g.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + dur);
-        osc.start(); osc.stop(audioCtx.currentTime + dur);
+        o.type = type; o.frequency.setValueAtTime(f, now);
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(vol, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, now + decay);
+        o.start(now); o.stop(now + decay);
     }
 
-    function speak(t) { 
-        window.speechSynthesis.cancel(); 
-        let utterance = new SpeechSynthesisUtterance(t);
-        utterance.rate = 1.1;
-        window.speechSynthesis.speak(utterance); 
+    function speak(t) {
+        if(!settings.isSpeak) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(t);
+        u.lang = settings.isG ? 'gu-IN' : 'en-IN';
+        u.rate = 1.7; window.speechSynthesis.speak(u);
     }
 
-    function cycleTheme() { tIdx = (tIdx + 1) % 10; document.body.className = `t-${tIdx}`; }
+    function cycleTheme() { 
+        settings.themeIdx = (settings.themeIdx + 1) % 6; 
+        save('themeIdx', settings.themeIdx);
+        document.body.className = `t-${settings.themeIdx}`; 
+    }
     function setOp() { document.getElementById('settings').classList.toggle('open'); }
-    function renderHistory() { document.getElementById('hist-box').innerHTML = history.map(h => `<div class="hist-item">${h}</div>`).join(''); }
-    function clearHistory() { history = []; renderHistory(); }
-
-    let h = document.getElementById('xh'), sx, limit = 100;
-    h.addEventListener('touchstart', e => { sx = e.touches[0].clientX; h.style.transition = 'none'; });
-    h.addEventListener('touchmove', e => {
-        let x = Math.max(0, Math.min(e.touches[0].clientX - sx, limit));
-        h.style.transform = `translateX(${x}px)`;
-        if(x >= limit) window.location.replace("about:blank");
-    });
-    h.addEventListener('touchend', () => { h.style.transition = '0.3s'; h.style.transform = 'translateX(0)'; });
-
-    initSettings();
+    initUI();
 </script>
 </body>
 </html>
