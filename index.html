@@ -115,7 +115,7 @@
         themeIdx: parseInt(localStorage.getItem('themeIdx')) || 0
     };
 
-    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.'};
+    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
     const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
     
     const beeps = [
@@ -125,7 +125,6 @@
         {name: "Glass Ting", f:2500, t:'sine', d:0.1}, {name: "Sport Beep", f:1000, t:'sawtooth', d:0.05}
     ];
 
-    // DEFINED PIANO PROFILES WITH UNIQUE WAVEFORMS AND DECAY
     const pianoLib = [
         {name:"Grand Piano", t:'triangle', d:1.2, g:0.15}, {name:"Studio One", t:'sine', d:0.8, g:0.2},
         {name:"Mellow Gold", t:'sine', d:1.5, g:0.1}, {name:"Honky Tonk", t:'sawtooth', d:0.6, g:0.05},
@@ -185,6 +184,15 @@
         p.innerHTML = '<option value="none">Mute</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
         p.value = settings.pianoProf;
         
+        // RE-RENDER KEYPAD FONT
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(k => {
+            const val = k.dataset.val;
+            if(val) {
+                k.innerText = settings.isG ? (gMap[val] || val) : val;
+            }
+        });
+
         renderHistory(); updateDisplay();
     }
 
@@ -258,7 +266,8 @@
     
     function renderHistory() {
         const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
-        document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${i}</div>`).join('');
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
+        document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('');
     }
     
     function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
@@ -266,8 +275,6 @@
     function playTone(v) {
         if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
-        
-        // BEEP LOGIC
         if(settings.beepProf !== 'none') {
             const b = beeps[parseInt(settings.beepProf.substring(1))-1];
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
@@ -275,13 +282,10 @@
             g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
             o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
         }
-        
-        // PIANO LOGIC (Unique per profile)
         if(settings.pianoProf !== 'none' && freqMap[v]) {
             const p = pianoLib[parseInt(settings.pianoProf.substring(1))-1];
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = p.t;
-            o.frequency.setValueAtTime(freqMap[v], now);
+            o.type = p.t; o.frequency.setValueAtTime(freqMap[v], now);
             g.gain.setValueAtTime(p.g, now);
             g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
             o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
