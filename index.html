@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Jaguar V12</title>
+    <title>Jaguar V12 Platinum</title>
     <style>
         :root { --depth: 6px; }
         body.t-0 { --car: #e60000; --accent: #ffffff; --shape: 80px 80px 120px 120px; --key: #1a1a1a; --glow: #fff; } 
@@ -20,25 +20,21 @@
         html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; }
 
         #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
-        .jag-icon { font-size: 130px; filter: drop-shadow(0 0 20px #fff); animation: logo-glow 2s infinite alternate; }
-        @keyframes logo-glow { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
+        .jag-icon { font-size: 130px; filter: drop-shadow(0 0 20px #fff); }
         #start-btn { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(#f00, #600); border: 4px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 20px #f00; cursor: pointer; margin-top: 40px; }
 
         #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; }
-        #chassis { width: 94%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; transition: 0.5s; box-shadow: 0 40px 100px #000; }
+        #chassis { width: 94%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; transition: 0.5s; }
 
-        /* PHYSICAL HARDWARE */
         .headlight { position: absolute; top: 15px; width: 50px; height: 22px; background: #fff; border-radius: 50%; box-shadow: 0 0 30px 5px var(--glow); z-index: 10; }
         .l-light { left: 30px; } .r-light { right: 30px; }
-        
         #mirror { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 80px; height: 35px; background: rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.3); border-radius: 0 0 20px 20px; z-index: 100; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
-
         #exit-track { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); width: 180px; height: 30px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; z-index: 90; }
         #exit-slider { width: 70px; height: 100%; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.75rem; font-weight: 900; }
 
         .windshield { margin: 85px 22px 5px; height: 26%; background: rgba(0,0,0,0.96); border-radius: 35px 35px 15px 15px; border: 2px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: right; position: relative; }
         .mini-jag { position: absolute; left: 15px; top: 10px; font-size: 1rem; opacity: 0.3; color: #fff; }
-        #layer-eq { color: rgba(255,255,255,0.8); font-size: 1.4rem; font-weight: 600; padding-top: 15px; overflow-x: auto; white-space: nowrap; direction: ltr; scroll-behavior: smooth; }
+        #layer-eq { color: rgba(255,255,255,0.8); font-size: 1.4rem; font-weight: 600; padding-top: 15px; overflow-x: auto; white-space: nowrap; direction: ltr; }
         #layer-ans { color: var(--accent); font-size: 3.5rem; font-weight: 900; line-height: 0.9; text-shadow: 0 0 15px var(--glow); }
 
         .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px 22px 30px; }
@@ -49,13 +45,13 @@
         .panel { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; transform: translateY(100%); transition: 0.4s; padding: 40px 20px; color: #fff; overflow-y: auto; }
         .panel.open { transform: translateY(0); }
         .row { background: #111; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
-        select { background: #222; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 160px; font-weight: bold; }
+        select { background: #222; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 140px; }
         .sw { width: 50px; height: 26px; background: #333; border-radius: 20px; position: relative; }
         .sw.on { background: #2ecc71; }
         .sw::after { content:''; position:absolute; width:22px; height:22px; background:#fff; border-radius:50%; top:2px; left:2px; transition: 0.2s; }
         .sw.on::after { transform: translateX(24px); }
-        #history-box { margin-top: 15px; max-height: 250px; overflow-y: auto; background: #080808; padding: 10px; border-radius: 10px; border: 1px solid #333; }
-        .hist-item { padding: 12px; border-bottom: 1px solid #222; font-family: monospace; color: var(--accent); font-size: 1rem; }
+        #history-box { margin-top: 15px; }
+        .hist-item { padding: 12px; border-bottom: 1px solid #222; color: var(--accent); font-family: monospace; }
     </style>
 </head>
 <body class="t-0">
@@ -73,7 +69,7 @@
         
         <div class="windshield" onclick="cycleTheme()">
             <div class="mini-jag">🐆 JAGUAR V12</div>
-            <div id="layer-eq"></div>
+            <div id="layer-eq">0</div>
             <div id="layer-ans">0</div>
         </div>
 
@@ -100,8 +96,8 @@
         <h2>🐆 GARAGE</h2>
         <button onclick="clearHistory()" style="background:#ff4d4d; color:#fff; border:none; padding:5px 10px; border-radius:5px;">CLEAR</button>
     </div>
-    <div class="row">Beep Sound <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
-    <div class="row">Piano Sound <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
+    <div class="row">Beep Profile <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+    <div class="row">Piano Profile <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
     <div class="row">Voice Guide <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
     <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
     <div id="history-box"></div>
@@ -190,8 +186,8 @@
             if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; }
             else { 
                 if(currentInput !== "") equationArr.push(currentInput);
-                if(equationArr.length && !isNaN(equationArr[equationArr.length-1])) equationArr.push(v);
-                else if(equationArr.length) equationArr[equationArr.length-1] = v;
+                if(equationArr.length && isNaN(equationArr[equationArr.length-1])) equationArr[equationArr.length-1] = v;
+                else if(equationArr.length) equationArr.push(v);
                 currentInput = ""; 
             }
             speak(v); 
@@ -209,7 +205,7 @@
         }
         else if(v === '=') {
             let res = calculateArr([...equationArr, currentInput]);
-            addHistory(equationArr.join(" ") + " " + currentInput + " = " + res);
+            addHistory(equationArr.join(" ") + (currentInput ? " " + currentInput : "") + " = " + res);
             currentInput = res; equationArr = []; isResultShown = true; speak(res);
         } else {
             if(isResultShown) { currentInput = v; isResultShown = false; }
@@ -222,8 +218,9 @@
     function calculateArr(arr) {
         try { 
             let s = arr.filter(x => x !== "").join(" ").replace(/×/g,'*').replace(/÷/g,'/');
-            if(['+','-','*','/'].includes(arr[arr.length-1])) s = s.slice(0, -1);
-            return s ? Number(eval(s).toFixed(8)).toString() : "0"; 
+            if(s.length === 0) return "0";
+            if(['+','-','*','/'].includes(s.trim().slice(-1))) s = s.trim().slice(0, -1);
+            return Number(eval(s).toFixed(8)).toString(); 
         } catch { return "0"; }
     }
 
@@ -232,20 +229,25 @@
         let l1Str = equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
         const eqEl = document.getElementById('layer-eq');
         eqEl.innerText = toG(l1Str || "0");
-        document.getElementById('layer-ans').innerText = toG(isResultShown ? currentInput : calculateArr([...equationArr, currentInput]));
+        let resValue = isResultShown ? currentInput : calculateArr([...equationArr, currentInput]);
+        document.getElementById('layer-ans').innerText = toG(resValue);
         eqEl.scrollLeft = eqEl.scrollWidth;
     }
 
     function addHistory(item) {
         let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
-        h.unshift(item); h = h.slice(0, 10);
+        h.unshift(item); 
+        // Auto-delete earlier history after 10 entries
+        if(h.length > 10) h = h.slice(0, 10);
         localStorage.setItem('jag_hist', JSON.stringify(h));
         renderHistory();
     }
+    
     function renderHistory() {
         const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
         document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${i}</div>`).join('');
     }
+    
     function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
 
     function playTone(v) {
