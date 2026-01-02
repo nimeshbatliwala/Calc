@@ -4,76 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Jaguar V12 Platinum</title>
+    <title>Jaguar V12 Platinum Full</title>
     <style>
-        :root { --depth: 6px; }
-        body.t-0 { --car: #e60000; --accent: #ffffff; --shape: 80px 80px 120px 120px; --key: #1a1a1a; --glow: #fff; } 
-        body.t-1 { --car: #000000; --accent: #00f2ff; --shape: 30px 30px 150px 150px; --key: #111111; --glow: #00f2ff; } 
-        body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 100px 30px 100px 30px; --key: #2c3e50; --glow: #ffdd00; } 
-        body.t-3 { --car: #ffffff; --accent: #d00000; --shape: 60px 60px 150px 150px; --key: #222222; --glow: #ff0000; } 
-        body.t-4 { --car: #2ecc71; --accent: #ffffff; --shape: 50px 50px 120px 120px; --key: #0e331d; --glow: #fff; } 
-        body.t-5 { --car: #8e44ad; --accent: #00ffcc; --shape: 100px 100px 40px 40px; --key: #2e1b3b; --glow: #00ffcc; } 
-        body.t-6 { --car: #ff007f; --accent: #ffffff; --shape: 70px 70px 150px 150px; --key: #3b001d; --glow: #fff; } 
-        body.t-7 { --car: #2980b9; --accent: #00f2ff; --shape: 120px 120px 30px 30px; --key: #1a3e59; --glow: #00f2ff; }
+        :root { --depth: 0px; }
+        body.t-0 { --car: #ff1a1a; --accent: #ffffff; --shape: 60px 60px 100px 100px; --key: #151515; --glow: #ffffff; --text: #fff; } 
+        body.t-1 { --car: #050505; --accent: #00f2ff; --shape: 20px 20px 80px 80px; --key: #111111; --glow: #00f2ff; --text: #fff; } 
+        body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 80px 20px 80px 20px; --key: #1c1c1c; --glow: #ffdd00; --text: #fff; } 
+        body.t-3 { --car: #ffffff; --accent: #ff0000; --shape: 60px 60px 60px 60px; --key: #f2f2f2; --glow: #ff0000; --text: #111; } 
+        body.t-4 { --car: #00ff88; --accent: #ffffff; --shape: 40px 120px 40px 120px; --key: #051a10; --glow: #00ff88; --text: #fff; } 
+        body.t-5 { --car: #7000ff; --accent: #00ffcc; --shape: 100px 100px 100px 100px; --key: #150030; --glow: #00ffcc; --text: #fff; } 
+        body.t-6 { --car: #ff007f; --accent: #ffffff; --shape: 150px 30px 150px 30px; --key: #200010; --glow: #ff007f; --text: #fff; } 
+        body.t-7 { --car: #0066ff; --accent: #00e5ff; --shape: 40px 40px 120px 120px; --key: #001a33; --glow: #00e5ff; --text: #fff; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
-        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; }
+        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: 'Inter', system-ui, sans-serif; }
 
-        #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
-        .jag-icon { font-size: 130px; filter: drop-shadow(0 0 20px #fff); }
-        #start-btn { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(#f00, #600); border: 4px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 20px #f00; cursor: pointer; margin-top: 40px; }
+        #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .jag-logo { font-size: 90px; filter: drop-shadow(0 0 20px #fff); }
+        #start-btn { width: 120px; height: 120px; border-radius: 50%; background: #111; border: 2px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 40px rgba(255,255,255,0.1); cursor: pointer; margin-top: 40px; }
 
-        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; }
-        #chassis { width: 94%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; transition: 0.5s; }
+        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; }
+        #chassis { width: 94%; height: 97%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.5s; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
 
-        .headlight { position: absolute; top: 15px; width: 50px; height: 22px; background: #fff; border-radius: 50%; box-shadow: 0 0 30px 5px var(--glow); z-index: 10; }
-        .l-light { left: 30px; } .r-light { right: 30px; }
-        #mirror { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 80px; height: 35px; background: rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.3); border-radius: 0 0 20px 20px; z-index: 100; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
-        #exit-track { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); width: 180px; height: 30px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; z-index: 90; }
-        #exit-slider { width: 70px; height: 100%; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.75rem; font-weight: 900; }
+        /* Restored Headlights and Mirror */
+        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; }
+        .l-light { left: 35px; } .r-light { right: 35px; }
+        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
+        
+        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.2); border-radius: 10px; z-index: 90; }
+        #exit-slider { width: 60px; height: 22px; background: #fff; border-radius: 12px; position: absolute; top: -9px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 10px #fff; }
 
-        .windshield { margin: 85px 22px 5px; height: 26%; background: rgba(0,0,0,0.96); border-radius: 35px 35px 15px 15px; border: 2px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: right; position: relative; }
-        .mini-jag { position: absolute; left: 15px; top: 10px; font-size: 1rem; opacity: 0.3; color: #fff; }
-        #layer-eq { color: rgba(255,255,255,0.8); font-size: 1.4rem; font-weight: 600; padding-top: 15px; overflow-x: auto; white-space: nowrap; direction: ltr; }
-        #layer-ans { color: var(--accent); font-size: 3.5rem; font-weight: 900; line-height: 0.9; text-shadow: 0 0 15px var(--glow); }
+        .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
+        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
+        
+        #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; overflow-y: hidden; direction: ltr; margin-bottom: 5px; font-weight: 400; text-shadow: 0 0 10px var(--glow); scroll-behavior: smooth; }
+        #layer-eq::-webkit-scrollbar { display: none; }
+        #layer-ans { color: var(--accent); font-size: 2.7rem; font-weight: 800; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; }
 
-        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px 22px 30px; }
-        .key { background: var(--key); border-radius: 18px; font-size: 1.8rem; font-weight: 800; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 var(--depth) 0 #000; }
-        .key:active { transform: translateY(3px); box-shadow: 0 2px 0 #000; }
-        .k-eq { background: var(--accent) !important; color: #000 !important; }
+        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; }
+        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); }
+        .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); transform: scale(0.92); }
+        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; font-weight: 900; }
 
-        .panel { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; transform: translateY(100%); transition: 0.4s; padding: 40px 20px; color: #fff; overflow-y: auto; }
-        .panel.open { transform: translateY(0); }
-        .row { background: #111; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
-        select { background: #222; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 140px; }
-        .sw { width: 50px; height: 26px; background: #333; border-radius: 20px; position: relative; }
-        .sw.on { background: #2ecc71; }
-        .sw::after { content:''; position:absolute; width:22px; height:22px; background:#fff; border-radius:50%; top:2px; left:2px; transition: 0.2s; }
-        .sw.on::after { transform: translateX(24px); }
-        .hist-item { padding: 12px; border-bottom: 1px solid #222; color: var(--accent); font-family: monospace; }
+        .panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); }
+        .panel.open { display: flex; }
+        .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 30px; color: #fff; box-shadow: 0 40px 100px #000; max-height: 85vh; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal h2 { font-weight: 300; letter-spacing: 5px; font-size: 1.2rem; color: var(--accent); }
+        .clear-btn { background: rgba(255,59,59,0.15); color: #ff3b3b; border: 1px solid #ff3b3b; padding: 8px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
+        
+        .row { background: rgba(255,255,255,0.03); padding: 14px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; text-align: center; color-scheme: dark; }
+        
+        .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; border: 1px solid #444; }
+        .sw.on { background: var(--accent); border-color: var(--accent); }
+        .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:2px; left:4px; transition: 0.2s; }
+        .sw.on::after { transform: translateX(24px); background: #000; }
+        
+        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; text-shadow: 0 0 5px var(--glow); }
     </style>
 </head>
 <body class="t-0">
 
 <div id="splash">
-    <div class="jag-icon">🐆</div>
-    <button id="start-btn" onclick="startEngine()">START</button>
+    <div class="jag-logo">🐆</div>
+    <button id="start-btn" onclick="startEngine()">POWER ON</button>
 </div>
 
 <div id="main-ui">
     <div id="chassis">
         <div class="headlight l-light"></div><div class="headlight r-light"></div>
-        <div id="mirror" onclick="toggleSet()">⚙️</div>
-        <div id="exit-track"><div id="exit-slider">OFF ➔</div></div>
+        <div id="mirror" onclick="toggleSet()">⚙️ GARAGE</div>
+        <div id="exit-track"><div id="exit-slider">OFF</div></div>
         
         <div class="windshield" onclick="cycleTheme()">
-            <div class="mini-jag">🐆 JAGUAR V12</div>
+            <div class="mini-jag">V12 PLATINUM</div>
             <div id="layer-eq">0</div>
             <div id="layer-ans">0</div>
         </div>
 
         <div class="keypad" id="pad">
-            <button class="key" data-val="AC" style="color:#ff4d4d">AC</button>
+            <button class="key" data-val="AC" style="color:#ff3b3b">AC</button>
             <button class="key" data-val="DEL">⌫</button>
             <button class="key" data-val="%">%</button>
             <button class="key" data-val="/" style="color:var(--accent)">÷</button>
@@ -90,17 +102,21 @@
     </div>
 </div>
 
-<div id="settings" class="panel">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <h2>🐆 GARAGE</h2>
-        <button onclick="clearHistory()" style="background:#ff4d4d; color:#fff; border:none; padding:5px 10px; border-radius:5px;">CLEAR</button>
+<div id="settings" class="panel" onclick="if(event.target == this) toggleSet()">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>LOGS & SOUNDS</h2>
+            <button class="clear-btn" onclick="clearHistory()">RESET</button>
+        </div>
+        <div id="history-box"></div>
+        <div style="margin-top:15px; overflow-y: auto;">
+            <div class="row">Soft Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+            <div class="row">Piano <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
+            <div class="row">Voice <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+            <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
+        </div>
+        <button class="key k-eq" style="width:100%; height:50px; margin-top:10px; border-radius:18px; font-size: 1rem;" onclick="toggleSet()">EXIT GARAGE</button>
     </div>
-    <div class="row">Beep Profile <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
-    <div class="row">Piano Profile <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
-    <div class="row">Voice Guide <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
-    <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
-    <div id="history-box"></div>
-    <button class="key k-eq" style="width:100%; height:60px; margin-top:20px;" onclick="toggleSet()">EXIT</button>
 </div>
 
 <script>
@@ -118,29 +134,32 @@
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
     const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
     
+    // RESTORED FULL 9 BEEPS
     const beeps = [
-        {name: "Soft Tap", f:800, t:'sine', d:0.1}, {name: "Silk Touch", f:1200, t:'sine', d:0.05},
-        {name: "Digital Click", f:2000, t:'square', d:0.02}, {name: "Low Pulse", f:150, t:'triangle', d:0.15},
-        {name: "Bubble Pop", f:600, t:'sine', d:0.2}, {name: "Feather", f:400, t:'sine', d:0.05},
-        {name: "Glass Ting", f:2500, t:'sine', d:0.1}, {name: "Sport Beep", f:1000, t:'sawtooth', d:0.05}
+        {name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, 
+        {name:"Digital Click",f:2000,t:'square',d:0.02}, {name:"Low Pulse",f:150,t:'triangle',d:0.15}, 
+        {name:"Bubble Pop",f:600,t:'sine',d:0.2}, {name:"Feather",f:400,t:'sine',d:0.05}, 
+        {name:"Glass Ting",f:2500,t:'sine',d:0.1}, {name:"Sport Beep",f:1000,t:'sawtooth',d:0.05},
+        {name:"Eco Click",f:700,t:'sine',d:0.03}
     ];
 
+    // RESTORED FULL 15 PIANO
     const pianoLib = [
-        {name:"Grand Piano", t:'triangle', d:1.2, g:0.15}, {name:"Studio One", t:'sine', d:0.8, g:0.2},
-        {name:"Mellow Gold", t:'sine', d:1.5, g:0.1}, {name:"Honky Tonk", t:'sawtooth', d:0.6, g:0.05},
-        {name:"Electric Sky", t:'square', d:1.0, g:0.04}, {name:"Classic 88", t:'triangle', d:0.9, g:0.1},
-        {name:"Toy Box", t:'sine', d:0.3, g:0.3}, {name:"Bright Key", t:'triangle', d:0.5, g:0.2},
-        {name:"Dark Night", t:'sine', d:2.0, g:0.08}, {name:"Dream State", t:'triangle', d:2.5, g:0.05},
-        {name:"Space Echo", t:'square', d:2.0, g:0.02}, {name:"Jazz Club", t:'sawtooth', d:0.8, g:0.03},
-        {name:"Crystal Bell", t:'sine', d:0.4, g:0.4}, {name:"Soft Wool", t:'triangle', d:1.8, g:0.07},
-        {name:"Cinematic", t:'sawtooth', d:3.0, g:0.02}
+        {name:"Grand Piano",t:'triangle',d:1.2,g:0.15}, {name:"Studio One",t:'sine',d:0.8,g:0.2},
+        {name:"Mellow Gold",t:'sine',d:1.5,g:0.1}, {name:"Honky Tonk",t:'sawtooth',d:0.6,g:0.05},
+        {name:"Electric Sky",t:'square',d:1.0,g:0.04}, {name:"Classic 88",t:'triangle',d:0.9,g:0.1},
+        {name:"Toy Box",t:'sine',d:0.3,g:0.3}, {name:"Bright Key",t:'triangle',d:0.5,g:0.2},
+        {name:"Dark Night",t:'sine',d:2.0,g:0.08}, {name:"Dream State",t:'triangle',d:2.5,g:0.05},
+        {name:"Space Echo",t:'square',d:2.0,g:0.02}, {name:"Jazz Club",t:'sawtooth',d:0.8,g:0.03},
+        {name:"Crystal Bell",t:'sine',d:0.4,g:0.4}, {name:"Soft Wool",t:'triangle',d:1.8,g:0.07},
+        {name:"Cinematic",t:'sawtooth',d:3.0,g:0.02}
     ];
 
     function startEngine() {
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
         playHorn();
-        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
         document.getElementById('splash').style.opacity = '0';
-        setTimeout(() => { document.getElementById('splash').style.display = 'none'; document.getElementById('main-ui').style.display = 'flex'; }, 600);
+        setTimeout(() => { document.getElementById('splash').style.display='none'; document.getElementById('main-ui').style.display='flex'; }, 600);
     }
 
     function playHorn() {
@@ -148,91 +167,47 @@
         const now = audioCtx.currentTime;
         [380, 480].forEach(f => {
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.1, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
-            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.8);
+            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.05, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.6);
         });
     }
 
-    const slider = document.getElementById('exit-slider');
-    let isDragging = false, startX = 0;
-    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
-    window.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        let x = e.touches[0].clientX - startX;
-        if (x < 0) x = 0; if (x > 110) x = 110;
-        slider.style.transform = `translateX(${x}px)`;
-        if (x >= 108) { window.close(); location.reload(); }
-    });
-    window.addEventListener('touchend', () => { isDragging = false; slider.style.transform = `translateX(0px)`; });
-
-    function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
-    function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
-    function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 8; save('themeIdx', settings.themeIdx); initUI(); }
-    function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
-
-    function initUI() {
-        document.body.className = `t-${settings.themeIdx}`;
-        document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
-        document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
-        
-        const b = document.getElementById('b-sel');
-        b.innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
-        b.value = settings.beepProf;
-        
-        const p = document.getElementById('p-sel');
-        p.innerHTML = '<option value="none">Mute</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
-        p.value = settings.pianoProf;
-        
-        // RE-RENDER KEYPAD FONT
-        const keys = document.querySelectorAll('.key');
-        keys.forEach(k => {
-            const val = k.dataset.val;
-            if(val) {
-                k.innerText = settings.isG ? (gMap[val] || val) : val;
-            }
-        });
-
-        renderHistory(); updateDisplay();
-    }
-
-    function handleKey(v) {
+    function handleKey(v, element) {
+        element.classList.add('active-glow');
+        setTimeout(() => element.classList.remove('active-glow'), 120);
         playTone(v);
-        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; speak("Clear"); }
+        
+        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; }
         else if(v === 'DEL') { 
             if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; }
             else currentInput = currentInput.slice(0,-1); 
-            speak("Back"); 
         }
-        else if(['+','-','*','/'].includes(v)) { 
+        else if(['+','-','*','/'].includes(v)) {
             if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; }
-            else { 
+            else {
                 if(currentInput !== "") equationArr.push(currentInput);
                 if(equationArr.length && isNaN(equationArr[equationArr.length-1])) equationArr[equationArr.length-1] = v;
                 else if(equationArr.length) equationArr.push(v);
-                currentInput = ""; 
+                currentInput = "";
             }
-            speak(v); 
         }
         else if(v === '%') {
-            if(equationArr.length >= 2 && currentInput !== "") {
-                let base = parseFloat(calculateArr(equationArr.slice(0, -1)));
-                let op = equationArr[equationArr.length-1];
-                if(op === '+' || op === '-') currentInput = ((base * parseFloat(currentInput)) / 100).toString();
-                else currentInput = (parseFloat(currentInput) / 100).toString();
+            if(currentInput !== "" && equationArr.length >= 2) {
+                let base = parseFloat(equationArr[0]);
+                let perc = parseFloat(currentInput);
+                currentInput = ((base * perc) / 100).toString();
             } else if(currentInput !== "") {
                 currentInput = (parseFloat(currentInput) / 100).toString();
             }
-            speak("Percent");
         }
         else if(v === '=') {
             let res = calculateArr([...equationArr, currentInput]);
             addHistory(equationArr.join(" ") + (currentInput ? " " + currentInput : "") + " = " + res);
-            currentInput = res; equationArr = []; isResultShown = true; speak(res);
+            currentInput = res; equationArr = []; isResultShown = true;
         } else {
             if(isResultShown) { currentInput = v; isResultShown = false; }
             else currentInput += v;
-            speak(v);
         }
         updateDisplay();
     }
@@ -251,15 +226,31 @@
         let l1Str = equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
         const eqEl = document.getElementById('layer-eq');
         eqEl.innerText = toG(l1Str || "0");
+        eqEl.scrollLeft = eqEl.scrollWidth;
         let resValue = isResultShown ? currentInput : calculateArr([...equationArr, currentInput]);
         document.getElementById('layer-ans').innerText = toG(resValue);
-        eqEl.scrollLeft = eqEl.scrollWidth;
+    }
+
+    function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
+    function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
+    function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 8; save('themeIdx', settings.themeIdx); initUI(); }
+    function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
+
+    function initUI() {
+        document.body.className = `t-${settings.themeIdx}`;
+        document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
+        document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
+        document.getElementById('b-sel').innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
+        document.getElementById('b-sel').value = settings.beepProf;
+        document.getElementById('p-sel').innerHTML = '<option value="none">Mute Piano</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
+        document.getElementById('p-sel').value = settings.pianoProf;
+        document.querySelectorAll('.key').forEach(k => { if(k.dataset.val) k.innerText = settings.isG ? (gMap[k.dataset.val] || k.dataset.val) : k.dataset.val; });
+        renderHistory(); updateDisplay();
     }
 
     function addHistory(item) {
         let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
-        h.unshift(item); 
-        if(h.length > 10) h = h.slice(0, 10);
+        h.unshift(item); if(h.length > 15) h = h.slice(0, 15);
         localStorage.setItem('jag_hist', JSON.stringify(h));
         renderHistory();
     }
@@ -267,9 +258,9 @@
     function renderHistory() {
         const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
         const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
-        document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('');
+        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No Logs</div>';
     }
-    
+
     function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
 
     function playTone(v) {
@@ -278,7 +269,7 @@
         if(settings.beepProf !== 'none') {
             const b = beeps[parseInt(settings.beepProf.substring(1))-1];
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.05, now);
+            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
             g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
             o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
         }
@@ -292,16 +283,20 @@
         }
     }
 
-    function speak(t) {
-        if(!settings.isSpeak) return;
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(t);
-        u.lang = settings.isG ? 'gu-IN' : 'en-IN';
-        u.rate = 2.4; window.speechSynthesis.speak(u);
-    }
+    const slider = document.getElementById('exit-slider');
+    let isDragging = false, startX = 0;
+    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        let x = e.touches[0].clientX - startX;
+        if (x < 0) x = 0; if (x > 100) x = 100;
+        slider.style.left = x + 'px';
+        if (x >= 98) location.reload();
+    });
+    window.addEventListener('touchend', () => { isDragging = false; slider.style.left = '0px'; });
 
     document.getElementById('pad').addEventListener('touchstart', e => {
-        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val); }
+        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); }
     });
     initUI();
 </script>
