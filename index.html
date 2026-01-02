@@ -50,7 +50,6 @@
         .sw.on { background: #2ecc71; }
         .sw::after { content:''; position:absolute; width:22px; height:22px; background:#fff; border-radius:50%; top:2px; left:2px; transition: 0.2s; }
         .sw.on::after { transform: translateX(24px); }
-        #history-box { margin-top: 15px; }
         .hist-item { padding: 12px; border-bottom: 1px solid #222; color: var(--accent); font-family: monospace; }
     </style>
 </head>
@@ -74,7 +73,7 @@
         </div>
 
         <div class="keypad" id="pad">
-            <button class="key k-ac" data-val="AC" style="color:#ff4d4d">AC</button>
+            <button class="key" data-val="AC" style="color:#ff4d4d">AC</button>
             <button class="key" data-val="DEL">⌫</button>
             <button class="key" data-val="%">%</button>
             <button class="key" data-val="/" style="color:var(--accent)">÷</button>
@@ -118,13 +117,25 @@
 
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.'};
     const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
+    
     const beeps = [
         {name: "Soft Tap", f:800, t:'sine', d:0.1}, {name: "Silk Touch", f:1200, t:'sine', d:0.05},
         {name: "Digital Click", f:2000, t:'square', d:0.02}, {name: "Low Pulse", f:150, t:'triangle', d:0.15},
         {name: "Bubble Pop", f:600, t:'sine', d:0.2}, {name: "Feather", f:400, t:'sine', d:0.05},
         {name: "Glass Ting", f:2500, t:'sine', d:0.1}, {name: "Sport Beep", f:1000, t:'sawtooth', d:0.05}
     ];
-    const pianos = ["Grand Piano", "Studio One", "Mellow Gold", "Honky Tonk", "Electric Sky", "Classic 88", "Toy Box", "Bright Key", "Dark Night", "Dream State", "Space Echo", "Jazz Club", "Crystal Bell", "Soft Wool", "Cinematic"];
+
+    // DEFINED PIANO PROFILES WITH UNIQUE WAVEFORMS AND DECAY
+    const pianoLib = [
+        {name:"Grand Piano", t:'triangle', d:1.2, g:0.15}, {name:"Studio One", t:'sine', d:0.8, g:0.2},
+        {name:"Mellow Gold", t:'sine', d:1.5, g:0.1}, {name:"Honky Tonk", t:'sawtooth', d:0.6, g:0.05},
+        {name:"Electric Sky", t:'square', d:1.0, g:0.04}, {name:"Classic 88", t:'triangle', d:0.9, g:0.1},
+        {name:"Toy Box", t:'sine', d:0.3, g:0.3}, {name:"Bright Key", t:'triangle', d:0.5, g:0.2},
+        {name:"Dark Night", t:'sine', d:2.0, g:0.08}, {name:"Dream State", t:'triangle', d:2.5, g:0.05},
+        {name:"Space Echo", t:'square', d:2.0, g:0.02}, {name:"Jazz Club", t:'sawtooth', d:0.8, g:0.03},
+        {name:"Crystal Bell", t:'sine', d:0.4, g:0.4}, {name:"Soft Wool", t:'triangle', d:1.8, g:0.07},
+        {name:"Cinematic", t:'sawtooth', d:3.0, g:0.02}
+    ];
 
     function startEngine() {
         playHorn();
@@ -165,12 +176,15 @@
         document.body.className = `t-${settings.themeIdx}`;
         document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
         document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
+        
         const b = document.getElementById('b-sel');
         b.innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
         b.value = settings.beepProf;
+        
         const p = document.getElementById('p-sel');
-        p.innerHTML = '<option value="none">Mute</option>' + pianos.map((n, i) => `<option value="p${i+1}">${n}</option>`).join('');
+        p.innerHTML = '<option value="none">Mute</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
         p.value = settings.pianoProf;
+        
         renderHistory(); updateDisplay();
     }
 
@@ -237,7 +251,6 @@
     function addHistory(item) {
         let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
         h.unshift(item); 
-        // Auto-delete earlier history after 10 entries
         if(h.length > 10) h = h.slice(0, 10);
         localStorage.setItem('jag_hist', JSON.stringify(h));
         renderHistory();
@@ -253,18 +266,25 @@
     function playTone(v) {
         if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
+        
+        // BEEP LOGIC
         if(settings.beepProf !== 'none') {
-            const p = beeps[parseInt(settings.beepProf.substring(1))-1];
+            const b = beeps[parseInt(settings.beepProf.substring(1))-1];
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = p.t; o.frequency.value = p.f; g.gain.setValueAtTime(0.05, now);
+            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.05, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
+        }
+        
+        // PIANO LOGIC (Unique per profile)
+        if(settings.pianoProf !== 'none' && freqMap[v]) {
+            const p = pianoLib[parseInt(settings.pianoProf.substring(1))-1];
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = p.t;
+            o.frequency.setValueAtTime(freqMap[v], now);
+            g.gain.setValueAtTime(p.g, now);
             g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
             o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
-        }
-        if(settings.pianoProf !== 'none' && freqMap[v]) {
-            const op = audioCtx.createOscillator(); const gp = audioCtx.createGain();
-            op.type = 'triangle'; op.frequency.value = freqMap[v]; gp.gain.setValueAtTime(0.1, now);
-            gp.gain.exponentialRampToValueAtTime(0.001, now + 1);
-            op.connect(gp); gp.connect(audioCtx.destination); op.start(); op.stop(now + 1);
         }
     }
 
