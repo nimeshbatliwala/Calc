@@ -26,13 +26,12 @@
         #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; }
         #chassis { width: 94%; height: 97%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.5s; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* Restored Headlights and Mirror */
         .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; }
         .l-light { left: 35px; } .r-light { right: 35px; }
         #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
         
-        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.2); border-radius: 10px; z-index: 90; }
-        #exit-slider { width: 60px; height: 22px; background: #fff; border-radius: 12px; position: absolute; top: -9px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 10px #fff; }
+        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
+        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; transition: left 0.05s linear; touch-action: none; }
 
         .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
         .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
@@ -134,7 +133,6 @@
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
     const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
     
-    // RESTORED FULL 9 BEEPS
     const beeps = [
         {name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, 
         {name:"Digital Click",f:2000,t:'square',d:0.02}, {name:"Low Pulse",f:150,t:'triangle',d:0.15}, 
@@ -143,7 +141,6 @@
         {name:"Eco Click",f:700,t:'sine',d:0.03}
     ];
 
-    // RESTORED FULL 15 PIANO
     const pianoLib = [
         {name:"Grand Piano",t:'triangle',d:1.2,g:0.15}, {name:"Studio One",t:'sine',d:0.8,g:0.2},
         {name:"Mellow Gold",t:'sine',d:1.5,g:0.1}, {name:"Honky Tonk",t:'sawtooth',d:0.6,g:0.05},
@@ -267,33 +264,58 @@
         if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
         if(settings.beepProf !== 'none') {
-            const b = beeps[parseInt(settings.beepProf.substring(1))-1];
-            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
-            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
+            const bIndex = parseInt(settings.beepProf.substring(1)) - 1;
+            if(beeps[bIndex]) {
+                const b = beeps[bIndex];
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
+                g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
+                o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
+            }
         }
         if(settings.pianoProf !== 'none' && freqMap[v]) {
-            const p = pianoLib[parseInt(settings.pianoProf.substring(1))-1];
-            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = p.t; o.frequency.setValueAtTime(freqMap[v], now);
-            g.gain.setValueAtTime(p.g, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
-            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
+            const pIndex = parseInt(settings.pianoProf.substring(1)) - 1;
+            if(pianoLib[pIndex]) {
+                const p = pianoLib[pIndex];
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = p.t; o.frequency.setValueAtTime(freqMap[v], now);
+                g.gain.setValueAtTime(p.g, now);
+                g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
+                o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
+            }
         }
     }
 
+    // FIXED EXIT SLIDER LOGIC
     const slider = document.getElementById('exit-slider');
-    let isDragging = false, startX = 0;
-    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
+    const track = document.getElementById('exit-track');
+    let isDragging = false, startX = 0, trackWidth = 160, sliderWidth = 60;
+
+    slider.addEventListener('touchstart', (e) => { 
+        isDragging = true; 
+        startX = e.touches[0].clientX;
+        slider.style.transition = 'none';
+    });
+
     window.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
-        let x = e.touches[0].clientX - startX;
-        if (x < 0) x = 0; if (x > 100) x = 100;
+        let deltaX = e.touches[0].clientX - startX;
+        let maxX = trackWidth - sliderWidth;
+        let x = Math.max(0, Math.min(deltaX, maxX));
         slider.style.left = x + 'px';
-        if (x >= 98) location.reload();
+        
+        if (x >= maxX * 0.95) {
+            isDragging = false;
+            location.reload();
+        }
     });
-    window.addEventListener('touchend', () => { isDragging = false; slider.style.left = '0px'; });
+
+    window.addEventListener('touchend', () => { 
+        if (!isDragging) return;
+        isDragging = false; 
+        slider.style.transition = 'left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        slider.style.left = '0px'; 
+    });
 
     document.getElementById('pad').addEventListener('touchstart', e => {
         if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); }
