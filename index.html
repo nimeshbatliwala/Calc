@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>V12 Platinum - Ultra Clarity</title>
+    <title>Jaguar V12</title>
     <style>
         :root { --depth: 6px; }
-        
-        /* THEMES TUNED FOR MAXIMUM VISIBILITY */
         body.t-0 { --car: #e60000; --accent: #ffffff; --shape: 80px 80px 120px 120px; --key: #1a1a1a; --glow: #fff; } 
         body.t-1 { --car: #000000; --accent: #00f2ff; --shape: 30px 30px 150px 150px; --key: #111111; --glow: #00f2ff; } 
         body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 100px 30px 100px 30px; --key: #2c3e50; --glow: #ffdd00; } 
@@ -19,115 +17,99 @@
         body.t-7 { --car: #2980b9; --accent: #00f2ff; --shape: 120px 120px 30px 30px; --key: #1a3e59; --glow: #00f2ff; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
-        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #050505; font-family: sans-serif; display: flex; align-items: center; justify-content: center; }
+        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; }
 
-        #chassis {
-            width: 94%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape);
-            box-shadow: 0 40px 100px #000, inset 0 0 50px rgba(0,0,0,0.6); display: flex; flex-direction: column; transition: 0.5s;
-        }
+        #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s; }
+        .jag-icon { font-size: 130px; filter: drop-shadow(0 0 20px #fff); animation: logo-glow 2s infinite alternate; }
+        @keyframes logo-glow { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
+        #start-btn { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(#f00, #600); border: 4px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 20px #f00; cursor: pointer; margin-top: 40px; }
 
-        .mirror { width: 34px; height: 18px; background: linear-gradient(145deg, #f0f0f0, #888, #444); position: absolute; top: 180px; z-index: 10; border: 1.5px solid #222; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
-        .m-l { left: -28px; border-radius: 12px 2px 2px 12px; }
-        .m-r { right: -28px; border-radius: 2px 12px 12px 2px; }
+        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; }
+        #chassis { width: 94%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; transition: 0.5s; box-shadow: 0 40px 100px #000; }
 
-        .headlight { width: 55px; height: 22px; position: absolute; top: 12px; border-radius: 50%; background: radial-gradient(circle, #fff 10%, #add8e6 40%, transparent 80%); box-shadow: 0 0 40px 10px var(--glow); opacity: 0.95; }
-
-        .windshield {
-            margin: 45px 22px 5px; height: 32%; background: rgba(0,0,0,0.96); border-radius: 35px 35px 15px 15px;
-            border: 2px solid rgba(255,255,255,0.1); padding: 5px 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: right;
-        }
-
-        #layer-eq { 
-            color: rgba(255,255,255,0.9); font-size: 1.6rem; font-weight: 600; 
-            white-space: nowrap; overflow-x: auto; scroll-behavior: smooth; padding-top: 22px; 
-        }
-        #layer-eq::-webkit-scrollbar { display: none; }
+        /* PHYSICAL HARDWARE */
+        .headlight { position: absolute; top: 15px; width: 50px; height: 22px; background: #fff; border-radius: 50%; box-shadow: 0 0 30px 5px var(--glow); z-index: 10; }
+        .l-light { left: 30px; } .r-light { right: 30px; }
         
-        /* 2ND LAYER: DECREASED SIZE + NEON CLARITY */
-        #layer-ans { 
-            color: var(--accent); 
-            font-size: 3.4rem; /* Slightly decreased */
-            font-weight: 900; 
-            line-height: 0.9; 
-            /* Multi-layer shadow for ultimate clarity */
-            text-shadow: 
-                2px 2px 0px #000, 
-                -1px -1px 0px #000, 
-                0 0 15px var(--glow); 
-            overflow: hidden; 
-            padding-bottom: 2px;
-            margin-bottom: -2px; 
-        }
+        #mirror { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 80px; height: 35px; background: rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.3); border-radius: 0 0 20px 20px; z-index: 100; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
+
+        #exit-track { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); width: 180px; height: 30px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; z-index: 90; }
+        #exit-slider { width: 70px; height: 100%; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.75rem; font-weight: 900; }
+
+        .windshield { margin: 85px 22px 5px; height: 26%; background: rgba(0,0,0,0.96); border-radius: 35px 35px 15px 15px; border: 2px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: right; position: relative; }
+        .mini-jag { position: absolute; left: 15px; top: 10px; font-size: 1rem; opacity: 0.3; color: #fff; }
+        #layer-eq { color: rgba(255,255,255,0.8); font-size: 1.4rem; font-weight: 600; padding-top: 15px; overflow-x: auto; white-space: nowrap; direction: ltr; scroll-behavior: smooth; }
+        #layer-ans { color: var(--accent); font-size: 3.5rem; font-weight: 900; line-height: 0.9; text-shadow: 0 0 15px var(--glow); }
 
         .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px 22px 30px; }
-        .key {
-            background: var(--key); border-radius: 18px; font-size: 1.8rem; font-weight: 800; color: #fff;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 var(--depth) 0 #000; position: relative; transition: 0.05s; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .key:active { transform: translateY(4px); box-shadow: 0 2px 0 #000; filter: brightness(1.4); }
-        .k-ac { color: #ff4d4d !important; }
+        .key { background: var(--key); border-radius: 18px; font-size: 1.8rem; font-weight: 800; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 var(--depth) 0 #000; }
+        .key:active { transform: translateY(3px); box-shadow: 0 2px 0 #000; }
         .k-eq { background: var(--accent) !important; color: #000 !important; }
 
-        .panel { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; transform: translateY(100%); transition: 0.4s; padding: 50px 25px; color: #fff; overflow-y: auto; }
+        .panel { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; transform: translateY(100%); transition: 0.4s; padding: 40px 20px; color: #fff; overflow-y: auto; }
         .panel.open { transform: translateY(0); }
-        .row { background: #111; padding: 18px; border-radius: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
-        select { background: #222; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 170px; font-weight: bold; }
+        .row { background: #111; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        select { background: #222; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 160px; font-weight: bold; }
         .sw { width: 50px; height: 26px; background: #333; border-radius: 20px; position: relative; }
         .sw.on { background: #2ecc71; }
         .sw::after { content:''; position:absolute; width:22px; height:22px; background:#fff; border-radius:50%; top:2px; left:2px; transition: 0.2s; }
         .sw.on::after { transform: translateX(24px); }
+        #history-box { margin-top: 15px; max-height: 250px; overflow-y: auto; background: #080808; padding: 10px; border-radius: 10px; border: 1px solid #333; }
+        .hist-item { padding: 12px; border-bottom: 1px solid #222; font-family: monospace; color: var(--accent); font-size: 1rem; }
     </style>
 </head>
 <body class="t-0">
 
-<div id="chassis">
-    <div class="mirror m-l"></div><div class="mirror m-r"></div>
-    <div class="headlight" style="left:40px;"></div><div class="headlight" style="right:40px;"></div>
+<div id="splash">
+    <div class="jag-icon">🐆</div>
+    <button id="start-btn" onclick="startEngine()">START</button>
+</div>
 
-    <div class="windshield" onclick="cycleTheme()">
-        <div id="layer-eq">0</div>
-        <div id="layer-ans">0</div>
-    </div>
-    
-    <div class="keypad" id="pad">
-        <button class="key k-ac" data-val="AC">AC</button>
-        <button class="key" data-val="DEL">⌫</button>
-        <button class="key" data-val="%">%</button>
-        <button class="key" data-val="/" style="color:var(--accent)">÷</button>
-        <button class="key" data-val="7">7</button>
-        <button class="key" data-val="8">8</button>
-        <button class="key" data-val="9">9</button>
-        <button class="key" data-val="*" style="color:var(--accent)">×</button>
-        <button class="key" data-val="4">4</button>
-        <button class="key" data-val="5">5</button>
-        <button class="key" data-val="6">6</button>
-        <button class="key" data-val="-" style="color:var(--accent)">−</button>
-        <button class="key" data-val="1">1</button>
-        <button class="key" data-val="2">2</button>
-        <button class="key" data-val="3">3</button>
-        <button class="key" data-val="+" style="color:var(--accent)">+</button>
-        <button class="key" data-val="SET">⚙️</button>
-        <button class="key" data-val="0">0</button>
-        <button class="key" data-val=".">.</button>
-        <button class="key k-eq" data-val="=">=</button>
+<div id="main-ui">
+    <div id="chassis">
+        <div class="headlight l-light"></div><div class="headlight r-light"></div>
+        <div id="mirror" onclick="toggleSet()">⚙️</div>
+        <div id="exit-track"><div id="exit-slider">OFF ➔</div></div>
+        
+        <div class="windshield" onclick="cycleTheme()">
+            <div class="mini-jag">🐆 JAGUAR V12</div>
+            <div id="layer-eq"></div>
+            <div id="layer-ans">0</div>
+        </div>
+
+        <div class="keypad" id="pad">
+            <button class="key k-ac" data-val="AC" style="color:#ff4d4d">AC</button>
+            <button class="key" data-val="DEL">⌫</button>
+            <button class="key" data-val="%">%</button>
+            <button class="key" data-val="/" style="color:var(--accent)">÷</button>
+            <button class="key" data-val="7">7</button><button class="key" data-val="8">8</button><button class="key" data-val="9">9</button>
+            <button class="key" data-val="*" style="color:var(--accent)">×</button>
+            <button class="key" data-val="4">4</button><button class="key" data-val="5">5</button><button class="key" data-val="6">6</button>
+            <button class="key" data-val="-" style="color:var(--accent)">−</button>
+            <button class="key" data-val="1">1</button><button class="key" data-val="2">2</button><button class="key" data-val="3">3</button>
+            <button class="key" data-val="+" style="color:var(--accent)">+</button>
+            <button class="key" data-val="00">00</button>
+            <button class="key" data-val="0">0</button><button class="key" data-val=".">.</button>
+            <button class="key k-eq" data-val="=">=</button>
+        </div>
     </div>
 </div>
 
 <div id="settings" class="panel">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
-        <h2>V12 GARAGE</h2>
-        <button style="background:#ff4d4d; color:#fff; border:none; padding:8px 15px; border-radius:10px;" onclick="clearHist()">RESET DATA</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2>🐆 GARAGE</h2>
+        <button onclick="clearHistory()" style="background:#ff4d4d; color:#fff; border:none; padding:5px 10px; border-radius:5px;">CLEAR</button>
     </div>
-    <div class="row">Sound Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
-    <div class="row">Piano Profile <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
-    <div class="row">Voice Engine <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
-    <div class="row">Gujarati Digits <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
-    <div id="history" style="margin-top:20px; color:#777;"></div>
-    <button class="key k-eq" style="width:100%; height:70px; margin-top:30px;" onclick="toggleSet()">DRIVE</button>
+    <div class="row">Beep Sound <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+    <div class="row">Piano Sound <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
+    <div class="row">Voice Guide <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+    <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
+    <div id="history-box"></div>
+    <button class="key k-eq" style="width:100%; height:60px; margin-top:20px;" onclick="toggleSet()">EXIT</button>
 </div>
 
 <script>
-    let equation = "", currentInput = "0", isResultShown = false;
+    let equationArr = [], currentInput = "", isResultShown = false;
     let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     let settings = {
@@ -139,106 +121,148 @@
     };
 
     const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.'};
-    const freq = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760 };
-
-    const beeps = ["Soft Tap", "Silk Touch", "Digital", "Pulse", "Bubble", "Feather", "Glass", "Echo"];
+    const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
+    const beeps = [
+        {name: "Soft Tap", f:800, t:'sine', d:0.1}, {name: "Silk Touch", f:1200, t:'sine', d:0.05},
+        {name: "Digital Click", f:2000, t:'square', d:0.02}, {name: "Low Pulse", f:150, t:'triangle', d:0.15},
+        {name: "Bubble Pop", f:600, t:'sine', d:0.2}, {name: "Feather", f:400, t:'sine', d:0.05},
+        {name: "Glass Ting", f:2500, t:'sine', d:0.1}, {name: "Sport Beep", f:1000, t:'sawtooth', d:0.05}
+    ];
     const pianos = ["Grand Piano", "Studio One", "Mellow Gold", "Honky Tonk", "Electric Sky", "Classic 88", "Toy Box", "Bright Key", "Dark Night", "Dream State", "Space Echo", "Jazz Club", "Crystal Bell", "Soft Wool", "Cinematic"];
+
+    function startEngine() {
+        playHorn();
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+        document.getElementById('splash').style.opacity = '0';
+        setTimeout(() => { document.getElementById('splash').style.display = 'none'; document.getElementById('main-ui').style.display = 'flex'; }, 600);
+    }
+
+    function playHorn() {
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        [380, 480].forEach(f => {
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.1, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.8);
+        });
+    }
+
+    const slider = document.getElementById('exit-slider');
+    let isDragging = false, startX = 0;
+    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        let x = e.touches[0].clientX - startX;
+        if (x < 0) x = 0; if (x > 110) x = 110;
+        slider.style.transform = `translateX(${x}px)`;
+        if (x >= 108) { window.close(); location.reload(); }
+    });
+    window.addEventListener('touchend', () => { isDragging = false; slider.style.transform = `translateX(0px)`; });
 
     function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
     function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
     function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 8; save('themeIdx', settings.themeIdx); initUI(); }
     function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
-    function clearHist() { localStorage.removeItem('calcHistory'); loadHistory(); }
 
     function initUI() {
         document.body.className = `t-${settings.themeIdx}`;
         document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
         document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
         const b = document.getElementById('b-sel');
-        b.innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n}</option>`).join('');
+        b.innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
         b.value = settings.beepProf;
         const p = document.getElementById('p-sel');
-        p.innerHTML = '<option value="none">None</option>' + pianos.map((n, i) => `<option value="p${i+1}">${n}</option>`).join('');
+        p.innerHTML = '<option value="none">Mute</option>' + pianos.map((n, i) => `<option value="p${i+1}">${n}</option>`).join('');
         p.value = settings.pianoProf;
-        loadHistory(); updateDisplay();
+        renderHistory(); updateDisplay();
     }
-
-    document.getElementById('pad').addEventListener('touchstart', e => {
-        const b = e.target.closest('button');
-        if(b) { e.preventDefault(); handleKey(b.dataset.val); }
-    });
 
     function handleKey(v) {
         playTone(v);
-        if(v === 'SET') return toggleSet();
-        if(v === 'AC') { equation = ""; currentInput = "0"; isResultShown = false; speak("Clear"); }
+        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; speak("Clear"); }
         else if(v === 'DEL') { 
-            if(isResultShown) { equation = ""; isResultShown = false; }
-            else if(currentInput.length > 1) currentInput = currentInput.slice(0,-1);
-            else currentInput = "0";
-            speak("Back");
+            if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; }
+            else currentInput = currentInput.slice(0,-1); 
+            speak("Back"); 
         }
-        else if(['+','-','*','/'].includes(v)) {
-            if(isResultShown) { equation = currentInput + " " + v + " "; isResultShown = false; }
-            else { equation += (currentInput !== "0" ? currentInput : "0") + " " + v + " "; }
-            currentInput = "0"; speak(v);
+        else if(['+','-','*','/'].includes(v)) { 
+            if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; }
+            else { 
+                if(currentInput !== "") equationArr.push(currentInput);
+                if(equationArr.length && !isNaN(equationArr[equationArr.length-1])) equationArr.push(v);
+                else if(equationArr.length) equationArr[equationArr.length-1] = v;
+                currentInput = ""; 
+            }
+            speak(v); 
         }
         else if(v === '%') {
-            if(equation) {
-                let parts = equation.trim().split(" ");
-                let base = parseFloat(calculate(parts.slice(0,-1).join(" ")));
-                let percentVal = (base * parseFloat(currentInput)) / 100;
-                currentInput = percentVal.toString();
-            } else {
+            if(equationArr.length >= 2 && currentInput !== "") {
+                let base = parseFloat(calculateArr(equationArr.slice(0, -1)));
+                let op = equationArr[equationArr.length-1];
+                if(op === '+' || op === '-') currentInput = ((base * parseFloat(currentInput)) / 100).toString();
+                else currentInput = (parseFloat(currentInput) / 100).toString();
+            } else if(currentInput !== "") {
                 currentInput = (parseFloat(currentInput) / 100).toString();
             }
+            speak("Percent");
         }
         else if(v === '=') {
-            let res = calculate(equation + currentInput);
-            addHistory(equation + currentInput + " = " + res);
-            currentInput = res; equation = ""; isResultShown = true; speak(res);
-        }
-        else {
-            if(isResultShown) { currentInput = v; equation = ""; isResultShown = false; }
-            else currentInput = (currentInput === "0") ? v : currentInput + v;
+            let res = calculateArr([...equationArr, currentInput]);
+            addHistory(equationArr.join(" ") + " " + currentInput + " = " + res);
+            currentInput = res; equationArr = []; isResultShown = true; speak(res);
+        } else {
+            if(isResultShown) { currentInput = v; isResultShown = false; }
+            else currentInput += v;
             speak(v);
         }
         updateDisplay();
     }
 
-    function calculate(s) {
+    function calculateArr(arr) {
         try { 
-            let clean = s.replace(/×/g, '*').replace(/÷/g, '/');
-            if(!clean || /[\+\-\*\/]$/.test(clean.trim())) clean = clean.trim().slice(0,-1);
-            let res = eval(clean || "0");
-            return Number(res.toFixed(8)).toString(); 
+            let s = arr.filter(x => x !== "").join(" ").replace(/×/g,'*').replace(/÷/g,'/');
+            if(['+','-','*','/'].includes(arr[arr.length-1])) s = s.slice(0, -1);
+            return s ? Number(eval(s).toFixed(8)).toString() : "0"; 
         } catch { return "0"; }
     }
 
     function updateDisplay() {
         const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
-        let l1 = equation + (currentInput === "0" && equation !== "" && !isResultShown ? "" : currentInput);
-        let l2 = isResultShown ? currentInput : calculate(equation + currentInput);
-        const el1 = document.getElementById('layer-eq');
-        el1.innerText = toG(l1 || "0");
-        document.getElementById('layer-ans').innerText = toG(l2 || "0");
-        el1.scrollLeft = el1.scrollWidth;
+        let l1Str = equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
+        const eqEl = document.getElementById('layer-eq');
+        eqEl.innerText = toG(l1Str || "0");
+        document.getElementById('layer-ans').innerText = toG(isResultShown ? currentInput : calculateArr([...equationArr, currentInput]));
+        eqEl.scrollLeft = eqEl.scrollWidth;
     }
+
+    function addHistory(item) {
+        let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        h.unshift(item); h = h.slice(0, 10);
+        localStorage.setItem('jag_hist', JSON.stringify(h));
+        renderHistory();
+    }
+    function renderHistory() {
+        const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${i}</div>`).join('');
+    }
+    function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
 
     function playTone(v) {
         if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
         if(settings.beepProf !== 'none') {
+            const p = beeps[parseInt(settings.beepProf.substring(1))-1];
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.connect(g); g.connect(audioCtx.destination);
-            o.frequency.setValueAtTime(880, now); g.gain.setValueAtTime(0.04, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + 0.1); o.start(); o.stop(now + 0.1);
+            o.type = p.t; o.frequency.value = p.f; g.gain.setValueAtTime(0.05, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
         }
-        if(settings.pianoProf !== 'none' && freq[v]) {
+        if(settings.pianoProf !== 'none' && freqMap[v]) {
             const op = audioCtx.createOscillator(); const gp = audioCtx.createGain();
-            op.connect(gp); gp.connect(audioCtx.destination); op.type = 'triangle';
-            op.frequency.setValueAtTime(freq[v], now); gp.gain.setValueAtTime(0.12, now);
-            gp.gain.exponentialRampToValueAtTime(0.001, now + 1.2); op.start(); op.stop(now + 1.2);
+            op.type = 'triangle'; op.frequency.value = freqMap[v]; gp.gain.setValueAtTime(0.1, now);
+            gp.gain.exponentialRampToValueAtTime(0.001, now + 1);
+            op.connect(gp); gp.connect(audioCtx.destination); op.start(); op.stop(now + 1);
         }
     }
 
@@ -250,15 +274,9 @@
         u.rate = 2.4; window.speechSynthesis.speak(u);
     }
 
-    function addHistory(i) {
-        let h = JSON.parse(localStorage.getItem('calcHistory') || "[]");
-        h.unshift(i); if(h.length > 5) h.pop();
-        localStorage.setItem('calcHistory', JSON.stringify(h)); loadHistory();
-    }
-    function loadHistory() {
-        let h = JSON.parse(localStorage.getItem('calcHistory') || "[]");
-        document.getElementById('history').innerHTML = h.map(x => `<div>${x}</div>`).join('');
-    }
+    document.getElementById('pad').addEventListener('touchstart', e => {
+        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val); }
+    });
     initUI();
 </script>
 </body>
