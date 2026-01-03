@@ -4,81 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Jaguar V12 Platinum - Celeb Edition</title>
+    <title>Jaguar V12 - Master Edition</title>
     <style>
         :root { --depth: 0px; }
-        body.t-0 { --car: #ff1a1a; --accent: #ffffff; --shape: 60px 60px 100px 100px; --key: #151515; --glow: #ffffff; --text: #fff; } 
-        body.t-1 { --car: #050505; --accent: #00f2ff; --shape: 20px 20px 80px 80px; --key: #111111; --glow: #00f2ff; --text: #fff; } 
-        body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 80px 20px 80px 20px; --key: #1c1c1c; --glow: #ffdd00; --text: #fff; } 
-        body.t-3 { --car: #ffffff; --accent: #ff0000; --shape: 60px 60px 60px 60px; --key: #f2f2f2; --glow: #ff0000; --text: #111; } 
-        body.t-4 { --car: #00ff88; --accent: #ffffff; --shape: 40px 120px 40px 120px; --key: #051a10; --glow: #00ff88; --text: #fff; } 
-        body.t-5 { --car: #7000ff; --accent: #00ffcc; --shape: 100px 100px 100px 100px; --key: #150030; --glow: #00ffcc; --text: #fff; } 
-        body.t-6 { --car: #ff007f; --accent: #ffffff; --shape: 150px 30px 150px 30px; --key: #200010; --glow: #ff007f; --text: #fff; } 
-        body.t-7 { --car: #0066ff; --accent: #00e5ff; --shape: 40px 40px 120px 120px; --key: #001a33; --glow: #00e5ff; --text: #fff; }
+        
+        /* 25 THEMES - ALL SHAPES RESTORED & COLORS OPTIMIZED */
+        body.t-0 { --car: #ff1a1a; --accent: #ffffff; --shape: 60px 60px 100px 100px; --key: #151515; --glow: #ffffff; --text: #fff; --bg: #000; --k-rad: 22px; --ans-clr: #fff; } 
+        body.t-1 { --car: #245edb; --accent: #8cc700; --shape: 5px 40px 5px 5px; --key: #ffffff; --glow: #8cc700; --text: #000; --bg: #003399; --k-rad: 8px; --ans-clr: #8cc700; } 
+        body.t-2 { --car: rgba(255,255,255,0.1); --accent: #60cdff; --shape: 25px; --key: rgba(255,255,255,0.15); --glow: #60cdff; --text: #fff; --bg: #001a33; --k-rad: 12px; --ans-clr: #60cdff; } 
+        body.t-3 { --car: #000; --accent: #00ff41; --shape: 0px; --key: #050505; --glow: #00ff41; --text: #00ff41; --bg: #000; --k-rad: 0px; border: 1px solid #00ff41; --ans-clr: #00ff41; } 
+        body.t-4 { --car: #fcee0a; --accent: #000; --shape: 50px 0 50px 0; --key: #000; --glow: #fcee0a; --text: #fcee0a; --bg: #000; --k-rad: 5px; --ans-clr: #fcee0a; } 
+        body.t-5 { --car: #5d3fd3; --accent: #00ffcc; --shape: 100px 100px 100px 100px; --key: #1a0033; --glow: #00ffcc; --text: #fff; --bg: #0d001a; --k-rad: 30px; --ans-clr: #00ffcc; } 
+        body.t-6 { --car: #ffffff; --accent: #ff4500; --shape: 35px; --key: #f0f0f0; --glow: #ff4500; --text: #111; --bg: #eee; --k-rad: 15px; --ans-clr: #ff4500; } 
+        body.t-7 { --car: #222; --accent: #fbbf24; --shape: 20px 80px 20px 80px; --key: #111; --glow: #fbbf24; --text: #fff; --bg: #000; --k-rad: 18px; --ans-clr: #fbbf24; } 
+        body.t-8 { --car: #000; --accent: #ff0000; --shape: 60px 60px 100px 100px; --key: #1a1a1a; --glow: #ff0000; --text: #fff; --bg: #000; --k-rad: 15px; --ans-clr: #ff0000; } 
+        body.t-9 { --car: #fff; --accent: #d4af37; --shape: 40px; --key: #fff; --glow: #d4af37; --text: #333; --bg: #f5f5f5; --k-rad: 50px; --ans-clr: #d4af37; } 
+        body.t-10 { --car: #10b981; --accent: #fff; --shape: 40px 120px 40px 120px; --key: #064e3b; --glow: #10b981; --text: #fff; --bg: #022c22; --k-rad: 25px; --ans-clr: #10b981; } 
+        body.t-11 { --car: #db2777; --accent: #fff; --shape: 150px 30px 150px 30px; --key: #500724; --glow: #db2777; --text: #fff; --bg: #000; --k-rad: 30px; --ans-clr: #db2777; } 
+        body.t-12 { --car: #3b82f6; --accent: #fff; --shape: 20px 80px 20px 80px; --key: #172554; --glow: #3b82f6; --text: #fff; --bg: #020617; --k-rad: 20px; --ans-clr: #3b82f6; } 
+        body.t-13 { --car: #000; --accent: #39ff14; --shape: 10px; --key: #000; --glow: #39ff14; --text: #39ff14; --bg: #000; --k-rad: 5px; --ans-clr: #39ff14; } 
+        body.t-14 { --car: #777; --accent: #ff6600; --shape: 15px; --key: #666; --glow: #fff; --text: #fff; --bg: #333; --k-rad: 10px; --ans-clr: #ff6600; } 
+        
+        /* NEW MULTICOLOR & PULSING THEMES */
+        body.t-15 { --car: #ff00ff; --accent: #00ffff; --shape: 40px 120px 40px 120px; --key: #330033; --glow: #00ffff; --text: #fff; --bg: #1a001a; --k-rad: 15px; --ans-clr: #00ffff; } 
+        body.t-16 { --car: #ff8c00; --accent: #fff; --shape: 50px 50px 0 0; --key: #b85c00; --glow: #fff; --text: #fff; --bg: #4b2500; --k-rad: 10px; --ans-clr: #fff; } 
+        body.t-17 { --car: #111; --accent: #fff; --shape: 60px 60px 100px 100px; --key: multi; --glow: #fff; --text: #fff; --bg: #000; --k-rad: 25px; --ans-clr: #fff; } 
+        body.t-18 { --car: #f9f9f9; --accent: #000; --shape: 30px 80px 30px 80px; --key: multi; --glow: #000; --text: #fff; --bg: #ccc; --k-rad: 15px; --ans-clr: #000; } 
+        body.t-19 { --car: #4b0082; --accent: #adff2f; --shape: 100px 10px 100px 10px; --key: #2e004f; --glow: #adff2f; --text: #fff; --bg: #1a0033; --k-rad: 25px; --ans-clr: #adff2f; } 
+        body.t-20 { --car: #d1d9e6; --accent: #3b82f6; --shape: 40px; --key: #d1d9e6; --glow: #b8b9be; --text: #444; --bg: #ebf0f7; --k-rad: 18px; --shd: 6px 6px 12px #b8b9be, -6px -6px 12px #fff; --ans-clr: #3b82f6; } 
+        body.t-21 { --car: #1a252f; --accent: #e74c3c; --shape: 80px 80px 0 0; --key: #34495e; --glow: #e74c3c; --text: #fff; --bg: #000; --k-rad: 15px; --ans-clr: #e74c3c; } 
+        body.t-22 { --car: #fff; --accent: #000; --shape: 0px; --key: #fff; --glow: #000; --text: #000; --bg: #ddd; --k-rad: 0px; border: 4px solid #000; --ans-clr: #000; } 
+        body.t-23 { --car: #00ced1; --accent: #fff; --shape: 50% 50% 100px 100px; --key: #008b8b; --glow: #fff; --text: #fff; --bg: #004d4d; --k-rad: 50%; --ans-clr: #fff; } 
+        body.t-24 { --car: #ff69b4; --accent: #fff; --shape: 80px 20px 80px 20px; --key: #c71585; --glow: #fff; --text: #fff; --bg: #660033; --k-rad: 25px; --ans-clr: #fff; } 
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
-        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: 'Inter', system-ui, sans-serif; }
+        html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); font-family: 'Inter', sans-serif; transition: 0.5s; }
 
         #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .jag-logo { font-size: 90px; filter: drop-shadow(0 0 20px #fff); }
-        #start-btn { width: 120px; height: 120px; border-radius: 50%; background: #111; border: 2px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 40px rgba(255,255,255,0.1); cursor: pointer; margin-top: 40px; }
+        #start-btn { width: 130px; height: 130px; border-radius: 50%; background: #111; border: 3px solid #333; color: #fff; font-weight: 900; cursor: pointer; }
 
-        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; }
-        #chassis { width: 94%; height: 97%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.5s; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; }
+        #chassis { 
+            width: 95%; height: 96%; position: relative; background: var(--car); border-radius: var(--shape); 
+            display: flex; flex-direction: column; box-shadow: var(--shd, 0 40px 80px rgba(0,0,0,0.8)); transition: 0.5s; overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(20px);
+        }
 
-        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; transition: 0.3s; }
+        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 45px var(--glow); z-index: 10; opacity: 0.8; }
         .l-light { left: 35px; } .r-light { right: 35px; }
-        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
+        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.8); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 13px; font-weight: bold; }
         
-        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
-        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; transition: left 0.05s linear; touch-action: none; }
+        #exit-track { position: absolute; top: 55px; left: 50%; transform: translateX(-50%); width: 170px; height: 5px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
+        #exit-slider { width: 65px; height: 28px; background: #fff; border-radius: 14px; position: absolute; top: -12px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; touch-action: none; }
 
-        .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
-        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
+        .windshield { margin: 100px 20px 5px; height: 24%; background: rgba(0,0,0,0.95); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; }
+        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 5px; color: var(--accent); opacity: 0.6; font-weight: 800; }
         
-        #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; overflow-y: hidden; direction: ltr; margin-bottom: 5px; font-weight: 400; text-shadow: 0 0 10px var(--glow); scroll-behavior: smooth; }
-        #layer-eq::-webkit-scrollbar { display: none; }
-        #layer-ans { color: var(--accent); font-size: 2.7rem; font-weight: 800; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; }
+        #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; margin-bottom: 5px; }
+        #layer-ans { color: var(--ans-clr); font-size: 2.8rem; font-weight: 900; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; }
 
-        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; }
-        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); }
-        .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); transform: scale(0.92); }
-        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; font-weight: 900; }
+        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; overflow: hidden; }
+        .key { background: var(--key); border-radius: var(--k-rad); font-size: 1.7rem; font-weight: 600; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.05); box-shadow: var(--shd, none); position: relative; }
+        
+        /* MULTI-COLOR THEME LOGIC */
+        body.t-17 .key:nth-child(4n+1), body.t-18 .key:nth-child(4n+1) { background: #ff3b3b; animation: pulse 2s infinite ease-in-out; }
+        body.t-17 .key:nth-child(4n+2), body.t-18 .key:nth-child(4n+2) { background: #ff9d00; animation: pulse 2s infinite ease-in-out 0.5s; }
+        body.t-17 .key:nth-child(4n+3), body.t-18 .key:nth-child(4n+3) { background: #3b82f6; animation: pulse 2s infinite ease-in-out 1s; }
+        body.t-17 .key:nth-child(4n+4), body.t-18 .key:nth-child(4n+4) { background: #10b981; animation: pulse 2s infinite ease-in-out 1.5s; }
+
+        @keyframes pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
+
+        .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); transform: scale(0.92); animation: none !important; }
+        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; }
 
         .panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); }
         .panel.open { display: flex; }
-        .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 30px; color: #fff; box-shadow: 0 40px 100px #000; max-height: 85vh; display: flex; flex-direction: column; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .modal h2 { font-weight: 300; letter-spacing: 5px; font-size: 1.2rem; color: var(--accent); }
-        .clear-btn { background: rgba(255,59,59,0.15); color: #ff3b3b; border: 1px solid #ff3b3b; padding: 8px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
-        
-        .row { background: rgba(255,255,255,0.03); padding: 14px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
-        select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; text-align: center; color-scheme: dark; }
-        
-        .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; border: 1px solid #444; }
-        .sw.on { background: var(--accent); border-color: var(--accent); }
-        .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:2px; left:4px; transition: 0.2s; }
+        .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid #333; border-radius: 40px; padding: 30px; color: #fff; max-height: 85vh; display: flex; flex-direction: column; }
+        .row { background: #1a1a1a; padding: 14px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; }
+        .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; }
+        .sw.on { background: var(--accent); }
+        .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:3px; left:4px; transition: 0.2s; }
         .sw.on::after { transform: translateX(24px); background: #000; }
-        
-        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; text-shadow: 0 0 5px var(--glow); }
+        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: #000; border-radius: 20px; padding: 10px; border: 1px solid #222; }
+        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid #1a1a1a; text-align: right; font-family: monospace; }
+        .exit-btn { width: 100%; height: 50px; background: var(--accent); color: #000; border-radius: 15px; font-weight: 900; border: none; margin-top: 15px; }
     </style>
 </head>
 <body class="t-0">
 
 <div id="splash">
-    <div class="jag-logo">🐆</div>
+    <div style="font-size: 90px; margin-bottom: 20px;">🐆</div>
     <button id="start-btn" onclick="startEngine()">POWER ON</button>
 </div>
 
 <div id="main-ui">
     <div id="chassis">
-        <div class="headlight l-light" id="head-l"></div><div class="headlight r-light" id="head-r"></div>
-        <div id="mirror" onclick="toggleSet()">⚙️ GARAGE</div>
+        <div class="headlight l-light"></div><div class="headlight r-light"></div>
+        <div id="mirror" onclick="toggleSet()">GARAGE</div>
         <div id="exit-track"><div id="exit-slider">OFF</div></div>
         
         <div class="windshield" onclick="cycleTheme()">
-            <div class="mini-jag">V12 PLATINUM</div>
+            <div class="mini-jag">V12 ALL-STARS</div>
             <div id="layer-eq">0</div>
             <div id="layer-ans">0</div>
         </div>
@@ -102,24 +129,24 @@
 </div>
 
 <div id="settings" class="panel" onclick="if(event.target == this) toggleSet()">
-    <div class="modal">
-        <div class="modal-header">
-            <h2>LOGS & SOUNDS</h2>
-            <button class="clear-btn" onclick="clearHistory()">RESET</button>
+    <div class="modal" onclick="event.stopPropagation()">
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <h2 style="font-size:1.1rem; color:var(--accent)">LOGS</h2>
+            <button style="color:red; background:none; border:none; font-weight:bold;" onclick="clearHistory()">RESET</button>
         </div>
         <div id="history-box"></div>
-        <div style="margin-top:15px; overflow-y: auto;">
-            <div class="row">Soft Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+        <div style="margin-top:15px; overflow-y:auto;">
+            <div class="row">Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
             <div class="row">Piano <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
-            <div class="row">Celeb Voice <select id="v-type" onchange="save('vType', this.value)">
-                <option value="superstar">The Superstar (Deep)</option>
-                <option value="diva">The Diva (Sharp)</option>
-                <option value="v12">Standard V12</option>
+            <div class="row">Voice <select id="v-type" onchange="save('vType', this.value)">
+                <option value="superstar">Superstar</option>
+                <option value="diva">Diva</option>
+                <option value="v12">Standard</option>
             </select></div>
-            <div class="row">Voice On <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+            <div class="row">Speak <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
             <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
         </div>
-        <button class="key k-eq" style="width:100%; height:50px; margin-top:10px; border-radius:18px; font-size: 1rem;" onclick="toggleSet()">EXIT GARAGE</button>
+        <button class="exit-btn" onclick="toggleSet()">SAVE & EXIT</button>
     </div>
 </div>
 
@@ -129,7 +156,7 @@
     
     let settings = {
         beepProf: localStorage.getItem('beepProf') || "b1",
-        pianoProf: localStorage.getItem('pianoProf') || "none",
+        pianoProf: localStorage.getItem('pianoProf') || "p1",
         vType: localStorage.getItem('vType') || "superstar",
         isG: localStorage.getItem('isG') === 'true',
         isSpeak: localStorage.getItem('isSpeak') !== 'false',
@@ -159,15 +186,14 @@
     ];
 
     function startEngine() {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
-        playHorn();
-        speak("Ready");
+        playHorn(); speak("Ready");
         document.getElementById('splash').style.opacity = '0';
         setTimeout(() => { document.getElementById('splash').style.display='none'; document.getElementById('main-ui').style.display='flex'; }, 600);
     }
 
     function playHorn() {
-        if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
         [380, 480].forEach(f => {
             const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
@@ -242,7 +268,7 @@
 
     function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
     function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
-    function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 8; save('themeIdx', settings.themeIdx); initUI(); }
+    function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 25; save('themeIdx', settings.themeIdx); initUI(); }
     function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
 
     function initUI() {
@@ -260,7 +286,7 @@
 
     function addHistory(item) {
         let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
-        h.unshift(item); if(h.length > 15) h = h.slice(0, 15);
+        h.unshift(item); if(h.length > 10) h = h.slice(0, 10);
         localStorage.setItem('jag_hist', JSON.stringify(h));
         renderHistory();
     }
@@ -268,7 +294,7 @@
     function renderHistory() {
         const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
         const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
-        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No Logs</div>';
+        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No History</div>';
     }
 
     function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
@@ -277,9 +303,8 @@
         if(audioCtx.state === 'suspended') audioCtx.resume();
         const now = audioCtx.currentTime;
         if(settings.beepProf !== 'none') {
-            const bIndex = parseInt(settings.beepProf.substring(1)) - 1;
-            if(beeps[bIndex]) {
-                const b = beeps[bIndex];
+            const b = beeps[parseInt(settings.beepProf.substring(1)) - 1];
+            if(b) {
                 const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
                 o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
                 g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
@@ -287,9 +312,8 @@
             }
         }
         if(settings.pianoProf !== 'none' && freqMap[v]) {
-            const pIndex = parseInt(settings.pianoProf.substring(1)) - 1;
-            if(pianoLib[pIndex]) {
-                const p = pianoLib[pIndex];
+            const p = pianoLib[parseInt(settings.pianoProf.substring(1)) - 1];
+            if(p) {
                 const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
                 o.type = p.t; o.frequency.setValueAtTime(freqMap[v], now);
                 g.gain.setValueAtTime(p.g, now);
@@ -299,66 +323,30 @@
         }
     }
 
-    // CELEBRITY VOICE ENGINE
     function speak(t, isFinal = false) {
         if(!settings.isSpeak) return;
         const msg = new SpeechSynthesisUtterance();
         msg.text = isFinal ? ("The result is " + t) : t;
         msg.lang = settings.isG ? 'gu-IN' : 'en-IN';
-        
-        // APPLY CELEBRITY PROFILING
-        if(settings.vType === 'superstar') {
-            msg.pitch = 0.5; // Deep Baritone
-            msg.rate = 0.85;  // Slow & Impactful
-        } else if(settings.vType === 'diva') {
-            msg.pitch = 1.3; // Sharp & Clear
-            msg.rate = 1.1;  // Fast & Energetic
-        } else {
-            msg.pitch = 1.0; msg.rate = 1.0;
-        }
-
-        if(isFinal) {
-            document.getElementById('head-l').style.transform = 'scale(1.5)';
-            document.getElementById('head-r').style.transform = 'scale(1.5)';
-            setTimeout(() => {
-                document.getElementById('head-l').style.transform = 'scale(1)';
-                document.getElementById('head-r').style.transform = 'scale(1)';
-            }, 500);
-        }
-
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(msg);
+        if(settings.vType === 'superstar') { msg.pitch = 0.5; msg.rate = 0.85; } 
+        else if(settings.vType === 'diva') { msg.pitch = 1.3; msg.rate = 1.1; } 
+        else { msg.pitch = 1.0; msg.rate = 1.0; }
+        window.speechSynthesis.cancel(); window.speechSynthesis.speak(msg);
     }
 
     const slider = document.getElementById('exit-slider');
-    const track = document.getElementById('exit-track');
-    let isDragging = false, startX = 0, trackWidth = 160, sliderWidth = 60;
-
-    slider.addEventListener('touchstart', (e) => { 
-        isDragging = true; 
-        startX = e.touches[0].clientX;
-        slider.style.transition = 'none';
-    });
-
+    let isDragging = false, startX = 0;
+    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
     window.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         let deltaX = e.touches[0].clientX - startX;
-        let maxX = trackWidth - sliderWidth;
-        let x = Math.max(0, Math.min(deltaX, maxX));
+        let x = Math.max(0, Math.min(deltaX, 105));
         slider.style.left = x + 'px';
-        if (x >= maxX * 0.95) { isDragging = false; location.reload(); }
+        if (x >= 100) { location.reload(); }
     });
+    window.addEventListener('touchend', () => { isDragging = false; slider.style.left = '0px'; });
 
-    window.addEventListener('touchend', () => { 
-        if (!isDragging) return;
-        isDragging = false; 
-        slider.style.transition = 'left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        slider.style.left = '0px'; 
-    });
-
-    document.getElementById('pad').addEventListener('touchstart', e => {
-        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); }
-    });
+    document.getElementById('pad').addEventListener('touchstart', e => { if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); } });
     initUI();
 </script>
 </body>
