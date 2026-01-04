@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Jaguar V12 - Precision Delete</title>
+    <title>Jaguar V12 - Sliding Garage</title>
     <style>
         :root { --bg: #000; --panel: #111; --screen: #00ff41; --scr-txt: #000; --btn: #1a1a1a; --btn-txt: #fff; --rad: 20px; --accent: #00ff41; }
 
@@ -78,9 +78,12 @@
         .btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0; }
         .eq { background: var(--accent) !important; color: var(--bg) !important; }
 
-        /* Light Garage Modal */
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 5000; display: none; align-items: center; justify-content: center; }
-        .modal { width: 92%; max-height: 85vh; background: #fefefe; border-radius: 30px; padding: 20px; display: flex; flex-direction: column; color: #111; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        /* SLIDING GARAGE CSS */
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0); visibility: hidden; transition: background 0.4s ease; z-index: 5000; display: flex; align-items: flex-start; justify-content: center; }
+        .overlay.active { background: rgba(0,0,0,0.6); visibility: visible; }
+        .modal { width: 92%; max-height: 85vh; background: #fefefe; border-radius: 0 0 30px 30px; padding: 20px; display: flex; flex-direction: column; color: #111; box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        .overlay.active .modal { transform: translateY(0); }
+        
         .row { background: #f1f3f5; padding: 12px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; }
         select, .tog, input[type="range"] { background: #fff; color: #000; border: 1px solid #ddd; padding: 8px; border-radius: 8px; font-weight: 900; width: 130px; }
         #hist { flex: 1; overflow-y: auto; background: #fff; border-radius: 12px; padding: 12px; margin-top: 10px; font-family: monospace; font-size: 13px; border: 1px solid #eee; }
@@ -198,17 +201,10 @@
     function handle(v) {
         playSfx(v);
         const eqDisp = document.getElementById('eq-display');
-        if(v === 'AC') { 
-            fullEq = ""; ans = "0"; isRes = false; 
-        }
+        if(v === 'AC') { fullEq = ""; ans = "0"; isRes = false; }
         else if(v === 'DEL') { 
-            if(isRes) { 
-                fullEq = ""; ans = "0"; isRes = false; 
-            } else {
-                fullEq = fullEq.slice(0, -1);
-                // UPDATE LIVE ANSWER ON DELETE
-                try { ans = fullEq ? solve(fullEq) : "0"; } catch { ans = "0"; }
-            }
+            if(isRes) { fullEq = ""; ans = "0"; isRes = false; } 
+            else { fullEq = fullEq.slice(0, -1); try { ans = fullEq ? solve(fullEq) : "0"; } catch { ans = "0"; } }
         }
         else if(v === '=') {
             try {
@@ -219,11 +215,8 @@
                 if(cfg.voice) speak(result);
             } catch { ans = "ERR"; }
         } else {
-            if(isRes) { 
-                fullEq = (['+','-','*','/','%'].includes(v)) ? ans + v : v; isRes = false; 
-            } else { 
-                fullEq += v; 
-            }
+            if(isRes) { fullEq = (['+','-','*','/','%'].includes(v)) ? ans + v : v; isRes = false; }
+            else { fullEq += v; }
             try { ans = solve(fullEq); } catch {}
         }
         render();
@@ -260,7 +253,14 @@
 
     function nextTheme() { cfg.theme = (cfg.theme + 1) % 50; localStorage.setItem('v12_t', cfg.theme); applyTheme(); }
     function applyTheme() { document.body.className = `t-${cfg.theme}`; }
-    function openGarage() { const g = document.getElementById('garage'); if(g.style.display==='flex') { g.style.display='none'; } else { g.style.display='flex'; showLog(); playHorn(); } }
+    
+    function openGarage() { 
+        const g = document.getElementById('garage'); 
+        const isActive = g.classList.contains('active');
+        if(isActive) { g.classList.remove('active'); } 
+        else { g.classList.add('active'); showLog(); playHorn(); } 
+    }
+
     function setCfg(k, v) { cfg[k] = v; localStorage.setItem('v12_'+(k==='bProf'?'bp':k==='pProf'?'pp':k==='vol'?'v':'t'), v); updateMenu(); }
     function tog(k) { cfg[k] = !cfg[k]; localStorage.setItem('v12_'+(k==='guj'?'g':'s'), cfg[k]); updateMenu(); }
 
