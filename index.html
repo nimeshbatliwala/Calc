@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Jaguar V12 - 50 Themes</title>
+    <title>Jaguar V12 - Precision Delete</title>
     <style>
         :root { --bg: #000; --panel: #111; --screen: #00ff41; --scr-txt: #000; --btn: #1a1a1a; --btn-txt: #fff; --rad: 20px; --accent: #00ff41; }
 
@@ -38,7 +38,6 @@
         body.t-27 { --bg:#38040e; --panel:#640d14; --screen:#ad2831; --scr-txt:#fff; --btn:#800e13; --btn-txt:#fff; --rad:50px 0; --accent:#ad2831; }
         body.t-28 { --bg:#1d3557; --panel:#457b9d; --screen:#a8dadc; --scr-txt:#1d3557; --btn:#e63946; --btn-txt:#fff; --rad:15px; --accent:#a8dadc; }
         body.t-29 { --bg:#000; --panel:#222; --screen:#ccff00; --scr-txt:#000; --btn:#111; --btn-txt:#ccff00; --rad:0; --accent:#ccff00; }
-        /* Expanded 30-50 */
         body.t-30 { --bg:#2a0800; --panel:#4a1c00; --screen:#ffcc33; --scr-txt:#000; --btn:#6a2c00; --btn-txt:#fff; --rad:20px; --accent:#ffcc33; }
         body.t-31 { --bg:#001d3d; --panel:#003566; --screen:#ffc300; --scr-txt:#000; --btn:#001d3d; --btn-txt:#ffd60a; --rad:15px; --accent:#ffc300; }
         body.t-32 { --bg:#222; --panel:#111; --screen:#f4a261; --scr-txt:#000; --btn:#264653; --btn-txt:#fff; --rad:10px; --accent:#e76f51; }
@@ -79,7 +78,7 @@
         .btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0; }
         .eq { background: var(--accent) !important; color: var(--bg) !important; }
 
-        /* Light Garage Dashboard */
+        /* Light Garage Modal */
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 5000; display: none; align-items: center; justify-content: center; }
         .modal { width: 92%; max-height: 85vh; background: #fefefe; border-radius: 30px; padding: 20px; display: flex; flex-direction: column; color: #111; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
         .row { background: #f1f3f5; padding: 12px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; }
@@ -199,8 +198,18 @@
     function handle(v) {
         playSfx(v);
         const eqDisp = document.getElementById('eq-display');
-        if(v === 'AC') { fullEq = ""; ans = "0"; isRes = false; }
-        else if(v === 'DEL') { if(isRes) { fullEq = ""; ans = "0"; isRes = false; } else fullEq = fullEq.slice(0, -1); }
+        if(v === 'AC') { 
+            fullEq = ""; ans = "0"; isRes = false; 
+        }
+        else if(v === 'DEL') { 
+            if(isRes) { 
+                fullEq = ""; ans = "0"; isRes = false; 
+            } else {
+                fullEq = fullEq.slice(0, -1);
+                // UPDATE LIVE ANSWER ON DELETE
+                try { ans = fullEq ? solve(fullEq) : "0"; } catch { ans = "0"; }
+            }
+        }
         else if(v === '=') {
             try {
                 let result = solve(fullEq);
@@ -210,8 +219,11 @@
                 if(cfg.voice) speak(result);
             } catch { ans = "ERR"; }
         } else {
-            if(isRes) { fullEq = (['+','-','*','/','%'].includes(v)) ? ans + v : v; isRes = false; }
-            else { fullEq += v; }
+            if(isRes) { 
+                fullEq = (['+','-','*','/','%'].includes(v)) ? ans + v : v; isRes = false; 
+            } else { 
+                fullEq += v; 
+            }
             try { ans = solve(fullEq); } catch {}
         }
         render();
@@ -231,7 +243,10 @@
         }
         c = c.replace(/([0-9.]+)%/g, "($1/100)");
         if(['+','-','*','/'].includes(c.slice(-1))) c = c.slice(0,-1);
-        return Number(eval(c).toPrecision(12).split('e')[0]).toString().slice(0,12);
+        try {
+            let res = eval(c);
+            return Number(res.toPrecision(12).split('e')[0]).toString().slice(0,12);
+        } catch { return ans; }
     }
 
     function render() {
