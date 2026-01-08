@@ -3,303 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Jaguar V12 - Geometry Edition</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Jaguar V12 Platinum - Continuous Flow</title>
     <style>
-        :root { --bg: #000; --panel: #111; --screen: #00ff41; --scr-txt: #000; --btn: #1a1a1a; --btn-txt: #fff; --rad: 20px; --accent: #00ff41; --clip: none; --shd: 4px 4px 0px var(--accent); }
+        :root { --depth: 0px; }
+        body.t-0 { --car: #ff1a1a; --accent: #ffffff; --shape: 60px 60px 100px 100px; --key: #151515; --glow: #ffffff; --text: #fff; } 
+        body.t-1 { --car: #050505; --accent: #00f2ff; --shape: 20px 20px 80px 80px; --key: #111111; --glow: #00f2ff; --text: #fff; } 
+        body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 80px 20px 80px 20px; --key: #1c1c1c; --glow: #ffdd00; --text: #fff; } 
+        body.t-3 { --car: #ffffff; --accent: #ff0000; --shape: 60px 60px 60px 60px; --key: #f2f2f2; --glow: #ff0000; --text: #111; } 
+        body.t-4 { --car: #00ff88; --accent: #ffffff; --shape: 40px 120px 40px 120px; --key: #051a10; --glow: #00ff88; --text: #fff; } 
+        body.t-5 { --car: #7000ff; --accent: #00ffcc; --shape: 100px 100px 100px 100px; --key: #150030; --glow: #00ffcc; --text: #fff; } 
+        body.t-6 { --car: #ff007f; --accent: #ffffff; --shape: 150px 30px 150px 30px; --key: #200010; --glow: #ff007f; --text: #fff; } 
+        body.t-7 { --car: #0066ff; --accent: #00e5ff; --shape: 40px 40px 120px 120px; --key: #001a33; --glow: #00e5ff; --text: #fff; }
 
-        /* V12 NEW SHAPE SHOP - 50 THEMES WITH UNIQUE GEOMETRY */
-        body.t-0 { --bg:#000; --panel:#0a0a0a; --screen:#00ff41; --accent:#00ff41; --rad:0; }
-        body.t-1 { --bg:#1a0000; --panel:#300; --screen:#ff4500; --accent:#ffeb3b; --clip: polygon(0% 15%, 15% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%); }
-        body.t-2 { --bg:#001a33; --panel:#002b52; --screen:#00d4ff; --accent:#00d4ff; --rad:30px; }
-        body.t-3 { --bg:#064e3b; --panel:#065f46; --screen:#34d399; --accent:#34d399; --clip: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); }
-        body.t-4 { --bg:#000; --panel:#111; --screen:#fff; --accent:#fff; --rad:25px; }
-        body.t-5 { --bg:#1a1a1a; --panel:#000; --screen:#ffd700; --accent:#ffd700; --rad:50%; }
-        body.t-6 { --bg:#2d0036; --panel:#4a0058; --screen:#f0f; --accent:#0ff; --clip: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
-        body.t-7 { --bg:#3d1a00; --panel:#5c2a00; --screen:#ff8c00; --accent:#ff8c00; --rad:20px; }
-        body.t-8 { --bg:#000; --panel:#1a1a1a; --screen:#ff003c; --accent:#ff003c; --clip: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
-        body.t-9 { --bg:#0e1111; --panel:#232b2b; --screen:#8faebf; --accent:#8faebf; --rad: 40% 60% 40% 60% / 60% 40% 60% 40%; }
-        /* ... Continuing with unique shapes for all 50 indices ... */
-        body.t-10 { --bg:#1b1b1b; --panel:#2d2d2d; --screen:#e0e0e0; --accent:#e0e0e0; --rad: 15px 0 15px 0; }
-        body.t-11 { --bg:#002200; --panel:#004400; --screen:#00ff00; --accent:#00ff00; --clip: polygon(0 0, 100% 0, 100% 75%, 75% 100%, 0 100%); }
-        body.t-12 { --bg:#220022; --panel:#440044; --screen:#ff00ff; --accent:#ff00ff; --rad: 50% 50% 0 0; }
-        body.t-13 { --bg:#000022; --panel:#000044; --screen:#4444ff; --accent:#4444ff; --clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
-        body.t-14 { --bg:#1a0f00; --panel:#3d2b1f; --screen:#d2b48c; --accent:#d2b48c; --rad: 10px; --shd: 0 5px #5d4037; }
-        body.t-15 { --bg:#001219; --panel:#005f73; --screen:#94d2bd; --accent:#94d2bd; --rad: 50% 0 50% 0; }
-        body.t-16 { --bg:#2b2d42; --panel:#8d99ae; --screen:#edf2f4; --accent:#ef233c; --clip: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%); }
-        body.t-17 { --bg:#231942; --panel:#5e548e; --screen:#be95c4; --accent:#be95c4; --rad: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        body.t-18 { --bg:#252422; --panel:#403d39; --screen:#eb5e28; --accent:#eb5e28; --rad: 0; --shd: 6px 6px 0 #252422; }
-        body.t-19 { --bg:#000; --panel:#111; --screen:#39ff14; --accent:#39ff14; --rad: 4px; }
-        body.t-20 { --bg:#0d1b2a; --panel:#1b263b; --screen:#e0e1dd; --accent:#778da9; --rad: 12px; }
-        body.t-21 { --bg:#2d6a4f; --panel:#40916c; --screen:#b7e4c7; --accent:#b7e4c7; --rad: 30px; }
-        body.t-22 { --bg:#4a4e69; --panel:#9a8c98; --screen:#f2e9e4; --accent:#f2e9e4; --clip: polygon(0% 20%, 20% 0%, 100% 20%, 100% 100%, 0% 100%); }
-        body.t-23 { --bg:#003566; --panel:#001d3d; --screen:#ffc300; --accent:#ffc300; --rad: 10px; }
-        body.t-24 { --bg:#5e0b15; --panel:#90323d; --screen:#d78a76; --accent:#d78a76; --rad: 50% 50% 50% 50% / 12% 12% 88% 88%; }
-        body.t-25 { --bg:#14213d; --panel:#000; --screen:#fca311; --accent:#fca311; --rad: 0; }
-        body.t-26 { --bg:#222; --panel:#444; --screen:#00b4d8; --accent:#90e0ef; --rad: 15px; }
-        body.t-27 { --bg:#38040e; --panel:#640d14; --screen:#ad2831; --accent:#ad2831; --rad: 50px 0; }
-        body.t-28 { --bg:#1d3557; --panel:#457b9d; --screen:#a8dadc; --accent:#a8dadc; --rad: 15px; }
-        body.t-29 { --bg:#000; --panel:#222; --screen:#ccff00; --accent:#ccff00; --rad: 0; }
-        body.t-30 { --bg:#2a0800; --panel:#4a1c00; --screen:#ffcc33; --accent:#ffcc33; --rad: 20px; }
-        body.t-31 { --bg:#001d3d; --panel:#003566; --screen:#ffc300; --accent:#ffc300; --rad: 15px; }
-        body.t-32 { --bg:#222; --panel:#111; --screen:#f4a261; --accent:#e76f51; --rad: 10px; }
-        body.t-33 { --bg:#2d3142; --panel:#4f5d75; --screen:#bfc0c0; --accent:#ef8354; --rad: 30px; }
-        body.t-34 { --bg:#03071e; --panel:#370617; --screen:#faa307; --accent:#ffb703; --clip: polygon(0 0, 100% 0, 85% 100%, 15% 100%); }
-        body.t-35 { --bg:#1b4332; --panel:#2d6a4f; --screen:#95d5b2; --accent:#d8f3dc; --rad: 20px; }
-        body.t-36 { --bg:#3a0ca3; --panel:#4361ee; --screen:#4cc9f0; --accent:#f72585; --rad: 15px; }
-        body.t-37 { --bg:#111; --panel:#222; --screen:#80ffdb; --accent:#72efdd; --rad: 12px; }
-        body.t-38 { --bg:#000; --panel:#1a1a1a; --screen:#ff006e; --accent:#ffbe0b; --rad: 25px; }
-        body.t-39 { --bg:#1a1a1a; --panel:#333; --screen:#e9ecef; --accent:#adb5bd; --rad: 8px; }
-        body.t-40 { --bg:#2a2a2a; --panel:#444; --screen:#fff3b0; --accent:#9e2a2b; --rad: 20px; }
-        body.t-41 { --bg:#10002b; --panel:#240046; --screen:#e0aaff; --accent:#c77dff; --rad: 35px 0; }
-        body.t-42 { --bg:#000; --panel:#111; --screen:#ff5400; --accent:#9e0059; --rad: 0; }
-        body.t-43 { --bg:#1d3557; --panel:#457b9d; --screen:#f1faee; --accent:#a8dadc; --rad: 15px; }
-        body.t-44 { --bg:#222; --panel:#000; --screen:#9ef01a; --accent:#ccff33; --rad: 50%; }
-        body.t-45 { --bg:#2b2d42; --panel:#8d99ae; --screen:#edf2f4; --accent:#ef233c; --rad: 20px; }
-        body.t-46 { --bg:#000; --panel:#1a1a1a; --screen:#caf0f8; --accent:#00b4d8; --rad: 12px; }
-        body.t-47 { --bg:#220901; --panel:#621708; --screen:#f6bd60; --accent:#bc3908; --rad: 18px; }
-        body.t-48 { --bg:#011627; --panel:#fdfffc; --screen:#2ec4b6; --accent:#ff9f1c; --rad: 10px; }
-        body.t-49 { --bg:#000; --panel:#111; --screen:#ff99c8; --accent:#d0f4de; --rad: 30px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
+        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: 'Inter', system-ui, sans-serif; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Arial Black', sans-serif; position: fixed; }
+        #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .jag-logo { font-size: 90px; filter: drop-shadow(0 0 20px #fff); }
+        #start-btn { width: 120px; height: 120px; border-radius: 50%; background: #111; border: 2px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 40px rgba(255,255,255,0.1); cursor: pointer; margin-top: 40px; }
 
-        #startup { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #start-btn { padding: 30px 60px; border: 4px solid var(--accent, #00ff41); color: var(--accent, #00ff41); background: transparent; font-size: 1.8rem; font-weight: 900; border-radius: 60px; cursor: pointer; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; }
+        #chassis { width: 94%; height: 97%; position: relative; background: var(--car); border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.5s; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
 
-        #container { width: 100%; height: 100dvh; display: flex; flex-direction: column; background: var(--panel); opacity: 0; transition: 0.8s; }
-        #garage-trigger { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); padding: 5px 25px; background: rgba(0,0,0,0.7); border: 1px solid var(--accent); border-radius: 20px; color: var(--accent); font-size: 13px; z-index: 200; cursor: pointer; font-weight: 900; letter-spacing: 2px; }
-
-        #screen-area { padding-top: 50px; height: 32%; background: var(--screen); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; box-shadow: inset 0 0 50px rgba(0,0,0,0.5); }
-        #eq-display { color: var(--scr-txt); font-size: 1.4rem; opacity: 0.7; margin-bottom: 5px; font-family: monospace; overflow-x: auto; white-space: nowrap; scrollbar-width: none; text-align: right; width: 100%; }
-        #ans-display { color: var(--scr-txt); font-size: 3.5rem; font-weight: 900; line-height: 1; letter-spacing: -2px; }
-
-        #pad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 8px; background: #000; padding-bottom: env(safe-area-inset-bottom); }
-        .btn { 
-            background: var(--btn); 
-            border: 2px solid var(--accent); 
-            border-radius: var(--rad); 
-            clip-path: var(--clip);
-            color: var(--btn-txt); 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: var(--shd); 
-            transition: 0.1s;
-        }
-        .btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0; }
-        .eq { background: var(--accent) !important; color: var(--bg) !important; }
-
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0); visibility: hidden; transition: background 0.4s ease; z-index: 5000; display: flex; align-items: flex-start; justify-content: center; }
-        .overlay.active { background: rgba(0,0,0,0.6); visibility: visible; }
-        .modal { width: 92%; max-height: 85vh; background: #fefefe; border-radius: 0 0 30px 30px; padding: 20px; display: flex; flex-direction: column; color: #111; box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
-        .overlay.active .modal { transform: translateY(0); }
+        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; transition: 0.3s; }
+        .l-light { left: 35px; } .r-light { right: 35px; }
+        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
         
-        .row { background: #f1f3f5; padding: 12px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; }
-        select, .tog, input[type="range"] { background: #fff; color: #000; border: 1px solid #ddd; padding: 8px; border-radius: 8px; font-weight: 900; width: 130px; }
-        #hist { flex: 1; overflow-y: auto; background: #fff; border-radius: 12px; padding: 12px; margin-top: 10px; font-family: monospace; font-size: 13px; border: 1px solid #eee; }
-        .clr-btn { background: #ff4d4d; color: #fff; border: none; padding: 6px 15px; border-radius: 8px; font-size: 11px; font-weight: 900; }
-        .exit-btn { width: 100%; padding: 16px; background: #000; color: #fff; border-radius: 15px; margin-top: 15px; font-weight: 900; border: none; }
+        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
+        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; transition: left 0.05s linear; touch-action: none; }
+
+        .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
+        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
+        
+        #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; overflow-y: hidden; direction: ltr; margin-bottom: 5px; font-weight: 400; text-shadow: 0 0 10px var(--glow); scroll-behavior: smooth; }
+        #layer-eq::-webkit-scrollbar { display: none; }
+        #layer-ans { color: var(--accent); font-size: 2.7rem; font-weight: 800; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; }
+
+        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; }
+        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); }
+        .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); transform: scale(0.92); }
+        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; font-weight: 900; }
+
+        .panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); }
+        .panel.open { display: flex; }
+        .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 30px; color: #fff; box-shadow: 0 40px 100px #000; max-height: 85vh; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal h2 { font-weight: 300; letter-spacing: 5px; font-size: 1.2rem; color: var(--accent); }
+        .clear-btn { background: rgba(255,59,59,0.15); color: #ff3b3b; border: 1px solid #ff3b3b; padding: 8px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
+        
+        .row { background: rgba(255,255,255,0.03); padding: 14px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; text-align: center; color-scheme: dark; }
+        
+        .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; border: 1px solid #444; }
+        .sw.on { background: var(--accent); border-color: var(--accent); }
+        .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:2px; left:4px; transition: 0.2s; }
+        .sw.on::after { transform: translateX(24px); background: #000; }
+        
+        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; text-shadow: 0 0 5px var(--glow); }
     </style>
 </head>
 <body class="t-0">
 
-<div id="startup"><button id="start-btn" onclick="ignite()">START ENGINE</button></div>
+<div id="splash">
+    <div class="jag-logo">🐆</div>
+    <button id="start-btn" onclick="startEngine()">POWER ON</button>
+</div>
 
-<div id="container">
-    <div id="garage-trigger" onclick="openGarage()">GARAGE</div>
-    <div id="screen-area" onclick="nextTheme()">
-        <div id="eq-display">0</div>
-        <div id="ans-display">0</div>
-    </div>
-    <div id="pad">
-        <button class="btn" data-v="AC">AC</button><button class="btn" data-v="DEL">⌫</button><button class="btn" data-v="%">%</button><button class="btn" data-v="/">÷</button>
-        <button class="btn digit" data-en="7" data-gu="૭" data-v="7">7</button><button class="btn digit" data-en="8" data-gu="૮" data-v="8">8</button><button class="btn digit" data-en="9" data-gu="૯" data-v="9">9</button><button class="btn" data-v="*">×</button>
-        <button class="btn digit" data-en="4" data-gu="૪" data-v="4">4</button><button class="btn digit" data-en="5" data-gu="૫" data-v="5">5</button><button class="btn digit" data-en="6" data-gu="૬" data-v="6">6</button><button class="btn" data-v="-">−</button>
-        <button class="btn digit" data-en="1" data-gu="૧" data-v="1">1</button><button class="btn digit" data-en="2" data-gu="૨" data-v="2">2</button><button class="btn digit" data-en="3" data-gu="૩" data-v="3">3</button><button class="btn" data-v="+">+</button>
-        <button class="btn digit" data-en="00" data-gu="૦૦" data-v="00">00</button><button class="btn digit" data-en="0" data-gu="૦" data-v="0">0</button><button class="btn" data-v=".">.</button><button class="btn eq" data-v="=">=</button>
+<div id="main-ui">
+    <div id="chassis">
+        <div class="headlight l-light" id="head-l"></div><div class="headlight r-light" id="head-r"></div>
+        <div id="mirror" onclick="toggleSet()">⚙️ GARAGE</div>
+        <div id="exit-track"><div id="exit-slider">OFF</div></div>
+        
+        <div class="windshield" onclick="cycleTheme()">
+            <div class="mini-jag">V12 PLATINUM</div>
+            <div id="layer-eq">0</div>
+            <div id="layer-ans">0</div>
+        </div>
+
+        <div class="keypad" id="pad">
+            <button class="key" data-val="AC" style="color:#ff3b3b">AC</button>
+            <button class="key" data-val="DEL">⌫</button>
+            <button class="key" data-val="%">%</button>
+            <button class="key" data-val="/" style="color:var(--accent)">÷</button>
+            <button class="key" data-val="7">7</button><button class="key" data-val="8">8</button><button class="key" data-val="9">9</button>
+            <button class="key" data-val="*" style="color:var(--accent)">×</button>
+            <button class="key" data-val="4">4</button><button class="key" data-val="5">5</button><button class="key" data-val="6">6</button>
+            <button class="key" data-val="-" style="color:var(--accent)">−</button>
+            <button class="key" data-val="1">1</button><button class="key" data-val="2">2</button><button class="key" data-val="3">3</button>
+            <button class="key" data-val="+" style="color:var(--accent)">+</button>
+            <button class="key" data-val="00">00</button>
+            <button class="key" data-val="0">0</button><button class="key" data-val=".">.</button>
+            <button class="key k-eq" data-val="=">=</button>
+        </div>
     </div>
 </div>
 
-<div id="garage" class="overlay" onclick="if(event.target==this) openGarage()">
-    <div class="modal" onclick="event.stopPropagation()">
-        <h2 style="text-align:center; margin-bottom:15px; letter-spacing:2px;">V12 GARAGE</h2>
-        <div class="row">VOLUME <input type="range" min="0" max="1" step="0.1" value="0.5" id="vol-ctrl" oninput="setCfg('vol', this.value)"></div>
-        <div class="row">BEEP <select id="b-sel" onchange="setCfg('bProf', this.value)"></select></div>
-        <div class="row">PIANO <select id="p-sel" onchange="setCfg('pProf', this.value)"></select></div>
-        <div class="row">VOICE <button class="tog" onclick="tog('voice')" id="v-btn">ON</button></div>
-        <div class="row">LANG <button class="tog" onclick="tog('guj')" id="l-btn">ENG</button></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-            <span style="font-weight:900; font-size:12px; color:#888;">LOGBOOK (MAX 10)</span>
-            <button class="clr-btn" onclick="clearHist()">RESET</button>
+<div id="settings" class="panel" onclick="if(event.target == this) toggleSet()">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>LOGS & SOUNDS</h2>
+            <button class="clear-btn" onclick="clearHistory()">RESET</button>
         </div>
-        <div id="hist"></div>
-        <button class="exit-btn" onclick="openGarage()">EXIT GARAGE</button>
+        <div id="history-box"></div>
+        <div style="margin-top:15px; overflow-y: auto;">
+            <div class="row">Soft Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+            <div class="row">Piano <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
+            <div class="row">Celeb Voice <select id="v-type" onchange="save('vType', this.value)">
+                <option value="superstar">The Superstar (Deep)</option>
+                <option value="diva">The Diva (Sharp)</option>
+                <option value="v12">Standard V12</option>
+            </select></div>
+            <div class="row">Voice On <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+            <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
+        </div>
+        <button class="key k-eq" style="width:100%; height:50px; margin-top:10px; border-radius:18px; font-size: 1rem;" onclick="toggleSet()">EXIT GARAGE</button>
     </div>
 </div>
 
 <script>
-    let fullEq = "", ans = "0", isRes = false, audio;
-    let cfg = {
-        bProf: localStorage.getItem('v12_bp') || "b1",
-        pProf: localStorage.getItem('v12_pp') || "p1",
-        vol: parseFloat(localStorage.getItem('v12_v')) || 0.5,
-        guj: localStorage.getItem('v12_g') === 'true',
-        voice: localStorage.getItem('v12_s') !== 'false',
-        theme: parseInt(localStorage.getItem('v12_t')) || 0
+    let equationArr = [], currentInput = "", isResultShown = false, lastFullEq = "";
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    let settings = {
+        beepProf: localStorage.getItem('beepProf') || "b1",
+        pianoProf: localStorage.getItem('pianoProf') || "none",
+        vType: localStorage.getItem('vType') || "superstar",
+        isG: localStorage.getItem('isG') === 'true',
+        isSpeak: localStorage.getItem('isSpeak') !== 'false',
+        themeIdx: parseInt(localStorage.getItem('themeIdx')) || 0
     };
 
-    const gujN = ['૦','૧','૨','૩','૪','૫','૬','૭','૮','૯'];
-    const pFreqs = {'AC':261.6,'DEL':293.6,'%':329.6,'/':349.2,'7':392.0,'8':440.0,'9':493.8,'*':523.2,'4':587.3,'5':659.2,'6':698.4,'-':783.9,'1':880.0,'2':987.7,'3':1046.5,'+':1174.6,'0':1318.5,'.':1396.9,'=':1567.9,'00':1000};
+    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
+    const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
     
     const beeps = [
-        {n:"Mute", f:0}, {n:"Soft Tap",f:800,t:'sine',d:0.08,g:0.3}, {n:"Silk Touch",f:1200,t:'sine',d:0.04,g:0.2}, 
-        {n:"Digital Click",f:2000,t:'square',d:0.02,g:0.1}, {n:"Low Pulse",f:150,t:'triangle',d:0.12,g:0.4}, 
-        {n:"Bubble Pop",f:600,t:'sine',d:0.15,g:0.4}, {n:"Feather",f:1800,t:'sine',d:0.06,g:0.2}, 
-        {n:"Glass Ting",f:2800,t:'sine',d:0.08,g:0.3}, {n:"Sport Beep",f:1100,t:'sawtooth',d:0.04,g:0.1}, {n:"Eco Click",f:450,t:'sine',d:0.06,g:0.3}
+        {name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, 
+        {name:"Digital Click",f:2000,t:'square',d:0.02}, {name:"Low Pulse",f:150,t:'triangle',d:0.15}, 
+        {name:"Bubble Pop",f:600,t:'sine',d:0.2}, {name:"Feather",f:400,t:'sine',d:0.05}, 
+        {name:"Glass Ting",f:2500,t:'sine',d:0.1}, {name:"Sport Beep",f:1000,t:'sawtooth',d:0.05},
+        {name:"Eco Click",f:700,t:'sine',d:0.03}
     ];
 
-    const pianos = [
-        {n:"Mute Piano", f:0}, {n:"Grand Piano",t:'triangle',d:1.5,g:0.7}, {n:"Studio One",t:'sine',d:0.6,g:0.9},
-        {n:"Mellow Gold",t:'sine',d:1.2,g:0.5}, {n:"Honky Tonk",t:'sawtooth',d:0.7,g:0.2},
-        {n:"Electric Sky",t:'square',d:1.0,g:0.1}, {n:"Classic 88",t:'triangle',d:1.4,g:0.4},
-        {n:"Toy Box",t:'sine',d:0.3,g:0.8}, {n:"Bright Key",t:'sine',d:0.5,g:1.0},
-        {n:"Dark Night",t:'triangle',d:2.5,g:0.3}, {n:"Dream State",t:'sine',d:3.0,g:0.2},
-        {n:"Space Echo",t:'sine',d:2.8,g:0.4}, {n:"Jazz Club",t:'sawtooth',d:0.9,g:0.1}
+    const pianoLib = [
+        {name:"Grand Piano",t:'triangle',d:1.2,g:0.15}, {name:"Studio One",t:'sine',d:0.8,g:0.2},
+        {name:"Mellow Gold",t:'sine',d:1.5,g:0.1}, {name:"Honky Tonk",t:'sawtooth',d:0.6,g:0.05},
+        {name:"Electric Sky",t:'square',d:1.0,g:0.04}, {name:"Classic 88",t:'triangle',d:0.9,g:0.1},
+        {name:"Toy Box",t:'sine',d:0.3,g:0.3}, {name:"Bright Key",t:'triangle',d:0.5,g:0.2},
+        {name:"Dark Night",t:'sine',d:2.0,g:0.08}, {name:"Dream State",t:'triangle',d:2.5,g:0.05},
+        {name:"Space Echo",t:'square',d:2.0,g:0.02}, {name:"Jazz Club",t:'sawtooth',d:0.8,g:0.03},
+        {name:"Crystal Bell",t:'sine',d:0.4,g:0.4}, {name:"Soft Wool",t:'triangle',d:1.8,g:0.07},
+        {name:"Cinematic",t:'sawtooth',d:3.0,g:0.02}
     ];
+
+    function startEngine() {
+        if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+        playHorn();
+        speak("Ready");
+        document.getElementById('splash').style.opacity = '0';
+        setTimeout(() => { document.getElementById('splash').style.display='none'; document.getElementById('main-ui').style.display='flex'; }, 600);
+    }
 
     function playHorn() {
-        if(!audio) return;
-        const now = audio.currentTime;
-        [150, 155].forEach(f => {
-            let o = audio.createOscillator(), g = audio.createGain();
-            o.type = 'sawtooth'; o.frequency.setValueAtTime(f, now);
-            g.gain.setValueAtTime(0.4 * cfg.vol, now);
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        [380, 480].forEach(f => {
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.05, now);
             g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-            o.connect(g); g.connect(audio.destination); o.start(); o.stop(now + 0.6);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.6);
         });
     }
 
-    function ignite() {
-        const doc = document.documentElement;
-        if (doc.requestFullscreen) doc.requestFullscreen();
-        else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
-        audio = new (window.AudioContext || window.webkitAudioContext)();
-        playHorn();
-        document.getElementById('startup').style.display = 'none';
-        document.getElementById('container').style.opacity = '1';
-    }
-
-    function playSfx(v) {
-        if(!audio || cfg.vol === 0) return;
-        const now = audio.currentTime;
-        const b = beeps[parseInt(cfg.bProf.slice(1))];
-        const p = pianos[parseInt(cfg.pProf.slice(1))];
-        if(b && b.f > 0) {
-            let o = audio.createOscillator(), g = audio.createGain();
-            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(cfg.vol * b.g, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
-            o.connect(g); g.connect(audio.destination); o.start(); o.stop(now + b.d);
-        }
-        if(p && pFreqs[v] && cfg.pProf !== "p0") {
-            let o = audio.createOscillator(), g = audio.createGain();
-            o.type = p.t; o.frequency.value = pFreqs[v];
-            g.gain.setValueAtTime(cfg.vol * p.g, now); g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
-            o.connect(g); g.connect(audio.destination); o.start(); o.stop(now + p.d);
-        }
-    }
-
-    function handle(v) {
-        playSfx(v);
-        const eqDisp = document.getElementById('eq-display');
-        if(v === 'AC') { fullEq = ""; ans = "0"; isRes = false; }
+    function handleKey(v, element) {
+        element.classList.add('active-glow');
+        setTimeout(() => element.classList.remove('active-glow'), 120);
+        playTone(v);
+        
+        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; speak("Cleared"); }
         else if(v === 'DEL') { 
-            if(isRes) { fullEq = ""; ans = "0"; isRes = false; } 
-            else { fullEq = fullEq.slice(0, -1); try { ans = fullEq ? solve(fullEq) : "0"; } catch { ans = "0"; } }
+            if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; }
+            else currentInput = currentInput.slice(0,-1); 
+            speak("Back");
+        }
+        else if(['+','-','*','/'].includes(v)) {
+            if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; }
+            else {
+                if(currentInput !== "") equationArr.push(currentInput);
+                if(equationArr.length && isNaN(equationArr[equationArr.length-1])) equationArr[equationArr.length-1] = v;
+                else if(equationArr.length) equationArr.push(v);
+                currentInput = "";
+            }
+            speak(v === '+' ? 'plus' : v === '-' ? 'minus' : v === '*' ? 'into' : 'divide');
+        }
+        else if(v === '%') {
+            if(currentInput !== "" && equationArr.length >= 2) {
+                let base = parseFloat(equationArr[0]);
+                let perc = parseFloat(currentInput);
+                currentInput = ((base * perc) / 100).toString();
+            } else if(currentInput !== "") {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+            }
+            speak("Percent");
         }
         else if(v === '=') {
-            try {
-                let result = solve(fullEq);
-                let record = fullEq + "=" + result;
-                log(record);
-                fullEq = record; ans = result; isRes = true;
-                if(cfg.voice) speak(result);
-            } catch { ans = "ERR"; }
+            let res = calculateArr([...equationArr, currentInput]);
+            lastFullEq = equationArr.join(" ") + (currentInput ? " " + currentInput : "") + " = " + res;
+            addHistory(lastFullEq);
+            currentInput = res; equationArr = []; isResultShown = true;
+            speak(res, true);
         } else {
-            if(isRes) { fullEq = (['+','-','*','/','%'].includes(v)) ? ans + v : v; isRes = false; }
-            else { fullEq += v; }
-            try { ans = solve(fullEq); } catch {}
+            if(isResultShown) { currentInput = v; isResultShown = false; lastFullEq = ""; }
+            else currentInput += v;
+            speak(v);
         }
-        render();
-        setTimeout(() => { eqDisp.scrollLeft = eqDisp.scrollWidth; }, 10);
+        updateDisplay();
     }
 
-    function solve(s) {
-        if(!s) return "0";
-        let c = s.toString().replace(/×/g,'*').replace(/÷/g,'/');
-        const pRegex = /([0-9.]+)([+\-*/])([0-9.]+)%/g;
-        while(pRegex.test(c)) {
-            c = c.replace(pRegex, (m, n1, op, n2) => {
-                let pVal = (n1 * n2) / 100;
-                if(op === '*' || op === '/') pVal = n2 / 100;
-                return `(${n1}${op}${pVal})`;
-            });
-        }
-        c = c.replace(/([0-9.]+)%/g, "($1/100)");
-        if(['+','-','*','/'].includes(c.slice(-1))) c = c.slice(0,-1);
-        try {
-            let res = eval(c);
-            return Number(res.toPrecision(12).split('e')[0]).toString().slice(0,12);
-        } catch { return ans; }
+    function calculateArr(arr) {
+        try { 
+            let s = arr.filter(x => x !== "").join(" ").replace(/×/g,'*').replace(/÷/g,'/');
+            if(s.length === 0) return "0";
+            if(['+','-','*','/'].includes(s.trim().slice(-1))) s = s.trim().slice(0, -1);
+            return Number(eval(s).toFixed(8)).toString(); 
+        } catch { return "0"; }
     }
 
-    function render() {
-        const tr = (s) => cfg.guj ? s.toString().replace(/[0-9]/g, i => gujN[i]) : s;
-        document.getElementById('eq-display').innerText = tr(fullEq || "0");
-        document.getElementById('ans-display').innerText = tr(ans);
-        document.querySelectorAll('.digit').forEach(b => {
-            b.innerText = cfg.guj ? b.dataset.gu : b.dataset.en;
-        });
+    function updateDisplay() {
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
+        
+        // Show continuous equation in the top layer when result is shown
+        let l1Str = isResultShown ? lastFullEq : equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
+        
+        const eqEl = document.getElementById('layer-eq');
+        eqEl.innerText = toG(l1Str || "0");
+        
+        // Ensure scrolling to the right so end of equation is visible
+        setTimeout(() => { eqEl.scrollLeft = eqEl.scrollWidth; }, 0);
+        
+        let resValue = isResultShown ? currentInput : calculateArr([...equationArr, currentInput]);
+        document.getElementById('layer-ans').innerText = toG(resValue);
     }
 
-    function nextTheme() { cfg.theme = (cfg.theme + 1) % 50; localStorage.setItem('v12_t', cfg.theme); applyTheme(); }
-    function applyTheme() { document.body.className = `t-${cfg.theme}`; }
+    function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
+    function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
+    function cycleTheme() { settings.themeIdx = (settings.themeIdx + 1) % 8; save('themeIdx', settings.themeIdx); initUI(); }
+    function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
+
+    function initUI() {
+        document.body.className = `t-${settings.themeIdx}`;
+        document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
+        document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
+        document.getElementById('v-type').value = settings.vType;
+        document.getElementById('b-sel').innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
+        document.getElementById('b-sel').value = settings.beepProf;
+        document.getElementById('p-sel').innerHTML = '<option value="none">Mute Piano</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
+        document.getElementById('p-sel').value = settings.pianoProf;
+        document.querySelectorAll('.key').forEach(k => { if(k.dataset.val) k.innerText = settings.isG ? (gMap[k.dataset.val] || k.dataset.val) : k.dataset.val; });
+        renderHistory(); updateDisplay();
+    }
+
+    function addHistory(item) {
+        let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        h.unshift(item); 
+        if(h.length > 10) h = h.slice(0, 10);
+        localStorage.setItem('jag_hist', JSON.stringify(h));
+        renderHistory();
+    }
     
-    function openGarage() { 
-        const g = document.getElementById('garage'); 
-        const isActive = g.classList.contains('active');
-        if(isActive) { g.classList.remove('active'); } 
-        else { g.classList.add('active'); showLog(); playHorn(); } 
+    function renderHistory() {
+        const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
+        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No Logs</div>';
     }
 
-    function setCfg(k, v) { cfg[k] = v; localStorage.setItem('v12_'+(k==='bProf'?'bp':k==='pProf'?'pp':k==='vol'?'v':'t'), v); updateMenu(); }
-    function tog(k) { cfg[k] = !cfg[k]; localStorage.setItem('v12_'+(k==='guj'?'g':'s'), cfg[k]); updateMenu(); }
+    function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
 
-    function updateMenu() {
-        document.getElementById('b-sel').innerHTML = beeps.map((b,i)=>`<option value="b${i}">${b.n}</option>`).join('');
-        document.getElementById('p-sel').innerHTML = pianos.map((p,i)=>`<option value="p${i}">${p.n}</option>`).join('');
-        document.getElementById('b-sel').value = cfg.bProf;
-        document.getElementById('p-sel').value = cfg.pProf;
-        document.getElementById('vol-ctrl').value = cfg.vol;
-        document.getElementById('v-btn').innerText = cfg.voice ? "ON" : "OFF";
-        document.getElementById('l-btn').innerText = cfg.guj ? "GUJ" : "ENG";
-        render();
+    function playTone(v) {
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        if(settings.beepProf !== 'none') {
+            const bIndex = parseInt(settings.beepProf.substring(1)) - 1;
+            if(beeps[bIndex]) {
+                const b = beeps[bIndex];
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
+                g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
+                o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
+            }
+        }
+        if(settings.pianoProf !== 'none' && freqMap[v]) {
+            const pIndex = parseInt(settings.pianoProf.substring(1)) - 1;
+            if(pianoLib[pIndex]) {
+                const p = pianoLib[pIndex];
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = p.t; o.frequency.setValueAtTime(freqMap[v], now);
+                g.gain.setValueAtTime(p.g, now);
+                g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
+                o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + p.d);
+            }
+        }
     }
 
-    function speak(t) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = cfg.guj ? 'gu-IN' : 'en-IN'; window.speechSynthesis.speak(u); }
-    function log(txt) { 
-        const tr = (s) => cfg.guj ? s.toString().replace(/[0-9]/g, i => gujN[i]) : s;
-        let h = JSON.parse(localStorage.getItem('v12h')||"[]"); 
-        h.unshift(tr(txt)); if(h.length > 10) h = h.slice(0,10); 
-        localStorage.setItem('v12h',JSON.stringify(h)); 
-    }
-    function showLog() { document.getElementById('hist').innerHTML = JSON.parse(localStorage.getItem('v12h')||"[]").map(x => `<div style="padding:10px; border-bottom:1px solid #eee; font-weight:bold; color:#222;">${x}</div>`).join(''); }
-    function clearHist() { localStorage.removeItem('v12h'); showLog(); }
+    function speak(t, isFinal = false) {
+        if(!settings.isSpeak) return;
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = isFinal ? ("The result is " + t) : t;
+        msg.lang = settings.isG ? 'gu-IN' : 'en-IN';
+        if(settings.vType === 'superstar') { msg.pitch = 0.5; msg.rate = 0.85; } 
+        else if(settings.vType === 'diva') { msg.pitch = 1.3; msg.rate = 1.1; } 
+        else { msg.pitch = 1.0; msg.rate = 1.0; }
 
-    document.getElementById('pad').addEventListener('touchstart', e => { if(e.target.dataset.v) { e.preventDefault(); handle(e.target.dataset.v); } });
-    applyTheme(); updateMenu();
+        if(isFinal) {
+            document.getElementById('head-l').style.transform = 'scale(1.5)';
+            document.getElementById('head-r').style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                document.getElementById('head-l').style.transform = 'scale(1)';
+                document.getElementById('head-r').style.transform = 'scale(1)';
+            }, 500);
+        }
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(msg);
+    }
+
+    const slider = document.getElementById('exit-slider');
+    const track = document.getElementById('exit-track');
+    let isDragging = false, startX = 0, trackWidth = 160, sliderWidth = 60;
+
+    slider.addEventListener('touchstart', (e) => { 
+        isDragging = true; 
+        startX = e.touches[0].clientX;
+        slider.style.transition = 'none';
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        let deltaX = e.touches[0].clientX - startX;
+        let maxX = trackWidth - sliderWidth;
+        let x = Math.max(0, Math.min(deltaX, maxX));
+        slider.style.left = x + 'px';
+        if (x >= maxX * 0.95) { isDragging = false; location.reload(); }
+    });
+
+    window.addEventListener('touchend', () => { 
+        if (!isDragging) return;
+        isDragging = false; 
+        slider.style.transition = 'left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        slider.style.left = '0px'; 
+    });
+
+    document.getElementById('pad').addEventListener('touchstart', e => {
+        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); }
+    });
+    initUI();
 </script>
 </body>
 </html>
