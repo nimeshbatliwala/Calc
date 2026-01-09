@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Jaguar V12 Platinum - Final Edition</title>
+    <title>Jaguar V12 Platinum - Final</title>
     <style>
         :root { --round: 60px; --depth: 6px; }
         /* 20 DYNAMIC THEMES */
@@ -43,48 +43,36 @@
         #start-btn { width: 120px; height: 120px; border-radius: 50%; background: #111; border: 2px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 40px rgba(255,255,255,0.1); cursor: pointer; margin-top: 40px; }
 
         #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
-        #chassis { width: 94%; height: 97%; position: relative; background: var(--car); background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent); background-size: 4px 4px; border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        #chassis { width: 94%; height: 97%; position: relative; background: var(--car); background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent); background-size: 4px 4px; border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.6s; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
 
         #dashboard { position: absolute; top: 75px; left: 30px; width: 60px; height: 60px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--accent); transform: rotate(-45deg); transition: 0.5s; }
         #needle { position: absolute; top: 50%; left: 50%; width: 25px; height: 2px; background: var(--accent); transform-origin: left center; transform: rotate(0deg); transition: 0.3s; }
-        #reflection { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(255,255,255,0.1) 100%); pointer-events: none; z-index: 5; opacity: 0.3; mix-blend-mode: overlay; transition: 0.1s linear; }
-
-        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; }
-        .l-light { left: 35px; } .r-light { right: 35px; }
-        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
+        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; cursor: pointer; }
         
         #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
-        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; transition: left 0.05s linear; touch-action: none; }
+        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; touch-action: none; }
 
         .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
-        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
         
-        /* SCROLLING FIX */
         #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; overflow-y: hidden; direction: ltr; margin-bottom: 5px; font-weight: 400; text-shadow: 0 0 10px var(--glow); scroll-behavior: smooth; width: 100%; display: block; }
         #layer-eq::-webkit-scrollbar { display: none; }
         #layer-ans { color: var(--accent); font-size: 2.7rem; font-weight: 800; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; width: 100%; }
 
-        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; align-content: stretch; position: relative; z-index: 10; }
-        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); width: 100%; height: 100%; }
+        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; }
+        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); }
         .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); }
-        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; font-weight: 900; }
 
         .panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); }
         .panel.open { display: flex; }
         .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 30px; color: #fff; box-shadow: 0 40px 100px #000; max-height: 85vh; display: flex; flex-direction: column; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .modal h2 { font-weight: 300; letter-spacing: 5px; font-size: 1.2rem; color: var(--accent); }
-        .clear-btn { background: rgba(255,59,59,0.15); color: #ff3b3b; border: 1px solid #ff3b3b; padding: 8px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
-        
         .row { background: rgba(255,255,255,0.03); padding: 12px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
         select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; text-align: center; color-scheme: dark; }
         .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; border: 1px solid #444; }
         .sw.on { background: var(--accent); border-color: var(--accent); }
         .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:2px; left:4px; transition: 0.2s; }
         .sw.on::after { transform: translateX(24px); background: #000; }
-        
-        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; text-shadow: 0 0 5px var(--glow); }
+        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; }
+        .hist-item { padding: 8px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; }
     </style>
 </head>
 <body class="t-0">
@@ -96,14 +84,11 @@
 
 <div id="main-ui">
     <div id="chassis">
-        <div id="reflection"></div>
         <div id="dashboard"><div id="needle"></div></div>
-        <div class="headlight l-light"></div><div class="headlight r-light"></div>
         <div id="mirror" onclick="toggleSet()">⚙️ GARAGE</div>
         <div id="exit-track"><div id="exit-slider">OFF</div></div>
         
         <div class="windshield" onclick="cycleThemeLogic()">
-            <div class="mini-jag">V12 PLATINUM</div>
             <div id="layer-eq">0</div>
             <div id="layer-ans">0</div>
         </div>
@@ -121,32 +106,31 @@
             <button class="key" data-val="+" style="color:var(--accent)">+</button>
             <button class="key" data-val="00">00</button>
             <button class="key" data-val="0">0</button><button class="key" data-val=".">.</button>
-            <button class="key k-eq" data-val="=">=</button>
+            <button class="key" data-val="=" style="background:var(--accent); color:#000">=</button>
         </div>
     </div>
 </div>
 
 <div id="settings" class="panel" onclick="if(event.target == this) toggleSet()">
     <div class="modal">
-        <div class="modal-header">
-            <h2>LOGS & SOUNDS</h2>
-            <button class="clear-btn" onclick="clearHistory()">RESET</button>
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <h2 style="color:var(--accent)">GARAGE</h2>
+            <button onclick="clearHistory()" style="background:none; border:1px solid #ff3b3b; color:#ff3b3b; font-size:0.7rem; padding:4px 8px; border-radius:8px;">RESET</button>
         </div>
         <div id="history-box"></div>
-        <div style="margin-top:15px; overflow-y: auto;">
-            <div class="row">Soft Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+        <div style="margin-top:15px; overflow-y:auto;">
+            <div class="row">Beeps <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
             <div class="row">Piano <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
             <div class="row">AI Voice <select id="v-type" onchange="save('vType', this.value)">
-                <option value="superstar">Superstar (Deep)</option>
-                <option value="diva">Diva (Sharp)</option>
-                <option value="child">Junior Racer (Child)</option>
-                <option value="cartoon">Toon Mode (Cartoon)</option>
+                <option value="superstar">Superstar</option>
+                <option value="diva">Diva</option>
+                <option value="child">Junior</option>
                 <option value="v12">V12 Engine</option>
             </select></div>
-            <div class="row">Voice On <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+            <div class="row">Voice <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
             <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
         </div>
-        <button class="key k-eq" style="width:100%; height:50px; margin-top:10px; border-radius:18px; font-size: 1rem;" onclick="toggleSet()">EXIT GARAGE</button>
+        <button class="key" style="width:100%; height:50px; margin-top:10px; border-radius:18px; background:var(--accent); color:#000" onclick="toggleSet()">EXIT</button>
     </div>
 </div>
 
@@ -164,28 +148,16 @@
         isRound: localStorage.getItem('isRound') === 'true'
     };
 
-    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
-    const beeps = [{name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, {name:"Digital Click",f:2000,t:'square',d:0.02}, {name:"Low Pulse",f:150,t:'triangle',d:0.15}, {name:"Bubble Pop",f:600,t:'sine',d:0.2}, {name:"Feather",f:400,t:'sine',d:0.05}, {name:"Glass Ting",f:2500,t:'sine',d:0.1}, {name:"Sport Beep",f:1000,t:'sawtooth',d:0.05}, {name:"Eco Click",f:700,t:'sine',d:0.03}];
-    const pianoLib = [{name:"Grand Piano",t:'triangle',d:1.2,g:0.15}, {name:"Studio One",t:'sine',d:0.8,g:0.2}, {name:"Mellow Gold",t:'sine',d:1.5,g:0.1}, {name:"Honky Tonk",t:'sawtooth',d:0.6,g:0.05}, {name:"Electric Sky",t:'square',d:1.0,g:0.04}, {name:"Classic 88",t:'triangle',d:0.9,g:0.1}, {name:"Toy Box",t:'sine',d:0.3,g:0.3}, {name:"Bright Key",t:'triangle',d:0.5,g:0.2}, {name:"Dark Night",t:'sine',d:2.0,g:0.08}, {name:"Dream State",t:'triangle',d:2.5,g:0.05}, {name:"Space Echo",t:'square',d:2.0,g:0.02}, {name:"Jazz Club",t:'sawtooth',d:0.8,g:0.03}, {name:"Crystal Bell",t:'sine',d:0.4,g:0.4}, {name:"Soft Wool",t:'triangle',d:1.8,g:0.07}, {name:"Cinematic",t:'sawtooth',d:3.0,g:0.02}];
+    const beeps = [{name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, {name:"Click",f:2000,t:'square',d:0.02}, {name:"Pulse",f:150,t:'triangle',d:0.15}];
+    const pianoLib = [{name:"Grand",t:'triangle',d:1.2,g:0.15}, {name:"Bright",t:'triangle',d:0.5,g:0.2}, {name:"Space",t:'square',d:2.0,g:0.02}];
 
     function startEngine() {
         const doc = window.document.documentElement;
         if (doc.requestFullscreen) doc.requestFullscreen();
         else if (doc.webkitRequestFullscreen) doc.webkitRequestFullscreen();
         if (audioCtx.state === 'suspended') audioCtx.resume();
-        playHorn(); speak("V12 Engine Ignited");
-        document.getElementById('splash').style.opacity = '0';
-        setTimeout(() => { document.getElementById('splash').style.display='none'; document.getElementById('main-ui').style.display='flex'; }, 600);
-    }
-
-    function playHorn() {
-        const now = audioCtx.currentTime;
-        [380, 480].forEach(f => {
-            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
-            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.05, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.6);
-        });
+        document.getElementById('splash').style.display='none'; 
+        document.getElementById('main-ui').style.display='flex';
     }
 
     function handleKey(v, element) {
@@ -194,19 +166,14 @@
         setTimeout(() => element.classList.remove('active-glow'), 120);
         document.getElementById('needle').style.transform = `rotate(${(parseInt(v) || 5) * 18}deg)`;
         playTone(v);
-        
-        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; speak("System Reset"); }
-        else if(v === 'DEL') { if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; } else if (currentInput.length > 0) { currentInput = currentInput.slice(0,-1); } else if (equationArr.length > 0) { equationArr.pop(); } }
+
+        if(v === 'AC') { equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; }
+        else if(v === 'DEL') { if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; } else { currentInput = currentInput.slice(0,-1); } }
         else if(['+','-','*','/'].includes(v)) {
             if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; } 
             else {
-                if(currentInput !== "") {
-                    if(currentInput.endsWith('%')) {
-                        let base = calculateArr(equationArr);
-                        let pVal = (parseFloat(base) * parseFloat(currentInput) / 100);
-                        equationArr = [base, equationArr[equationArr.length-1] || '+', pVal.toString(), v];
-                    } else { equationArr.push(currentInput); equationArr.push(v); }
-                } else if(equationArr.length) { equationArr[equationArr.length-1] = v; }
+                if(currentInput !== "") { equationArr.push(currentInput); equationArr.push(v); }
+                else if(equationArr.length) { equationArr[equationArr.length-1] = v; }
                 currentInput = "";
             }
         }
@@ -215,10 +182,9 @@
             lastFullEq = equationArr.join(" ") + (currentInput ? " " + currentInput : "") + " = " + res;
             addHistory(lastFullEq);
             currentInput = res; equationArr = []; isResultShown = true;
-            document.getElementById('needle').style.transform = `rotate(180deg)`;
             speak(res, true);
         } else {
-            if(isResultShown) { currentInput = (v==='%'?'0%':v); isResultShown = false; }
+            if(isResultShown) { currentInput = v; isResultShown = false; }
             else { currentInput += v; }
             speak(v);
         }
@@ -229,33 +195,33 @@
         try {
             let tempArr = arr.filter(x => x !== "");
             if(tempArr.length === 0) return "0";
+            
             for(let i=0; i<tempArr.length; i++) {
                 if(tempArr[i].toString().endsWith('%')) {
-                    let pNum = parseFloat(tempArr[i]);
-                    if(i > 0 && ['+','-','*','/'].includes(tempArr[i-1])) {
+                    let pNum = parseFloat(tempArr[i]) / 100;
+                    if(i > 0 && tempArr[i-1] === '*') {
+                        tempArr[i] = pNum.toString();
+                    } else if (i > 0 && (tempArr[i-1] === '+' || tempArr[i-1] === '-')) {
                         let base = parseFloat(calculateArr(tempArr.slice(0, i-1)));
-                        tempArr[i] = (base * pNum / 100).toString();
-                    } else { tempArr[i] = (pNum / 100).toString(); }
+                        tempArr[i] = (base * pNum).toString();
+                    } else {
+                        tempArr[i] = pNum.toString();
+                    }
                 }
             }
             let s = tempArr.join(" ").replace(/×/g,'*').replace(/÷/g,'/');
             if(['+','-','*','/'].includes(s.trim().slice(-1))) s = s.trim().slice(0, -1);
-            let result = eval(s);
-            return Number(result.toFixed(8)).toString(); 
+            return Number(eval(s).toFixed(8)).toString(); 
         } catch { return "0"; }
     }
 
     function updateDisplay() {
-        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
-        let l1Str = isResultShown ? lastFullEq : equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
-        
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => '૦૧૨૩૪૫૬૭૮૯'[x]) : s;
+        let l1Str = isResultShown ? lastFullEq : equationArr.join(" ") + (currentInput !== "" ? " " + currentInput : "");
         const eqEl = document.getElementById('layer-eq');
         eqEl.innerText = toG(l1Str || "0");
-        // Scroll to the end automatically
         setTimeout(() => { eqEl.scrollLeft = eqEl.scrollWidth; }, 0);
-
-        let ansValue = isResultShown ? currentInput : calculateArr([...equationArr, currentInput]);
-        document.getElementById('layer-ans').innerText = toG(ansValue);
+        document.getElementById('layer-ans').innerText = toG(isResultShown ? currentInput : calculateArr([...equationArr, currentInput]));
     }
 
     function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
@@ -267,13 +233,12 @@
         document.body.className = `t-${settings.themeIdx} ${settings.isRound ? 'is-round' : ''}`;
         document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
         document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
-        document.getElementById('v-type').value = settings.vType;
         document.getElementById('b-sel').innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
         document.getElementById('b-sel').value = settings.beepProf;
-        document.getElementById('p-sel').innerHTML = '<option value="none">Mute Piano</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
+        document.getElementById('p-sel').innerHTML = '<option value="none">Mute</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
         document.getElementById('p-sel').value = settings.pianoProf;
-        document.querySelectorAll('.key').forEach(k => { if(k.dataset.val) k.innerText = settings.isG ? (gMap[k.dataset.val] || k.dataset.val) : k.dataset.val; });
-        renderHistory(); updateDisplay();
+        renderHistory();
+        updateDisplay();
     }
 
     function addHistory(item) {
@@ -285,8 +250,7 @@
     
     function renderHistory() {
         const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
-        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
-        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No Logs</div>';
+        document.getElementById('history-box').innerHTML = h.map(i => `<div class="hist-item">${i}</div>`).join('');
     }
 
     function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
@@ -314,23 +278,21 @@
         if(!settings.isSpeak) return;
         window.speechSynthesis.cancel();
         const msg = new SpeechSynthesisUtterance();
-        msg.text = isFinal ? (settings.isG ? "જવાબ છે " + t : "The answer is " + t) : t;
+        msg.text = isFinal ? "The answer is " + t : t;
         msg.lang = settings.isG ? 'gu-IN' : 'en-IN';
-        msg.pitch = settings.vType === 'superstar' ? 0.5 : (settings.vType === 'diva' ? 1.3 : 1.0);
-        msg.rate = settings.vType === 'superstar' ? 0.8 : (settings.vType === 'diva' ? 1.1 : 1.0);
         window.speechSynthesis.speak(msg);
     }
 
     const slider = document.getElementById('exit-slider');
     let isDragging = false, startX = 0;
-    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; slider.style.transition = 'none'; });
+    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; });
     window.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         let x = Math.max(0, Math.min(e.touches[0].clientX - startX, 100));
         slider.style.left = x + 'px';
         if (x >= 95) location.reload();
     });
-    window.addEventListener('touchend', () => { isDragging = false; slider.style.transition = 'left 0.3s'; slider.style.left = '0px'; });
+    window.addEventListener('touchend', () => { isDragging = false; slider.style.left = '0px'; });
 
     document.getElementById('pad').addEventListener('touchstart', e => { if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); } });
     initUI();
