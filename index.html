@@ -5,298 +5,406 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Jaguar V12 Platinum Ultra</title>
+    <title>Jaguar V12 Platinum - Final Edition</title>
     <style>
-        :root { --radius: 40px; }
-        
-        /* JAGUAR SIGNATURE THEMES (Original + New) */
-        body.t-0 { --bg: #0a0a0a; --panel: #111111; --accent: #00e5ff; --text: #ffffff; --shadow: #000000; --light: #222222; } /* Cyber Blue */
-        body.t-1 { --bg: #e0e5ec; --panel: #e0e5ec; --accent: #6d5dfc; --text: #444; --shadow: #a3b1c6; --light: #ffffff; }    /* Neumorphic */
-        body.t-2 { --bg: #1a1a1a; --panel: #1e1e1e; --accent: #cb4b16; --text: #eee; --shadow: #000000; --light: #333333; }    /* Solarized Dark */
-        body.t-3 { --bg: #002b36; --panel: #073642; --accent: #859900; --text: #93a1a1; --shadow: #001b22; --light: #0d4d5d; } /* Deep Ocean */
-        body.t-4 { --bg: #121212; --panel: #1a1a1a; --accent: #ff0055; --text: #ffffff; --shadow: #000000; --light: #252525; } /* Crimson Edge */
-        body.t-5 { --bg: #ffffff; --panel: #f8f9fa; --accent: #007bff; --text: #212529; --shadow: #dee2e6; --light: #ffffff; } /* Pure White */
+        :root { --round: 60px; --depth: 6px; }
+        /* 20 DYNAMIC THEMES */
+        body.t-0 { --car: #ff1a1a; --accent: #ffffff; --shape: 60px 60px 100px 100px; --key: #151515; --glow: #ffffff; --text: #fff; } 
+        body.t-1 { --car: #050505; --accent: #00f2ff; --shape: 20px 20px 80px 80px; --key: #111111; --glow: #00f2ff; --text: #fff; } 
+        body.t-2 { --car: #f39c12; --accent: #ffdd00; --shape: 80px 20px 80px 20px; --key: #1c1c1c; --glow: #ffdd00; --text: #fff; } 
+        body.t-3 { --car: #ffffff; --accent: #ff0000; --shape: 60px 60px 60px 60px; --key: #f2f2f2; --glow: #ff0000; --text: #111; } 
+        body.t-4 { --car: #00ff88; --accent: #ffffff; --shape: 40px 120px 40px 120px; --key: #051a10; --glow: #00ff88; --text: #fff; } 
+        body.t-5 { --car: #7000ff; --accent: #00ffcc; --shape: 100px 100px 100px 100px; --key: #150030; --glow: #00ffcc; --text: #fff; } 
+        body.t-6 { --car: #ff007f; --accent: #ffffff; --shape: 150px 30px 150px 30px; --key: #200010; --glow: #ff007f; --text: #fff; } 
+        body.t-7 { --car: #0066ff; --accent: #00e5ff; --shape: 40px 40px 120px 120px; --key: #001a33; --glow: #00e5ff; --text: #fff; }
+        body.t-8 { --car: #2c003e; --accent: #00d2ff; --shape: 100px 20px 100px 20px; --key: #1a0025; --glow: #00d2ff; --text: #fff; }
+        body.t-9 { --car: #003366; --accent: #ffffff; --shape: 50px 50px 10px 10px; --key: #001f3d; --glow: #ffffff; --text: #fff; }
+        body.t-10 { --car: #e0ac9d; --accent: #ffffff; --shape: 70px 70px 70px 70px; --key: #4a332d; --glow: #fff; --text: #fff; }
+        body.t-11 { --car: #222; --accent: #adff2f; --shape: 30px 30px 120px 120px; --key: #111; --glow: #adff2f; --text: #fff; }
+        body.t-12 { --car: #800000; --accent: #ffd700; --shape: 90px 40px 90px 40px; --key: #300000; --glow: #ffd700; --text: #fff; }
+        body.t-13 { --car: #004d40; --accent: #80cbc4; --shape: 20px 150px 20px 150px; --key: #00251a; --glow: #80cbc4; --text: #fff; }
+        body.t-14 { --car: #1a237e; --accent: #ffeb3b; --shape: 100px 100px 0 0; --key: #000051; --glow: #ffeb3b; --text: #fff; }
+        body.t-15 { --car: #4e342e; --accent: #d7ccc8; --shape: 40px 40px 40px 40px; --key: #260e04; --glow: #d7ccc8; --text: #fff; }
+        body.t-16 { --car: #311b92; --accent: #ea80fc; --shape: 10px 80px 10px 80px; --key: #000063; --glow: #ea80fc; --text: #fff; }
+        body.t-17 { --car: #bf360c; --accent: #ffccbc; --shape: 80px 80px 150px 150px; --key: #870000; --glow: #ffccbc; --text: #fff; }
+        body.t-18 { --car: #1b5e20; --accent: #b9f6ca; --shape: 60px 0 60px 0; --key: #003308; --glow: #b9f6ca; --text: #fff; }
+        body.t-19 { --car: #212121; --accent: #f44336; --shape: 120px 120px 120px 120px; --key: #000; --glow: #f44336; --text: #fff; }
+
+        /* FIXED ROUND MODE - BIG KEYS */
+        body.is-round #chassis { border-radius: 120px !important; }
+        body.is-round .keypad { justify-items: center; align-items: center; gap: 8px; padding: 10px 15px 30px; }
+        body.is-round .key { 
+            border-radius: 50% !important; 
+            aspect-ratio: 1 / 1; 
+            width: 95%; 
+            height: auto;
+            box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.5), inset 0 2px 2px rgba(255,255,255,0.1);
+            transform: translateY(calc(-1 * var(--depth) / 2));
+            font-size: 1.9rem;
+        }
+        body.is-round .key.active-glow { transform: translateY(calc(var(--depth) / 4)); box-shadow: 0 0 45px var(--glow) !important; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
-        html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--bg); font-family: 'Arial Black', sans-serif; position: fixed; transition: background 0.4s; }
+        html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; font-family: 'Inter', system-ui, sans-serif; position: fixed; }
 
-        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; padding: 20px; }
+        #splash { position: fixed; inset: 0; z-index: 5000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.6s opacity; }
+        .jag-logo { font-size: 90px; filter: drop-shadow(0 0 20px #fff); }
+        #start-btn { width: 120px; height: 120px; border-radius: 50%; background: #111; border: 2px solid #333; color: #fff; font-weight: 900; box-shadow: 0 0 40px rgba(255,255,255,0.1); cursor: pointer; margin-top: 40px; }
+
+        #main-ui { width: 100vw; height: 100vh; display: none; align-items: center; justify-content: center; background: #000; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
         
-        #tablet { 
-            width: 100%; height: 100%; max-width: 450px; background: var(--panel); 
-            border-radius: var(--radius); position: relative;
-            display: flex; flex-direction: column; padding: 25px 30px;
-            box-shadow: 20px 20px 60px var(--shadow), -20px -20px 60px var(--light);
+        /* CHASSIS WITH CARBON FIBER TEXTURE */
+        #chassis { 
+            width: 94%; height: 97%; position: relative; background: var(--car); 
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent);
+            background-size: 4px 4px;
+            border-radius: var(--shape); display: flex; flex-direction: column; box-shadow: 0 40px 100px rgba(0,0,0,0.9); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); 
         }
 
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        #garage-trigger { color: var(--text); opacity: 0.3; font-size: 11px; letter-spacing: 4px; cursor: pointer; text-transform: uppercase; font-weight: bold; }
-        #theme-pulse { width: 40px; height: 6px; background: var(--accent); border-radius: 10px; opacity: 0.4; cursor: pointer; box-shadow: 0 0 10px var(--accent); }
-
-        #display { margin-bottom: 30px; text-align: right; }
-        
-        #layer-eq { 
-            font-size: 1.4rem; color: var(--text); opacity: 0.6; 
-            min-height: 1.6em; width: 100%;
-            overflow-x: auto; white-space: nowrap; 
-            text-align: right;
-            padding-left: 50px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+        /* NEW: SPEEDOMETER INTERFACE */
+        #dashboard {
+            position: absolute; top: 75px; left: 30px; width: 60px; height: 60px;
+            border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--accent);
+            transform: rotate(-45deg); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #needle {
+            position: absolute; top: 50%; left: 50%; width: 25px; height: 2px;
+            background: var(--accent); transform-origin: left center;
+            transform: rotate(0deg); transition: 0.3s;
+        }
+
+        #reflection { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(255,255,255,0.1) 100%); pointer-events: none; z-index: 5; opacity: 0.3; mix-blend-mode: overlay; transition: 0.1s linear; }
+
+        .headlight { position: absolute; top: 15px; width: 65px; height: 22px; background: #fff; border-radius: 50px; box-shadow: 0 0 40px var(--glow); z-index: 10; opacity: 0.9; transition: 0.3s; }
+        .l-light { left: 35px; } .r-light { right: 35px; }
+        #mirror { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 42px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 0 0 30px 30px; z-index: 100; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 14px; letter-spacing: 1px; }
+        
+        #exit-track { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 160px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 10px; z-index: 90; }
+        #exit-slider { width: 60px; height: 24px; background: #fff; border-radius: 12px; position: absolute; top: -10px; left: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #000; box-shadow: 0 0 15px #fff; transition: left 0.05s linear; touch-action: none; }
+
+        .windshield { margin: 95px 22px 10px; height: 24%; background: rgba(0,0,0,0.95); backdrop-filter: blur(25px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); padding: 25px; display: flex; flex-direction: column; justify-content: flex-end; text-align: right; position: relative; overflow: hidden; }
+        .mini-jag { position: absolute; left: 25px; top: 20px; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: 0.6; font-weight: 700; }
+        
+        #layer-eq { color: rgba(255,255,255,0.5); font-size: 1.1rem; white-space: nowrap; overflow-x: auto; overflow-y: hidden; direction: ltr; margin-bottom: 5px; font-weight: 400; text-shadow: 0 0 10px var(--glow); scroll-behavior: smooth; }
         #layer-eq::-webkit-scrollbar { display: none; }
+        #layer-ans { color: var(--accent); font-size: 2.7rem; font-weight: 800; line-height: 1; text-shadow: 0 0 25px var(--glow); white-space: nowrap; overflow: hidden; }
 
-        #layer-ans { font-size: 4rem; color: var(--accent); font-weight: 700; overflow: hidden; margin-top: 5px; }
-
-        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .keypad { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 10px 22px 30px; align-content: stretch; position: relative; z-index: 10; }
+        .key { background: var(--key); border-radius: 24px; font-size: 1.7rem; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: center; transition: 0.1s; border: 1px solid rgba(255,255,255,0.03); width: 100%; height: 100%; }
         
-        .key { 
-            background: var(--panel); border: none; border-radius: 25px;
-            font-size: 1.6rem; font-weight: 500; color: var(--text);
-            box-shadow: 6px 6px 12px var(--shadow), -6px -6px 12px var(--light);
-            display: flex; align-items: center; justify-content: center; 
-            transition: all 0.05s ease; position: relative; outline: none;
-        }
-        .key.pressed { 
-            box-shadow: inset 4px 4px 10px var(--shadow), inset -4px -4px 10px var(--light); 
-            transform: scale(0.92);
-        }
+        /* NEW: KEY ACTION ANIMATION */
+        .key:active { transform: scale(0.85) skewX(-5deg); }
+        .key.active-glow { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 45px var(--glow); }
+        .k-eq { background: var(--accent) !important; color: #000 !important; font-size: 2.3rem; font-weight: 900; }
 
-        .k-acc { color: var(--accent); }
-        .k-eq { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 20px var(--accent); }
-
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0); visibility: hidden; transition: 0.4s; z-index: 5000; display: flex; align-items: flex-start; justify-content: center; }
-        .overlay.active { background: rgba(0,0,0,0.8); visibility: visible; }
-        .modal { 
-            width: 92%; max-height: 90vh; background: #fff; border-radius: 0 0 35px 35px; 
-            padding: 25px; display: flex; flex-direction: column; color: #111; 
-            transform: translateY(-100%); transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow-y: auto;
-        }
-        .overlay.active .modal { transform: translateY(0); }
+        .panel { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); }
+        .panel.open { display: flex; }
+        .modal { width: 92%; max-width: 400px; background: #0a0a0a; border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 30px; color: #fff; box-shadow: 0 40px 100px #000; max-height: 85vh; display: flex; flex-direction: column; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal h2 { font-weight: 300; letter-spacing: 5px; font-size: 1.2rem; color: var(--accent); }
+        .clear-btn { background: rgba(255,59,59,0.15); color: #ff3b3b; border: 1px solid #ff3b3b; padding: 8px 14px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; cursor: pointer; }
         
-        .row { background: #f1f3f5; padding: 14px; border-radius: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 13px; color: #333; }
-        select, .tog-btn, input[type="range"] { background: #fff; color: #000; border: 1px solid #ddd; padding: 8px; border-radius: 10px; font-weight: 900; width: 140px; outline: none; }
-        #hist-box { flex: 1; min-height: 150px; overflow-y: auto; background: #fafafa; border-radius: 15px; padding: 15px; margin-top: 10px; font-family: monospace; border: 1px solid #eee; font-size: 14px; }
-        .clr-btn { background: #ff4d4d; color: #fff; border: none; padding: 6px 15px; border-radius: 10px; font-size: 11px; font-weight: 900; cursor: pointer; }
-        .exit-btn { width: 100%; padding: 20px; background: #000; color: #fff; border-radius: 20px; margin-top: 15px; font-weight: 900; border: none; cursor: pointer; letter-spacing: 2px; }
-
-        #splash { position: fixed; inset: 0; z-index: 20000; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .row { background: rgba(255,255,255,0.03); padding: 12px 18px; border-radius: 18px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        select { background: #000; color: var(--accent); border: 1px solid #333; padding: 6px; border-radius: 10px; font-size: 0.8rem; width: 130px; text-align: center; color-scheme: dark; }
+        
+        .sw { width: 50px; height: 24px; background: #222; border-radius: 20px; position: relative; border: 1px solid #444; }
+        .sw.on { background: var(--accent); border-color: var(--accent); }
+        .sw::after { content:''; position:absolute; width:18px; height:18px; background:#fff; border-radius:50%; top:2px; left:4px; transition: 0.2s; }
+        .sw.on::after { transform: translateX(24px); background: #000; }
+        
+        #history-box { margin-top: 10px; flex: 1; overflow-y: auto; background: rgba(255,255,255,0.02); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .hist-item { padding: 10px; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 0.9rem; text-align: right; text-shadow: 0 0 5px var(--glow); }
     </style>
 </head>
 <body class="t-0">
 
 <div id="splash">
-    <div style="font-size: 26px; letter-spacing: 10px; color: var(--accent); margin-bottom: 50px; font-weight: 200;">JAGUAR V12</div>
-    <button onclick="boot()" style="padding: 22px 70px; border-radius: 50px; border: none; background: var(--panel); color: var(--accent); font-weight: 600; box-shadow: 10px 10px 20px var(--shadow), -10px -10px 20px var(--light);">IGNITION</button>
+    <div class="jag-logo">🐆</div>
+    <button id="start-btn" onclick="startEngine()">POWER ON</button>
 </div>
 
 <div id="main-ui">
-    <div id="tablet">
-        <div class="top-bar">
-            <div id="garage-trigger" onclick="openGarage()">System Garage Core</div>
-            <div id="theme-pulse" onclick="cycleTheme()"></div>
-        </div>
-        <div id="display">
-            <div id="layer-eq"></div>
+    <div id="chassis">
+        <div id="reflection"></div>
+        
+        <div id="dashboard"><div id="needle"></div></div>
+
+        <div class="headlight l-light" id="head-l"></div><div class="headlight r-light" id="head-r"></div>
+        <div id="mirror" onclick="toggleSet()">⚙️ GARAGE</div>
+        <div id="exit-track"><div id="exit-slider">OFF</div></div>
+        
+        <div class="windshield" onclick="cycleThemeLogic()">
+            <div class="mini-jag">V12 PLATINUM</div>
+            <div id="layer-eq">0</div>
             <div id="layer-ans">0</div>
         </div>
+
         <div class="keypad" id="pad">
-            <button class="key k-acc" data-val="AC">AC</button>
-            <button class="key k-acc" data-val="DEL">⌫</button>
-            <button class="key k-acc" data-val="%">%</button>
-            <button class="key k-acc" data-val="/">÷</button>
+            <button class="key" data-val="AC" style="color:#ff3b3b">AC</button>
+            <button class="key" data-val="DEL">⌫</button>
+            <button class="key" data-val="%">%</button>
+            <button class="key" data-val="/" style="color:var(--accent)">÷</button>
             <button class="key" data-val="7">7</button><button class="key" data-val="8">8</button><button class="key" data-val="9">9</button>
-            <button class="key k-acc" data-val="*">×</button>
+            <button class="key" data-val="*" style="color:var(--accent)">×</button>
             <button class="key" data-val="4">4</button><button class="key" data-val="5">5</button><button class="key" data-val="6">6</button>
-            <button class="key k-acc" data-val="-">−</button>
+            <button class="key" data-val="-" style="color:var(--accent)">−</button>
             <button class="key" data-val="1">1</button><button class="key" data-val="2">2</button><button class="key" data-val="3">3</button>
-            <button class="key k-acc" data-val="+">+</button>
-            <button class="key" data-val="0">0</button><button class="key" data-val="00">00</button><button class="key" data-val=".">.</button>
+            <button class="key" data-val="+" style="color:var(--accent)">+</button>
+            <button class="key" data-val="00">00</button>
+            <button class="key" data-val="0">0</button><button class="key" data-val=".">.</button>
             <button class="key k-eq" data-val="=">=</button>
         </div>
     </div>
 </div>
 
-<div id="garage-overlay" class="overlay" onclick="if(event.target==this) openGarage()">
-    <div class="modal" onclick="event.stopPropagation()">
-        <h2 style="text-align:center; margin-bottom:20px; letter-spacing:4px; font-size: 18px;">V12 SYSTEM GARAGE</h2>
-        <div class="row">VOLUME <input type="range" min="0" max="1" step="0.1" value="0.5" id="vol-ctrl" oninput="setCfg('vol', this.value)"></div>
-        <div class="row">BEEP <select id="b-sel" onchange="setCfg('bProf', this.value)"></select></div>
-        <div class="row">PIANO <select id="p-sel" onchange="setCfg('pProf', this.value)"></select></div>
-        <div class="row">VOICE <button class="tog-btn" onclick="tog('voice')" id="v-btn">ON</button></div>
-        <div class="row">LAYOUT <button class="tog-btn" onclick="tog('guj')" id="l-btn">ENG</button></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;"><span style="font-weight:900; font-size:12px; color:#888;">LOGBOOK</span><button class="clr-btn" onclick="clearLogs()">RESET</button></div>
-        <div id="hist-box"></div>
-        <button class="exit-btn" onclick="openGarage()">EXIT GARAGE</button>
+<div id="settings" class="panel" onclick="if(event.target == this) toggleSet()">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>LOGS & SOUNDS</h2>
+            <button class="clear-btn" onclick="clearHistory()">RESET</button>
+        </div>
+        <div id="history-box"></div>
+        <div style="margin-top:15px; overflow-y: auto;">
+            <div class="row">Soft Beep <select id="b-sel" onchange="save('beepProf', this.value)"></select></div>
+            <div class="row">Piano <select id="p-sel" onchange="save('pianoProf', this.value)"></select></div>
+            <div class="row">AI Voice <select id="v-type" onchange="save('vType', this.value)">
+                <option value="superstar">Superstar (Deep)</option>
+                <option value="diva">Diva (Sharp)</option>
+                <option value="child">Junior Racer (Child)</option>
+                <option value="cartoon">Toon Mode (Cartoon)</option>
+                <option value="v12">V12 Engine</option>
+            </select></div>
+            <div class="row">Voice On <div id="v-sw" class="sw" onclick="toggle('isSpeak')"></div></div>
+            <div class="row">Gujarati <div id="g-sw" class="sw" onclick="toggle('isG')"></div></div>
+        </div>
+        <button class="key k-eq" style="width:100%; height:50px; margin-top:10px; border-radius:18px; font-size: 1rem;" onclick="toggleSet()">EXIT GARAGE</button>
     </div>
 </div>
 
 <script>
-    let expr = "", isRes = false, liveAns = "", topView = "";
-    let cfg = { 
-        tIdx: parseInt(localStorage.getItem('tIdx')) || 0, 
-        isG: localStorage.getItem('isG') === 'true',
-        vol: parseFloat(localStorage.getItem('v12_v')) || 0.5,
-        bProf: localStorage.getItem('v12_bp') || "b1",
-        pProf: localStorage.getItem('v12_pp') || "p1",
-        voice: localStorage.getItem('v12_s') !== 'false'
-    };
+    let equationArr = [], currentInput = "", isResultShown = false, lastFullEq = "";
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
-    const aCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','00':'૦૦'};
+    let settings = {
+        beepProf: localStorage.getItem('beepProf') || "b1",
+        pianoProf: localStorage.getItem('pianoProf') || "none",
+        vType: localStorage.getItem('vType') || "superstar",
+        isG: localStorage.getItem('isG') === 'true',
+        isSpeak: localStorage.getItem('isSpeak') !== 'false',
+        themeIdx: parseInt(localStorage.getItem('themeIdx')) || 0,
+        isRound: localStorage.getItem('isRound') === 'true'
+    };
 
+    const gMap = {'0':'૦','1':'૧','2':'૨','3':'૩','4':'૪','5':'૫','6':'૬','7':'૭','8':'૮','9':'૯','+':'+','-':'-','*':'×','/':'÷','=':'=','.':'.','00':'૦૦','AC':'AC','DEL':'⌫','%':'%'};
+    const freqMap = { 'AC':261,'DEL':293,'%':329,'/':349,'7':392,'8':440,'9':493,'*':523,'4':587,'5':659,'6':698,'-':783,'1':880,'2':987,'3':1046,'+':1174,'0':1396,'.':1567,'=':1760,'00':1300 };
+    
     const beeps = [
-        {n:"Mute", f:0}, {n:"Soft Tap",f:800,t:'sine',d:0.08,g:0.3}, {n:"Silk Touch",f:1200,t:'sine',d:0.04,g:0.2}, 
-        {n:"Digital Click",f:2000,t:'square',d:0.02,g:0.1}, {n:"Low Pulse",f:150,t:'triangle',d:0.12,g:0.4}, 
-        {n:"Bubble Pop",f:600,t:'sine',d:0.15,g:0.4}, {n:"Feather",f:1800,t:'sine',d:0.06,g:0.2}, 
-        {n:"Glass Ting",f:2800,t:'sine',d:0.08,g:0.3}, {n:"Sport Beep",f:1100,t:'sawtooth',d:0.04,g:0.1}, {n:"Eco Click",f:450,t:'sine',d:0.06,g:0.3}
+        {name:"Soft Tap",f:800,t:'sine',d:0.1}, {name:"Silk Touch",f:1200,t:'sine',d:0.05}, 
+        {name:"Digital Click",f:2000,t:'square',d:0.02}, {name:"Low Pulse",f:150,t:'triangle',d:0.15}, 
+        {name:"Bubble Pop",f:600,t:'sine',d:0.2}, {name:"Feather",f:400,t:'sine',d:0.05}, 
+        {name:"Glass Ting",f:2500,t:'sine',d:0.1}, {name:"Sport Beep",f:1000,t:'sawtooth',d:0.05},
+        {name:"Eco Click",f:700,t:'sine',d:0.03}
     ];
 
-    const pianos = [
-        {n:"Mute Piano", f:0}, {n:"Grand Piano",t:'triangle',d:1.5,g:0.7}, {n:"Studio One",t:'sine',d:0.6,g:0.9},
-        {n:"Mellow Gold",t:'sine',d:1.2,g:0.5}, {n:"Honky Tonk",t:'sawtooth',d:0.7,g:0.2},
-        {n:"Electric Sky",t:'square',d:1.0,g:0.1}, {n:"Classic 88",t:'triangle',d:1.4,g:0.4},
-        {n:"Toy Box",t:'sine',d:0.3,g:0.8}, {n:"Bright Key",t:'sine',d:0.5,g:1.0},
-        {n:"Dark Night",t:'triangle',d:2.5,g:0.3}, {n:"Dream State",t:'sine',d:3.0,g:0.2},
-        {n:"Space Echo",t:'sine',d:2.8,g:0.4}, {n:"Jazz Club",t:'sawtooth',d:0.9,g:0.1},
-        {n:"Royal Felt",t:'triangle',d:1.8,g:0.5}, {n:"Ambient Sky",t:'sine',d:2.2,g:0.3}
+    const pianoLib = [
+        {name:"Grand Piano",t:'triangle',d:1.2,g:0.15}, {name:"Studio One",t:'sine',d:0.8,g:0.2},
+        {name:"Mellow Gold",t:'sine',d:1.5,g:0.1}, {name:"Honky Tonk",t:'sawtooth',d:0.6,g:0.05},
+        {name:"Electric Sky",t:'square',d:1.0,g:0.04}, {name:"Classic 88",t:'triangle',d:0.9,g:0.1},
+        {name:"Toy Box",t:'sine',d:0.3,g:0.3}, {name:"Bright Key",t:'triangle',d:0.5,g:0.2},
+        {name:"Dark Night",t:'sine',d:2.0,g:0.08}, {name:"Dream State",t:'triangle',d:2.5,g:0.05},
+        {name:"Space Echo",t:'square',d:2.0,g:0.02}, {name:"Jazz Club",t:'sawtooth',d:0.8,g:0.03},
+        {name:"Crystal Bell",t:'sine',d:0.4,g:0.4}, {name:"Soft Wool",t:'triangle',d:1.8,g:0.07},
+        {name:"Cinematic",t:'sawtooth',d:3.0,g:0.02}
     ];
 
-    const pFreqs = {'AC':261.6,'DEL':293.6,'%':329.6,'/':349.2,'7':392.0,'8':440.0,'9':493.8,'*':523.2,'4':587.3,'5':659.2,'6':698.4,'-':783.9,'1':880.0,'2':987.7,'3':1046.5,'+':1174.6,'0':1318.5,'.':1396.9,'=':1567.9,'00':1000};
-
-    function boot() {
-        const doc = document.documentElement;
-        if (doc.requestFullscreen) doc.requestFullscreen().catch(()=>{});
-        document.getElementById('splash').style.display='none'; 
-        document.getElementById('main-ui').style.display='flex';
-        generateDynamicThemes();
-        updateMenu();
-        applyUI();
-    }
-
-    function generateDynamicThemes() {
-        let style = document.createElement('style');
-        let css = '';
-        // Add 50 dynamic themes starting after the 6 signature themes
-        for(let i=6; i<56; i++) {
-            let h = (i * 137.5) % 360; 
-            css += `body.t-${i} { --bg: hsl(${h}, 30%, 10%); --panel: hsl(${h}, 20%, 15%); --accent: hsl(${h}, 100%, 50%); --text: #fff; --shadow: #000; --light: #333; }\n`;
-        }
-        style.innerHTML = css; document.head.appendChild(style);
-    }
-
-    function playSfx(v) {
-        if(!aCtx || cfg.vol === 0) return;
-        const now = aCtx.currentTime;
-        const b = beeps[parseInt(cfg.bProf.slice(1))];
-        const p = pianos[parseInt(cfg.pProf.slice(1))];
-        if(b && b.f > 0) {
-            let o = aCtx.createOscillator(), g = aCtx.createGain();
-            o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(cfg.vol * b.g, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
-            o.connect(g); g.connect(aCtx.destination); o.start(); o.stop(now + b.d);
-        }
-        if(p && pFreqs[v] && cfg.pProf !== "p0") {
-            let o = aCtx.createOscillator(), g = aCtx.createGain();
-            o.type = p.t; o.frequency.value = pFreqs[v];
-            g.gain.setValueAtTime(cfg.vol * p.g, now); g.gain.exponentialRampToValueAtTime(0.001, now + p.d);
-            o.connect(g); g.connect(aCtx.destination); o.start(); o.stop(now + p.d);
-        }
-    }
-
-    function handleInput(v, el) {
-        if(el) { el.classList.add('pressed'); setTimeout(() => el.classList.remove('pressed'), 100); }
-        playSfx(v);
-
-        if (v === 'AC') { expr = ""; isRes = false; liveAns = ""; topView = ""; }
-        else if (v === 'DEL') { if (isRes) { expr = ""; isRes = false; topView = ""; } else expr = expr.slice(0, -1); }
-        else if (v === '=') { execute(); return; }
-        else {
-            if (isRes) {
-                if (['+','-','*','/','%'].includes(v)) { isRes = false; } 
-                else { expr = ""; isRes = false; }
-            }
-            expr += v;
-        }
-        updateLive();
-        topView = expr;
-        updateUI();
-        scrollEq();
-    }
-
-    function scrollEq() {
-        const eqDiv = document.getElementById('layer-eq');
-        eqDiv.scrollLeft = eqDiv.scrollWidth;
-    }
-
-    function updateLive() {
-        try {
-            let formula = expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-');
-            formula = formula.replace(/(\d+(?:\.\d+)?)\s*([\+\-×\*\/÷])\s*(\d+(?:\.\d+)?)%/g, (match, n1, op, n2) => {
-                let val1 = parseFloat(n1), val2 = parseFloat(n2);
-                let perc = (op === '+' || op === '-') ? (val1 * val2 / 100) : (val2 / 100);
-                let realOp = op.replace('×','*').replace('÷','/').replace('−','-');
-                return `${val1}${realOp}${perc}`;
+    function startEngine() {
+        const doc = window.document.documentElement;
+        if (doc.requestFullscreen) doc.requestFullscreen();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        playHorn();
+        speak("V12 Engine Ignited");
+        document.getElementById('splash').style.opacity = '0';
+        setTimeout(() => { 
+            document.getElementById('splash').style.display='none'; 
+            document.getElementById('main-ui').style.display='flex'; 
+        }, 600);
+        
+        // Tilt Effect
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (e) => {
+                const refl = document.getElementById('reflection');
+                const x = e.gamma * 2;
+                const y = e.beta * 2;
+                refl.style.transform = `translate(${x}px, ${y}px)`;
             });
-            formula = formula.replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
-            let res = eval(formula.replace(/[\+\-\*\/]$/, ""));
-            liveAns = (res !== undefined && isFinite(res)) ? Number(res.toFixed(8)).toString() : "";
-        } catch { liveAns = ""; }
-    }
-
-    function execute() {
-        if (!expr) return;
-        updateLive();
-        if (liveAns !== "") {
-            topView = expr + "=" + liveAns;
-            addLog(topView);
-            if(cfg.voice) { const u = new SpeechSynthesisUtterance(liveAns); window.speechSynthesis.speak(u); }
-            expr = liveAns; isRes = true;
-            updateUI();
-            scrollEq();
         }
     }
 
-    function updateUI() {
-        const tr = (s) => cfg.isG ? s.toString().replace(/[0-9]/g, x => gMap[x] || x) : s;
-        document.getElementById('layer-eq').innerText = tr(topView || expr || "");
-        document.getElementById('layer-ans').innerText = tr(isRes ? expr : (liveAns || "0"));
-        document.querySelectorAll('.key').forEach(k => {
-            let val = k.dataset.val;
-            if(!isNaN(val) || val === "00") k.innerText = cfg.isG ? gMap[val] : val;
+    function playHorn() {
+        const now = audioCtx.currentTime;
+        [380, 480].forEach(f => {
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = 'sawtooth'; o.frequency.value = f; g.gain.setValueAtTime(0.05, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.6);
         });
     }
 
-    function openGarage() { document.getElementById('garage-overlay').classList.toggle('active'); if(document.getElementById('garage-overlay').classList.contains('active')) renderLogs(); }
-    function setCfg(k, v) { cfg[k] = v; localStorage.setItem('v12_'+(k==='bProf'?'bp':k==='pProf'?'pp':k==='vol'?'v':'t'), v); updateMenu(); }
-    function tog(k) { if(k==='guj') cfg.isG = !cfg.isG; else cfg.voice = !cfg.voice; localStorage.setItem(k==='guj'?'isG':'v12_s', k==='guj'?cfg.isG:cfg.voice); updateMenu(); }
+    function handleKey(v, element) {
+        if (navigator.vibrate) navigator.vibrate(15);
+        element.classList.add('active-glow');
+        setTimeout(() => element.classList.remove('active-glow'), 120);
+        
+        // Move needle based on key value
+        let val = parseInt(v) || 5;
+        document.getElementById('needle').style.transform = `rotate(${val * 18}deg)`;
 
-    function updateMenu() {
-        document.getElementById('b-sel').innerHTML = beeps.map((b,i)=>`<option value="b${i}">${b.n}</option>`).join('');
-        document.getElementById('p-sel').innerHTML = pianos.map((p,i)=>`<option value="p${i}">${p.n}</option>`).join('');
-        document.getElementById('b-sel').value = cfg.bProf;
-        document.getElementById('p-sel').value = cfg.pProf;
-        document.getElementById('vol-ctrl').value = cfg.vol;
-        document.getElementById('v-btn').innerText = cfg.voice ? "ON" : "OFF";
-        document.getElementById('l-btn').innerText = cfg.isG ? "GUJ" : "ENG";
-        updateUI();
+        playTone(v);
+        
+        if(v === 'AC') { 
+            equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; 
+            speak("System Reset"); 
+        }
+        else if(v === 'DEL') { 
+            if(isResultShown) { equationArr = []; currentInput = ""; isResultShown = false; lastFullEq = ""; } 
+            else if (currentInput.length > 0) { currentInput = currentInput.slice(0,-1); } 
+            else if (equationArr.length > 0) { equationArr.pop(); }
+            speak("Shift back");
+        }
+        else if(['+','-','*','/'].includes(v)) {
+            if(isResultShown) { equationArr = [currentInput, v]; isResultShown = false; currentInput = ""; } 
+            else {
+                if(currentInput !== "") equationArr.push(currentInput);
+                if(equationArr.length && isNaN(equationArr[equationArr.length-1])) { equationArr[equationArr.length-1] = v; } 
+                else if(equationArr.length) { equationArr.push(v); }
+                currentInput = "";
+            }
+        }
+        else if(v === '=') {
+            let res = calculateArr([...equationArr, currentInput]);
+            lastFullEq = equationArr.join(" ") + (currentInput ? " " + currentInput : "") + " = " + res;
+            addHistory(lastFullEq);
+            currentInput = res; equationArr = []; isResultShown = true;
+            document.getElementById('needle').style.transform = `rotate(180deg)`;
+            speak(res, true);
+        } else {
+            if(isResultShown) { currentInput = v; isResultShown = false; lastFullEq = ""; }
+            else { currentInput += v; }
+            speak(v);
+        }
+        updateDisplay();
     }
 
-    function addLog(item) {
-        let h = JSON.parse(localStorage.getItem('v12_logs') || "[]");
-        h.unshift(item); if(h.length > 50) h.pop();
-        localStorage.setItem('v12_logs', JSON.stringify(h));
+    function calculateArr(arr) {
+        try { 
+            let s = arr.filter(x => x !== "").join(" ").replace(/×/g,'*').replace(/÷/g,'/');
+            if(s.length === 0) return "0";
+            if(['+','-','*','/'].includes(s.trim().slice(-1))) s = s.trim().slice(0, -1);
+            let result = eval(s);
+            return Number(result.toFixed(8)).toString(); 
+        } catch { return "0"; }
     }
-    function renderLogs() {
-        const h = JSON.parse(localStorage.getItem('v12_logs') || "[]");
-        document.getElementById('hist-box').innerHTML = h.map(i => `<div style="padding:10px; border-bottom:1px solid #eee; text-align:right; color:#222; font-weight:bold;">${i}</div>`).join('') || "LOGBOOK EMPTY";
-    }
-    function clearLogs() { localStorage.removeItem('v12_logs'); renderLogs(); }
-    function cycleTheme() { cfg.tIdx = (cfg.tIdx + 1) % 56; localStorage.setItem('tIdx', cfg.tIdx); applyUI(); }
-    function applyUI() { document.body.className = `t-${cfg.tIdx}`; updateUI(); }
 
-    document.getElementById('pad').addEventListener('touchstart', e => { if(e.target.dataset.val) { e.preventDefault(); handleInput(e.target.dataset.val, e.target); } }, {passive: false});
+    function updateDisplay() {
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
+        let l1Str = isResultShown ? lastFullEq : equationArr.join(" ") + (currentInput !== "" ? (equationArr.length ? " " : "") + currentInput : "");
+        const eqEl = document.getElementById('layer-eq');
+        eqEl.innerText = toG(l1Str || "0");
+        setTimeout(() => { eqEl.scrollLeft = eqEl.scrollWidth; }, 10);
+        let resValue = isResultShown ? currentInput : calculateArr([...equationArr, currentInput]);
+        document.getElementById('layer-ans').innerText = toG(resValue);
+    }
+
+    function save(k, v) { settings[k] = v; localStorage.setItem(k, v); }
+    function toggle(k) { settings[k] = !settings[k]; save(k, settings[k]); initUI(); }
+    
+    function cycleThemeLogic() {
+        if (settings.isRound) { settings.isRound = false; settings.themeIdx = (settings.themeIdx + 1) % 20; } 
+        else { settings.isRound = true; }
+        save('themeIdx', settings.themeIdx);
+        save('isRound', settings.isRound);
+        initUI();
+    }
+
+    function toggleSet() { document.getElementById('settings').classList.toggle('open'); }
+
+    function initUI() {
+        document.body.className = `t-${settings.themeIdx} ${settings.isRound ? 'is-round' : ''}`;
+        document.getElementById('v-sw').className = `sw ${settings.isSpeak ? 'on' : ''}`;
+        document.getElementById('g-sw').className = `sw ${settings.isG ? 'on' : ''}`;
+        document.getElementById('v-type').value = settings.vType;
+        document.getElementById('b-sel').innerHTML = '<option value="none">Mute</option>' + beeps.map((n, i) => `<option value="b${i+1}">${n.name}</option>`).join('');
+        document.getElementById('b-sel').value = settings.beepProf;
+        document.getElementById('p-sel').innerHTML = '<option value="none">Mute Piano</option>' + pianoLib.map((n, i) => `<option value="p${i+1}">${n.name}</option>`).join('');
+        document.getElementById('p-sel').value = settings.pianoProf;
+        document.querySelectorAll('.key').forEach(k => { if(k.dataset.val) k.innerText = settings.isG ? (gMap[k.dataset.val] || k.dataset.val) : k.dataset.val; });
+        renderHistory(); updateDisplay();
+    }
+
+    function addHistory(item) {
+        let h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        h.unshift(item); if(h.length > 10) h = h.slice(0, 10);
+        localStorage.setItem('jag_hist', JSON.stringify(h));
+        renderHistory();
+    }
+    
+    function renderHistory() {
+        const h = JSON.parse(localStorage.getItem('jag_hist') || "[]");
+        const toG = (s) => settings.isG ? s.toString().replace(/[0-9]/g, x => gMap[x]) : s;
+        document.getElementById('history-box').innerHTML = h.length ? h.map(i => `<div class="hist-item">${toG(i)}</div>`).join('') : '<div style="text-align:center; opacity:0.3; padding:20px;">No Logs</div>';
+    }
+
+    function clearHistory() { localStorage.removeItem('jag_hist'); renderHistory(); }
+
+    function playTone(v) {
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        if(settings.vType === 'v12') {
+            const revFreq = 100 + (parseInt(v) || 5) * 20;
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+            o.type = 'sawtooth'; o.frequency.value = revFreq;
+            g.gain.setValueAtTime(0.05, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + 0.3);
+        }
+        if(settings.beepProf !== 'none') {
+            const bIndex = parseInt(settings.beepProf.substring(1)) - 1;
+            if(beeps[bIndex]) {
+                const b = beeps[bIndex];
+                const o = audioCtx.createOscillator(); const g = audioCtx.createGain();
+                o.type = b.t; o.frequency.value = b.f; g.gain.setValueAtTime(0.03, now);
+                g.gain.exponentialRampToValueAtTime(0.001, now + b.d);
+                o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(now + b.d);
+            }
+        }
+    }
+
+    function speak(t, isFinal = false) {
+        if(!settings.isSpeak) return;
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = isFinal ? (settings.isG ? "જવાબ છે " + t : "The answer is " + t) : t;
+        msg.lang = settings.isG ? 'gu-IN' : 'en-IN';
+        if(settings.vType === 'superstar') { msg.pitch = 0.5; msg.rate = 0.8; } 
+        else if(settings.vType === 'diva') { msg.pitch = 1.3; msg.rate = 1.1; } 
+        else { msg.pitch = 1.0; msg.rate = 1.0; }
+        window.speechSynthesis.speak(msg);
+    }
+
+    const slider = document.getElementById('exit-slider');
+    let isDragging = false, startX = 0;
+    slider.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; slider.style.transition = 'none'; });
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        let x = Math.max(0, Math.min(e.touches[0].clientX - startX, 100));
+        slider.style.left = x + 'px';
+        if (x >= 95) location.reload();
+    });
+    window.addEventListener('touchend', () => { isDragging = false; slider.style.transition = 'left 0.3s'; slider.style.left = '0px'; });
+
+    document.getElementById('pad').addEventListener('touchstart', e => {
+        if(e.target.dataset.val) { e.preventDefault(); handleKey(e.target.dataset.val, e.target); }
+    });
+    initUI();
 </script>
 </body>
 </html>
